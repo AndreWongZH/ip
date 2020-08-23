@@ -26,6 +26,7 @@ public class Duke {
         String userInput;
         Scanner in = new Scanner(System.in);
         boolean isActive = true;
+        Items items = new Items();
 
         System.out.println(LOGO);
         System.out.println(GREET);
@@ -34,14 +35,12 @@ public class Duke {
 
             if (userInput.equals("bye")) {
                 isActive = false;
+            } else if (userInput.equals("list")) {
+                items.printList();;
             } else {
-                printEcho(userInput);
+                items.addToList(userInput);
             }
         }
         System.out.println(END);
-    }
-
-    private static void printEcho(String userInput) {
-        System.out.println("-> " + userInput + ", I said with a posed look.\n");
     }
 }
