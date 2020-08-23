@@ -1,21 +1,47 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static final String GREET = "____________________________________________________________\n" +
+            " __\n" +
+            "('')  Hello! I'm MK.II Titan with feelings.\n" +
+            "// \\  What can I do for you?\n" +
+            "|_/| \n" +
+            "____________________________________________________________\n";
+
+    private static final String END = "____________________________________________________________\n" +
+            " __\n" +
+            "( \")  Bye! I said with a disappointed look.\n" +
+            "|| \\\n" +
+            "|_|| \n" +
+            "____________________________________________________________\n";
+
+    private static final String LOGO = " _    _      _                          \n" +
+            "| |  | |    | |                         \n" +
+            "| |  | | ___| | ___ ___  _ __ ___   ___ \n" +
+            "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\\n" +
+            "\\  /\\  /  __/ | (_| (_) | | | | | |  __/\n" +
+            " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|";
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String userInput;
+        Scanner in = new Scanner(System.in);
+        boolean isActive = true;
 
-        String greet = "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?";
+        System.out.println(LOGO);
+        System.out.println(GREET);
+        while (isActive) {
+            userInput = in.nextLine();
 
-        String end = "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";
+            if (userInput.equals("bye")) {
+                isActive = false;
+            } else {
+                printEcho(userInput);
+            }
+        }
+        System.out.println(END);
+    }
 
-        System.out.println(greet);
-        System.out.println(end);
+    private static void printEcho(String userInput) {
+        System.out.println("-> " + userInput + ", I said with a posed look.\n");
     }
 }
