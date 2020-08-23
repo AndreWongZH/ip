@@ -26,7 +26,7 @@ public class Duke {
         String userInput;
         Scanner in = new Scanner(System.in);
         boolean isActive = true;
-        Items items = new Items();
+        TaskManager taskManager = new TaskManager();
 
         System.out.println(LOGO);
         System.out.println(GREET);
@@ -36,9 +36,11 @@ public class Duke {
             if (userInput.equals("bye")) {
                 isActive = false;
             } else if (userInput.equals("list")) {
-                items.printList();;
+                taskManager.printAllTasks();
+            } else if (userInput.contains("done")) {
+                taskManager.setTaskDone(userInput.substring(5));
             } else {
-                items.addToList(userInput);
+                taskManager.addTask(userInput);
             }
         }
         System.out.println(END);
