@@ -5,6 +5,11 @@ public class Event extends Task {
 
     private final String at;
 
+    public Event(String[] details) {
+        super(details[0]);
+        at = details[1];
+    }
+
     public Event(String description, String at) {
         super(description);
         this.at = at;

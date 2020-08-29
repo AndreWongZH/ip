@@ -5,6 +5,11 @@ public class Deadline extends Task {
 
     protected final String by;
 
+    public Deadline(String[] details) {
+        super(details[0]);
+        by = details[1];
+    }
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
