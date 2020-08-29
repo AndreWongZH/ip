@@ -39,8 +39,12 @@ public class Duke {
                 taskManager.printAllTasks();
             } else if (userInput.contains("done")) {
                 taskManager.setTaskDone(userInput.substring(5));
-            } else {
-                taskManager.addTask(userInput);
+            } else if (userInput.contains("todo")) {
+                taskManager.addTask(TaskType.TODO, userInput.substring(5));
+            } else if (userInput.contains("deadline")) {
+                taskManager.addTask(TaskType.DEADLINE, userInput.substring(9));
+            } else if (userInput.contains("event")) {
+                taskManager.addTask(TaskType.EVENT, userInput.substring(6));
             }
         }
         System.out.println(END);
