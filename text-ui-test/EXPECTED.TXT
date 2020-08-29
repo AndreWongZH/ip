@@ -1,7 +1,45 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ _    _      _                          
+| |  | |    | |                         
+| |  | | ___| | ___ ___  _ __ ___   ___ 
+| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \
+\  /\  /  __/ | (_| (_) | | | | | |  __/
+ \/  \/ \___|_|\___\___/|_| |_| |_|\___|
+____________________________________________________________
+ __
+('')  Hello! I'm MK.II Titan with feelings.
+// \  What can I do for you?
+|_/| 
+____________________________________________________________
 
+Task successfully added, I said with a posed look.
+[T][✘] make cake
+Now you have a total of 1 tasks in the list
+
+Task successfully added, I said with a posed look.
+[D][✘] revise math (by: monday 10pm)
+Now you have a total of 2 tasks in the list
+
+Task successfully added, I said with a posed look.
+[E][✘] countdown party (at: Sunday 23:59)
+Now you have a total of 3 tasks in the list
+
+Here are the tasks in your list
+1. [T][✘] make cake
+2. [D][✘] revise math (by: monday 10pm)
+3. [E][✘] countdown party (at: Sunday 23:59)
+
+Understood, setting task 1 as done:
+[T][✓] make cake
+
+Understood, setting task 2 as done:
+[D][✓] revise math (by: monday 10pm)
+
+Understood, setting task 3 as done:
+[E][✓] countdown party (at: Sunday 23:59)
+
+____________________________________________________________
+ __
+( ")  Bye! I said with a disappointed look.
+|| \
+|_||
+____________________________________________________________

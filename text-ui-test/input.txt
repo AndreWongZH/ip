@@ -1,0 +1,8 @@
+todo make cake
+deadline revise math /by monday 10pm
+event countdown party /at Sunday 23:59
+list
+done 1
+done 2
+done 3
+bye
