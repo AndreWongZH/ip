@@ -1,16 +1,15 @@
 public class Task {
+    private static final String ICON_TICK = "\u2713";
+    private static final String ICON_CROSS = "\u2718";
+    private static final String STATUS_OPEN_BRACKET = "[";
+    private static final String STATUS_CLOSE_BRACKET = "] ";
+
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
-    }
-
-    protected String getStatusIcon() {
-        final String TICK = "\u2713";
-        final String CROSS = "\u2718";
-        return (isDone ? TICK : CROSS);
+        isDone = false;
     }
 
     /**
@@ -24,6 +23,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return STATUS_OPEN_BRACKET + getStatusIcon() + STATUS_CLOSE_BRACKET + description;
+    }
+
+    protected String getStatusIcon() {
+        return (isDone ? ICON_TICK : ICON_CROSS);
     }
 }

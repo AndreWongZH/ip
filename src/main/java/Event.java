@@ -1,4 +1,8 @@
 public class Event extends Task {
+    private static final String EVENT_TAG = "[E]";
+    private static final String AT_OPEN_TEXT = "(at: ";
+    private static final String AT_CLOSE_TEXT = ")";
+
     private final String at;
 
     public Event(String description, String at) {
@@ -8,6 +12,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + at + ")";
+        return EVENT_TAG + super.toString() + AT_OPEN_TEXT + at + AT_CLOSE_TEXT;
     }
 }

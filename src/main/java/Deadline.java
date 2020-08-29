@@ -1,4 +1,8 @@
 public class Deadline extends Task {
+    private static final String DEADLINE_TAG = "[D]";
+    private static final String BY_OPEN_TEXT = "(by: ";
+    private static final String BY_CLOSE_TEXT = ")";
+
     protected final String by;
 
     public Deadline(String description, String by) {
@@ -8,6 +12,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return DEADLINE_TAG + super.toString() + BY_OPEN_TEXT + by + BY_CLOSE_TEXT;
     }
 }
