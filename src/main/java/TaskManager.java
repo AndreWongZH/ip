@@ -24,19 +24,19 @@ public class TaskManager {
      */
     public void addTask(TaskType taskType, String inputText) {
         Task task;
-        String[] descAndTime;
+        String[] taskParameters;
 
         switch (taskType) {
         case TODO:
             task = new Todo(inputText);
             break;
         case DEADLINE:
-            descAndTime = splitItem(TaskType.DEADLINE, inputText);
-            task = new Deadline(descAndTime);
+            taskParameters = splitItem(TaskType.DEADLINE, inputText);
+            task = new Deadline(taskParameters);
             break;
         case EVENT:
-            descAndTime = splitItem(TaskType.EVENT, inputText);
-            task = new Event(descAndTime);
+            taskParameters = splitItem(TaskType.EVENT, inputText);
+            task = new Event(taskParameters);
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + taskType);
@@ -76,7 +76,7 @@ public class TaskManager {
     /**  splits user input into descriptions and date/time */
     private String[] splitItem(TaskType taskType, String inputText) {
         int index = 0;
-        String[] descAndTime = new String[MAX_INPUT_PARAMS];
+        String[] taskParameters = new String[MAX_INPUT_PARAMS];
 
         switch (taskType) {
         case DEADLINE:
@@ -85,12 +85,14 @@ public class TaskManager {
         case EVENT:
             index = inputText.indexOf(AT_LITERAL);
             break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskType);
         }
 
-        descAndTime[0] = inputText.substring(0, index);
-        descAndTime[1] = inputText.substring(index + 4);
+        taskParameters[0] = inputText.substring(0, index);
+        taskParameters[1] = inputText.substring(index + 4);
 
-        return descAndTime;
+        return taskParameters;
     }
 
     /** print message after a task is added */
