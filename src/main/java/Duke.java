@@ -29,15 +29,25 @@ public class Duke {
 
     public static void main(String[] args) {
         String userInput;
+        Command command;
+        String parameters;
         boolean isActive = true;
         Scanner in = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
 
         printGreeting();
         while (isActive) {
-            userInput = readUserInput(in);
-            isActive = checkIfUserQuits(userInput);
-            handleUserInput(taskManager, userInput);
+            try {
+                userInput = readUserInput(in);
+                command = extractCommand(userInput);
+                parameters = extractParameters(command, userInput);
+                isActive = checkIfUserQuits(userInput);
+                handleUserInput(taskManager, command, parameters);
+            } catch (IllegalCommandException e) {
+                printInvalidCommand();
+            } catch (IndexOutOfBoundsException e) {
+                printInvalidParameters();
+            }
         }
         printGoodbye();
     }
@@ -51,6 +61,18 @@ public class Duke {
         System.out.println(END);
     }
 
+    private static void printNoCommandRan() {
+        System.out.println("No Command executed");
+    }
+
+    private static void printInvalidCommand() {
+        System.out.println("Command not valid, please try again :(\n");
+    }
+
+    private static void printInvalidParameters() {
+        System.out.println("Please enter parameters after the command\n");
+    }
+
     private static String readUserInput(Scanner in) {
         return in.nextLine();
     }
@@ -59,17 +81,69 @@ public class Duke {
         return !userInput.equals("bye");
     }
 
-    private static void handleUserInput(TaskManager taskManager, String userInput) {
-        if (userInput.equals("list")) {
+    private static void handleUserInput(TaskManager taskManager, Command command, String parameters) {
+        switch (command) {
+        case LIST:
             taskManager.printAllTasks();
-        } else if (userInput.contains("done")) {
-            taskManager.setTaskDone(userInput.substring(INDEX_AFTER_DONE));
-        } else if (userInput.contains("todo")) {
-            taskManager.addTask(TaskType.TODO, userInput.substring(INDEX_AFTER_TODO));
-        } else if (userInput.contains("deadline")) {
-            taskManager.addTask(TaskType.DEADLINE, userInput.substring(INDEX_AFTER_DEADLINE));
-        } else if (userInput.contains("event")) {
-            taskManager.addTask(TaskType.EVENT, userInput.substring(INDEX_AFTER_EVENT));
+            break;
+        case DONE:
+            taskManager.setTaskDone(parameters);
+            break;
+        case TODO:
+            taskManager.addTask(TaskType.TODO, parameters);
+            break;
+        case DEADLINE:
+            taskManager.addTask(TaskType.DEADLINE, parameters);
+            break;
+        case EVENT:
+            taskManager.addTask(TaskType.EVENT, parameters);
+            break;
+        default:
+            printNoCommandRan();
         }
+    }
+
+    private static Command extractCommand(String userInput) throws IllegalCommandException {
+        Command command;
+
+        if (userInput.equals("list")) {
+            command = Command.LIST;
+        } else if (userInput.contains("done")) {
+            command = Command.DONE;
+        } else if (userInput.contains("todo")) {
+            command = Command.TODO;
+        } else if (userInput.contains("deadline")) {
+            command = Command.DEADLINE;
+        } else if (userInput.contains("event")) {
+            command = Command.EVENT;
+        } else {
+            throw new IllegalCommandException();
+        }
+
+        return command;
+    }
+
+    private static String extractParameters(Command command, String userInput) throws IndexOutOfBoundsException {
+        String parameters;
+
+        switch (command) {
+        case DONE:
+            parameters = userInput.substring(INDEX_AFTER_DONE);
+            break;
+        case TODO:
+            parameters = userInput.substring(INDEX_AFTER_TODO);
+            break;
+        case DEADLINE:
+            parameters = userInput.substring(INDEX_AFTER_DEADLINE);
+            break;
+        case EVENT:
+            parameters = userInput.substring(INDEX_AFTER_EVENT);
+            break;
+        case LIST:
+        default:
+            parameters = null;
+        }
+
+        return parameters;
     }
 }
