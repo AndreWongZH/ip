@@ -11,6 +11,7 @@ public class TaskManager {
     private static final String ERROR_NOT_IN_RANGE = "Sorry but parameter entered is not within range of list\n";
     private static final String ERROR_TASK_TYPE_NOT_FOUND = "Task type is not found\n";
     private static final String ERROR_LIST_EMPTY = "No task in your list. Add some!\n";
+    private static final String ERROR_TASK_LIST_FULL = "I cannot add any more. Task list is full :(\n";
 
     private final Task[] tasks;
     private int taskCount;
@@ -53,6 +54,8 @@ public class TaskManager {
             printMissingLiteral(e.getMessage());
         } catch (IllegalStateException e) {
             printTaskNotFound();
+        } catch (IndexOutOfBoundsException e) {
+            printTaskListFull();
         }
     }
 
@@ -101,6 +104,10 @@ public class TaskManager {
 
     private void printTaskNotFound() {
         System.out.println(ERROR_TASK_TYPE_NOT_FOUND);
+    }
+
+    private void printTaskListFull() {
+        System.out.println(ERROR_TASK_LIST_FULL);
     }
 
     /**  splits user input into descriptions and date/time */

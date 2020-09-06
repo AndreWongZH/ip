@@ -27,21 +27,27 @@ public class Duke {
     private static final int INDEX_AFTER_DEADLINE = 9;
     private static final int INDEX_AFTER_EVENT = 6;
 
+    private static final String ERROR_NO_COMMAND_RAN = "No Command executed";
+    private static final String ERROR_COMMAND_NOT_VALID = "Command not valid, please try again :(\n";
+    private static final String ERROR_INVALID_PARAMETERS = "Please enter parameters after the command\n";
+
+    private static final Scanner in = new Scanner(System.in);
+
+    private static boolean isActive;
+
     public static void main(String[] args) {
         String userInput;
         Command command;
         String parameters;
-        boolean isActive = true;
-        Scanner in = new Scanner(System.in);
+        isActive = true;
         TaskManager taskManager = new TaskManager();
 
         printGreeting();
         while (isActive) {
             try {
-                userInput = readUserInput(in);
+                userInput = readUserInput();
                 command = extractCommand(userInput);
                 parameters = extractParameters(command, userInput);
-                isActive = checkIfUserQuits(userInput);
                 handleUserInput(taskManager, command, parameters);
             } catch (IllegalCommandException e) {
                 printInvalidCommand();
@@ -62,23 +68,19 @@ public class Duke {
     }
 
     private static void printNoCommandRan() {
-        System.out.println("No Command executed");
+        System.out.println(ERROR_NO_COMMAND_RAN);
     }
 
     private static void printInvalidCommand() {
-        System.out.println("Command not valid, please try again :(\n");
+        System.out.println(ERROR_COMMAND_NOT_VALID);
     }
 
     private static void printInvalidParameters() {
-        System.out.println("Please enter parameters after the command\n");
+        System.out.println(ERROR_INVALID_PARAMETERS);
     }
 
-    private static String readUserInput(Scanner in) {
+    private static String readUserInput() {
         return in.nextLine();
-    }
-
-    private static boolean checkIfUserQuits(String userInput) {
-        return !userInput.equals("bye");
     }
 
     private static void handleUserInput(TaskManager taskManager, Command command, String parameters) {
@@ -98,6 +100,9 @@ public class Duke {
         case EVENT:
             taskManager.addTask(TaskType.EVENT, parameters);
             break;
+        case BYE:
+            exitProgram();
+            break;
         default:
             printNoCommandRan();
         }
@@ -106,15 +111,17 @@ public class Duke {
     private static Command extractCommand(String userInput) throws IllegalCommandException {
         Command command;
 
-        if (userInput.equals("list")) {
+        if (userInput.contentEquals("bye")) {
+            command = Command.BYE;
+        } else if (userInput.contentEquals("list")) {
             command = Command.LIST;
-        } else if (userInput.contains("done")) {
+        } else if (userInput.startsWith("done")) {
             command = Command.DONE;
-        } else if (userInput.contains("todo")) {
+        } else if (userInput.startsWith("todo")) {
             command = Command.TODO;
-        } else if (userInput.contains("deadline")) {
+        } else if (userInput.startsWith("deadline")) {
             command = Command.DEADLINE;
-        } else if (userInput.contains("event")) {
+        } else if (userInput.startsWith("event")) {
             command = Command.EVENT;
         } else {
             throw new IllegalCommandException();
@@ -145,5 +152,9 @@ public class Duke {
         }
 
         return parameters;
+    }
+
+    private static void exitProgram() {
+        isActive = false;
     }
 }
