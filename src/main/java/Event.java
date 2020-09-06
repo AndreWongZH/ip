@@ -1,6 +1,6 @@
 public class Event extends Task {
     private static final String EVENT_TAG = "[E]";
-    private static final String AT_OPEN_TEXT = "(at: ";
+    private static final String AT_OPEN_TEXT = " (at: ";
     private static final String AT_CLOSE_TEXT = ")";
 
     private final String at;
