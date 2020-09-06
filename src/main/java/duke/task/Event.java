@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
     private static final String EVENT_TAG = "[E]";
     private static final String AT_OPEN_TEXT = " (at: ";

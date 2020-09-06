@@ -10,16 +10,17 @@ del INVALID_PARAMETERS_ACTUAL.TXT
 
 REM compile the code into the bin folder
 javac  -cp ..\src -Xlint:none -d ..\bin ^
-..\src\main\java\Duke.java ^
-..\src\main\java\TaskManager.java ^
-..\src\main\java\TaskType.java ^
-..\src\main\java\Task.java ^
-..\src\main\java\Todo.java ^
-..\src\main\java\Deadline.java ^
-..\src\main\java\Event.java ^
-..\src\main\java\IllegalCommandException.java ^
-..\src\main\java\MissingTaskLiteralException.java ^
-..\src\main\java\Command.java
+..\src\main\java\duke\Duke.java ^
+..\src\main\java\duke\task\TaskManager.java ^
+..\src\main\java\duke\task\TaskType.java ^
+..\src\main\java\duke\task\Task.java ^
+..\src\main\java\duke\task\Todo.java ^
+..\src\main\java\duke\task\Deadline.java ^
+..\src\main\java\duke\task\Event.java ^
+..\src\main\java\duke\task\MissingTaskLiteralException.java ^
+..\src\main\java\duke\command\IllegalCommandException.java ^
+..\src\main\java\duke\command\Command.java ^
+..\src\main\java\duke\command\CommandManager.java
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
