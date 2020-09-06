@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Stores and add to the list of tasks.
  */
