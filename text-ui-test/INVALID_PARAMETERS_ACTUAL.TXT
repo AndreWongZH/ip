@@ -1,0 +1,45 @@
+ _    _      _
+| |  | |    | |
+| |  | | ___| | ___ ___  _ __ ___   ___
+| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \
+\  /\  /  __/ | (_| (_) | | | | | |  __/
+ \/  \/ \___|_|\___\___/|_| |_| |_|\___|
+____________________________________________________________
+ __
+('')  Hello! I'm MK.II Titan with feelings.
+// \  What can I do for you?
+|_/|
+____________________________________________________________
+
+Sorry but parameter entered is not a integer
+
+Sorry but parameter entered is not within range of list
+
+Sorry but parameter entered is not a integer
+
+Sorry but parameter entered is not a integer
+
+No task in your list. Add some!
+
+Command is missing the /by literal
+
+Command is missing the /by literal
+
+Command is missing the /by literal
+
+Command is missing the /by literal
+
+Command is missing the /at literal
+
+Command is missing the /at literal
+
+Task successfully added, I said with a posed look.
+[E][✘] party (at: 2pm)
+Now you have a total of 1 tasks in the list
+
+____________________________________________________________
+ __
+( ")  Bye! I said with a disappointed look.
+|| \
+|_||
+____________________________________________________________
