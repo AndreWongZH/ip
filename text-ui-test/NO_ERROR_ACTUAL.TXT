@@ -37,6 +37,14 @@ Understood, setting task 2 as done:
 Understood, setting task 3 as done:
 [E][✓] countdown party (at: Sunday 23:59)
 
+Understood, removed task 1:
+[T][✓] make cake
+You now have a total of 2 tasks in the list
+
+Here are the tasks in your list
+1. [D][✓] revise math (by: monday 10pm)
+2. [E][✓] countdown party (at: Sunday 23:59)
+
 ____________________________________________________________
  __
 ( ")  Bye! I said with a disappointed look.

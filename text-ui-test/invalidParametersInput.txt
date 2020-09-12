@@ -7,7 +7,11 @@ deadline do homework
 deadline do homework /by
 deadline do homework /bye
 deadline do homework /bye summer
+deadline do homework /by summer
 event party /at
 event party /atthe
 event party /at 2pm
+delete abc
+delete 233
+delete 2312343243267432947938248934235435435435
 bye

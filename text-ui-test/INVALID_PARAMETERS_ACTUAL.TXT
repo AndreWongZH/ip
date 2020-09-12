@@ -29,13 +29,23 @@ Command is missing the /by literal
 
 Command is missing the /by literal
 
+Task successfully added, I said with a posed look.
+[D][✘] do homework (by: summer)
+Now you have a total of 1 tasks in the list
+
 Command is missing the /at literal
 
 Command is missing the /at literal
 
 Task successfully added, I said with a posed look.
 [E][✘] party (at: 2pm)
-Now you have a total of 1 tasks in the list
+Now you have a total of 2 tasks in the list
+
+Sorry but parameter entered is not a integer
+
+Sorry but parameter entered is not within range of list
+
+Sorry but parameter entered is not a integer
 
 ____________________________________________________________
  __
