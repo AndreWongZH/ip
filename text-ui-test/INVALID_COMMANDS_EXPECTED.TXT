@@ -12,6 +12,7 @@ ____________________________________________________________
 ____________________________________________________________
 
 Data file created under data/duke.txt
+
 Command not valid, please try again :(
 
 Please enter parameters after the command

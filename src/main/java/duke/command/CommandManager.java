@@ -22,7 +22,7 @@ public class CommandManager {
             "\\  /\\  /  __/ | (_| (_) | | | | | |  __/\n" +
             " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|";
 
-    private static final String ERROR_NO_COMMAND_RAN = "No command executed";
+    private static final String ERROR_NO_COMMAND_RAN = "No command executed\n";
     private static final String ERROR_COMMAND_NOT_VALID = "Command not valid, please try again :(\n";
     private static final String ERROR_INVALID_PARAMETERS = "Please enter parameters after the command\n";
 

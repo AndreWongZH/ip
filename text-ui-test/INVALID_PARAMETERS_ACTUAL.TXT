@@ -12,6 +12,7 @@ ____________________________________________________________
 ____________________________________________________________
 
 Data file created under data/duke.txt
+
 Sorry but parameter entered is not a integer
 
 Sorry but parameter entered is not within range of list

@@ -12,8 +12,11 @@ ____________________________________________________________
 ____________________________________________________________
 
 Error, data file might be corrupted
+
 Corrupt file deleted
+
 Data file created under data/duke.txt
+
 ____________________________________________________________
  __
 ( ")  Bye! I said with a disappointed look.

@@ -11,14 +11,16 @@ import java.util.Scanner;
 import duke.task.Task;
 
 public class FileManager {
-    private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write";
-    private static final String ERROR_FILE_NOT_FOUND = "Error file not found";
-    private static final String ERROR_CORRUPT_FILE = "Error, data file might be corrupted";
-    private static final String ERROR_UNABLE_TO_CREATE_DATA_FILE = "Unable to create data file";
-    private static final String ERROR_UNABLE_TO_DELETE_FILE = "Unable to delete file";
+    private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write\n";
+    private static final String ERROR_FILE_NOT_FOUND = "Error file not found\n";
+    private static final String ERROR_CORRUPT_FILE = "Error, data file might be corrupted\n";
+    private static final String ERROR_UNABLE_TO_CREATE_DATA_FILE = "Unable to create data file\n";
+    private static final String ERROR_UNABLE_TO_DELETE_FILE = "Unable to delete file\n";
+    private static final String ERROR_UNABLE_TO_CREATE_DIRECTORY = "Unable to create directory\n";
 
-    private static final String SUCCESS_DATA_FILE_CREATED = "Data file created under data/duke.txt";
-    private static final String SUCCESS_FILE_DELETED = "Corrupt file deleted";
+    private static final String SUCCESS_DATA_FILE_CREATED = "Data file created under data/duke.txt\n";
+    private static final String SUCCESS_FILE_DELETED = "Corrupt file deleted\n";
+    private static final String SUCCESS_DATA_DIRECTORY_CREATED = "Data directory created\n";
 
     private static final String FILE_NAME = "duke.txt";
     private static final String DATA_DIRECTORY = "data";
@@ -33,7 +35,11 @@ public class FileManager {
      * @return previousData in the form of an ArrayList
      */
     public static ArrayList<Task> getData() {
-        Path filePath = Paths.get(".", DATA_DIRECTORY, FILE_NAME);
+        Path filePath = Paths.get(DATA_DIRECTORY, FILE_NAME);
+        Path directoryPath = Paths.get(DATA_DIRECTORY);
+        if(!Files.exists(directoryPath)) {
+            createDataDirectory(directoryPath);
+        }
         if (!Files.exists(filePath)) {
             createDataFile(filePath);
         }
@@ -81,6 +87,15 @@ public class FileManager {
         }
     }
 
+    private static void createDataDirectory(Path directoryPath) {
+        try {
+            Files.createDirectory(directoryPath);
+            printDirCreated();
+        } catch (IOException e) {
+            printUnableToCreateDir();
+        }
+    }
+
     private static void createDataFile(Path filePath) {
         try {
             Files.createFile(filePath);
@@ -97,6 +112,14 @@ public class FileManager {
         } catch (IOException e) {
             printUnableToDeleteFile();
         }
+    }
+
+    private static void printDirCreated() {
+        System.out.println(SUCCESS_DATA_DIRECTORY_CREATED);
+    }
+
+    private static void printUnableToCreateDir() {
+        System.out.println(ERROR_UNABLE_TO_CREATE_DIRECTORY);
     }
 
     private static void printFileDeleted() {

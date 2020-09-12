@@ -12,6 +12,7 @@ ____________________________________________________________
 ____________________________________________________________
 
 Data file created under data/duke.txt
+
 Task successfully added, I said with a posed look.
 [T][✘] make cake
 Now you have a total of 1 tasks in the list
