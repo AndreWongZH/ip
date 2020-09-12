@@ -30,6 +30,7 @@ public class CommandManager {
     private static final int INDEX_AFTER_TODO = 5;
     private static final int INDEX_AFTER_DEADLINE = 9;
     private static final int INDEX_AFTER_EVENT = 6;
+    private static final int INDEX_AFTER_DELETE = 7;
 
     public static Command extractCommand(String userInput) throws IllegalCommandException {
         Command command;
@@ -46,6 +47,8 @@ public class CommandManager {
             command = Command.DEADLINE;
         } else if (userInput.startsWith("event")) {
             command = Command.EVENT;
+        } else if (userInput.startsWith("delete")) {
+            command = Command.DELETE;
         } else {
             throw new IllegalCommandException();
         }
@@ -68,6 +71,9 @@ public class CommandManager {
             break;
         case EVENT:
             parameters = userInput.substring(INDEX_AFTER_EVENT);
+            break;
+        case DELETE:
+            parameters = userInput.substring(INDEX_AFTER_DELETE);
             break;
         case LIST:
         default:

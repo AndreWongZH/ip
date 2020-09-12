@@ -11,15 +11,15 @@ import duke.task.TaskType;
 
 public class Duke {
     private static final Scanner in = new Scanner(System.in);
+    private static final TaskManager taskManager = new TaskManager();
 
     private static boolean isActive;
+    private static String parameters;
+    private static Command command;
 
     public static void main(String[] args) {
         String userInput;
-        Command command;
-        String parameters;
         isActive = true;
-        TaskManager taskManager = new TaskManager();
 
         CommandManager.printGreeting();
         while (isActive) {
@@ -27,7 +27,7 @@ public class Duke {
                 userInput = readUserInput();
                 command = CommandManager.extractCommand(userInput);
                 parameters = CommandManager.extractParameters(command, userInput);
-                handleUserInput(taskManager, command, parameters);
+                handleUserInput();
             } catch (IllegalCommandException e) {
                 CommandManager.printInvalidCommand();
             } catch (IndexOutOfBoundsException e) {
@@ -41,7 +41,7 @@ public class Duke {
         return in.nextLine();
     }
 
-    private static void handleUserInput(TaskManager taskManager, Command command, String parameters) {
+    private static void handleUserInput() {
         switch (command) {
         case LIST:
             taskManager.printAllTasks();
@@ -57,6 +57,9 @@ public class Duke {
             break;
         case EVENT:
             taskManager.addTask(TaskType.EVENT, parameters);
+            break;
+        case DELETE:
+            taskManager.deleteTask(parameters);
             break;
         case BYE:
             exitProgram();
