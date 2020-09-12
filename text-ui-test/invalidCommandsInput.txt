@@ -2,4 +2,5 @@ hello
 todo
 deadline
 event
+delete
 bye
