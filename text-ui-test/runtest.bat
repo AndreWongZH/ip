@@ -21,7 +21,11 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\task\MissingTaskLiteralException.java ^
 ..\src\main\java\duke\command\IllegalCommandException.java ^
 ..\src\main\java\duke\command\Command.java ^
-..\src\main\java\duke\command\CommandManager.java
+..\src\main\java\duke\command\CommandManager.java ^
+..\src\main\java\duke\file\DataParser.java ^
+..\src\main\java\duke\file\FileManager.java ^
+..\src\main\java\duke\file\FileWritable.java
+
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
@@ -30,11 +34,16 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < noErrorInput.txt > NO_ERROR_ACTUAL.TXT
-java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < invalidCommandsInput.txt > INVALID_COMMANDS_ACTUAL.TXT
-java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < invalidParametersInput.txt > INVALID_PARAMETERS_ACTUAL.TXT
-
 REM compare the output to the expected output
+
+del .\data\duke.txt
+java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < noErrorInput.txt > NO_ERROR_ACTUAL.TXT
 FC NO_ERROR_ACTUAL.TXT NO_ERROR_EXPECTED.TXT
+
+del .\data\duke.txt
+java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < invalidCommandsInput.txt > INVALID_COMMANDS_ACTUAL.TXT
 FC INVALID_COMMANDS_ACTUAL.TXT INVALID_COMMANDS_EXPECTED.TXT
+
+del .\data\duke.txt
+java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < invalidParametersInput.txt > INVALID_PARAMETERS_ACTUAL.TXT
 FC INVALID_PARAMETERS_ACTUAL.TXT INVALID_PARAMETERS_EXPECTED.TXT
