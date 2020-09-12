@@ -7,6 +7,7 @@ REM delete output from previous run
 del NO_ERROR_ACTUAL.TXT
 del INVALID_COMMANDS_ACTUAL.TXT
 del INVALID_PARAMETERS_ACTUAL.TXT
+del FILE_ERROR_ACTUAL.TXT
 
 REM compile the code into the bin folder
 javac  -cp ..\src -Xlint:none -d ..\bin ^
@@ -24,7 +25,8 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\command\CommandManager.java ^
 ..\src\main\java\duke\file\DataParser.java ^
 ..\src\main\java\duke\file\FileManager.java ^
-..\src\main\java\duke\file\FileWritable.java
+..\src\main\java\duke\file\FileWritable.java ^
+..\src\main\java\duke\file\FileCorruptedException.java
 
 
 IF ERRORLEVEL 1 (
@@ -47,3 +49,8 @@ FC INVALID_COMMANDS_ACTUAL.TXT INVALID_COMMANDS_EXPECTED.TXT
 del .\data\duke.txt
 java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < invalidParametersInput.txt > INVALID_PARAMETERS_ACTUAL.TXT
 FC INVALID_PARAMETERS_ACTUAL.TXT INVALID_PARAMETERS_EXPECTED.TXT
+
+del .\data\duke.txt
+echo hello > .\data\duke.txt
+java -Dfile.encoding=UTF-8 -classpath ..\bin duke.Duke < fileErrorInput.txt > FILE_ERROR_ACTUAL.TXT
+FC FILE_ERROR_ACTUAL.TXT FILE_ERROR_EXPECTED.TXT

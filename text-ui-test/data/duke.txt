@@ -1,2 +1,0 @@
-D | 0 | do homework | summer
-E | 0 | party | 2pm

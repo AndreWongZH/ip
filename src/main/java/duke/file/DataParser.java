@@ -10,7 +10,7 @@ import duke.task.Todo;
 public class DataParser {
     private static final String REGEX_DELIMITER = " \\| ";
 
-    public static ArrayList<Task> fileToTask(ArrayList<String> dataStreams) {
+    public static ArrayList<Task> fileToTask(ArrayList<String> dataStreams) throws FileCorruptedException, ArrayIndexOutOfBoundsException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String fileData : dataStreams) {
             Task task;
@@ -30,7 +30,7 @@ public class DataParser {
                 task = new Event(done, description, params[3]);
                 break;
             default:
-                task = null;
+                throw new FileCorruptedException();
             }
 
             tasks.add(task);

@@ -13,8 +13,13 @@ import duke.task.Task;
 public class FileManager {
     private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write";
     private static final String ERROR_FILE_NOT_FOUND = "Error file not found";
+    private static final String ERROR_CORRUPT_FILE = "Error, data file might be corrupted";
     private static final String ERROR_UNABLE_TO_CREATE_DATA_FILE = "Unable to create data file";
+    private static final String ERROR_UNABLE_TO_DELETE_FILE = "Unable to delete file";
+
     private static final String SUCCESS_DATA_FILE_CREATED = "Data file created under data/duke.txt";
+    private static final String SUCCESS_FILE_DELETED = "Corrupt file deleted";
+
     private static final String FILE_NAME = "duke.txt";
     private static final String DATA_DIRECTORY = "data";
 
@@ -34,6 +39,7 @@ public class FileManager {
         }
 
         ArrayList<String> dataStreams = new ArrayList<>();
+        ArrayList<Task> previousData = new ArrayList<>();
         Scanner s;
 
         try {
@@ -41,11 +47,16 @@ public class FileManager {
             while (s.hasNext()) {
                 dataStreams.add(s.nextLine());
             }
+            previousData = DataParser.fileToTask(dataStreams);
         } catch (IOException e) {
             printFileNotFound();
+        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException e) {
+            printCorruptFile();
+            deleteDataFile(filePath);
+            createDataFile(filePath);
         }
 
-        return DataParser.fileToTask(dataStreams);
+        return previousData;
     }
 
     /**
@@ -79,6 +90,23 @@ public class FileManager {
         }
     }
 
+    private static void deleteDataFile(Path filePath) {
+        try {
+            Files.deleteIfExists(filePath);
+            printFileDeleted();
+        } catch (IOException e) {
+            printUnableToDeleteFile();
+        }
+    }
+
+    private static void printFileDeleted() {
+        System.out.println(SUCCESS_FILE_DELETED);
+    }
+
+    private static void printUnableToDeleteFile() {
+        System.out.println(ERROR_UNABLE_TO_DELETE_FILE);
+    }
+
     private static void printFileCreated() {
         System.out.println(SUCCESS_DATA_FILE_CREATED);
     }
@@ -93,5 +121,9 @@ public class FileManager {
 
     private static void printFileNotFound() {
         System.out.println(ERROR_FILE_NOT_FOUND);
+    }
+
+    private static void printCorruptFile() {
+        System.out.println(ERROR_CORRUPT_FILE);
     }
 }
