@@ -1,17 +1,20 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.command.Command;
 import duke.command.CommandManager;
 import duke.command.IllegalCommandException;
 
+import duke.file.FileManager;
+import duke.task.Task;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
 public class Duke {
     private static final Scanner in = new Scanner(System.in);
-    private static final TaskManager taskManager = new TaskManager();
+    private static TaskManager taskManager;
 
     private static boolean isActive;
     private static String parameters;
@@ -22,6 +25,7 @@ public class Duke {
         isActive = true;
 
         CommandManager.printGreeting();
+        loadPreviousData();
         while (isActive) {
             try {
                 userInput = readUserInput();
@@ -35,6 +39,12 @@ public class Duke {
             }
         }
         CommandManager.printGoodbye();
+    }
+
+    /** load data to TaskManager */
+    private static void loadPreviousData() {
+        ArrayList<Task> previousData = FileManager.getData();
+        taskManager = new TaskManager(previousData);
     }
 
     private static String readUserInput() {

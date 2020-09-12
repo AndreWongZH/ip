@@ -2,6 +2,8 @@ package duke.task;
 
 import java.util.ArrayList;
 
+import duke.file.FileManager;
+
 /**
  * Stores and add to the list of tasks.
  */
@@ -19,6 +21,10 @@ public class TaskManager implements TaskAction {
 
     public TaskManager() {
         tasks = new ArrayList<>();
+    }
+
+    public TaskManager(ArrayList<Task> previousData) {
+        tasks = previousData;
     }
 
     /**
@@ -51,11 +57,18 @@ public class TaskManager implements TaskAction {
             }
             addTaskToList(task);
             printAddTaskSuccessful(task);
+            FileManager.writeToFile(FileManager.FILE_PATH, tasks);
         } catch (MissingTaskLiteralException e) {
             printMissingLiteral(e.getMessage());
         } catch (IllegalStateException e) {
             printTaskNotFound();
         }
+    }
+
+    public void addTask(Task task) {
+        addTaskToList(task);
+        printAddTaskSuccessful(task);
+        FileManager.writeToFile(FileManager.FILE_PATH, tasks);
     }
 
     /**
@@ -89,6 +102,7 @@ public class TaskManager implements TaskAction {
             taskNumber = getTaskNumber(inputText);
             tasks.get(taskNumber).setDone(true);
             printSetTaskDone(taskNumber, inputText);
+            FileManager.writeToFile(FileManager.FILE_PATH, tasks);
         } catch (NumberFormatException e) {
             printTaskDoneNotInteger();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
@@ -111,6 +125,7 @@ public class TaskManager implements TaskAction {
             taskNumber = getTaskNumber(inputText);
             task = tasks.remove(taskNumber);
             printTaskRemoved(task, inputText);
+            FileManager.writeToFile(FileManager.FILE_PATH, tasks);
         } catch (NumberFormatException e) {
             printTaskDoneNotInteger();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
