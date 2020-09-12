@@ -1,10 +1,11 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 /**
  * Stores and add to the list of tasks.
  */
-public class TaskManager {
-    private static final int MAX_TASK_SIZE = 100;
+public class TaskManager implements TaskAction {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
     private static final int MAX_INPUT_PARAMS = 2;
@@ -13,14 +14,11 @@ public class TaskManager {
     private static final String ERROR_NOT_IN_RANGE = "Sorry but parameter entered is not within range of list\n";
     private static final String ERROR_TASK_TYPE_NOT_FOUND = "Task type is not found\n";
     private static final String ERROR_LIST_EMPTY = "No task in your list. Add some!\n";
-    private static final String ERROR_TASK_LIST_FULL = "I cannot add any more. Task list is full :(\n";
 
-    private final Task[] tasks;
-    private int taskCount;
+    private final ArrayList<Task> tasks;
 
     public TaskManager() {
-        tasks = new Task[MAX_TASK_SIZE];
-        taskCount = 0;
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -30,6 +28,7 @@ public class TaskManager {
      * @param taskType represents the type of task to store.
      * @param inputText text of the user input to store.
      */
+    @Override
     public void addTask(TaskType taskType, String inputText) {
         Task task;
         String[] taskParameters;
@@ -56,24 +55,24 @@ public class TaskManager {
             printMissingLiteral(e.getMessage());
         } catch (IllegalStateException e) {
             printTaskNotFound();
-        } catch (IndexOutOfBoundsException e) {
-            printTaskListFull();
         }
     }
 
     /**
      * Prints the entire list of user's tasks.
      */
+    @Override
     public void printAllTasks() {
-        if (taskCount != 0) {
-            System.out.println("Here are the tasks in your list");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
-            }
-            System.out.println();
-        } else {
+        if (tasks.size() == 0) {
             System.out.println(ERROR_LIST_EMPTY);
+            return;
         }
+
+        System.out.println("Here are the tasks in your list");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        System.out.println();
     }
 
     /**
@@ -82,16 +81,39 @@ public class TaskManager {
      *
      * @param inputText Corresponding value of the task to set done.
      */
+    @Override
     public void setTaskDone(String inputText) {
-        int taskNumber = 0;
+        int taskNumber;
 
         try {
             taskNumber = getTaskNumber(inputText);
-            tasks[taskNumber].setDone(true);
+            tasks.get(taskNumber).setDone(true);
             printSetTaskDone(taskNumber, inputText);
         } catch (NumberFormatException e) {
             printTaskDoneNotInteger();
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            printTaskDoneNotInRange();
+        }
+    }
+
+    /**
+     * Deletes a particular task.
+     * Prints to user that task has been deleted.
+     *
+     * @param inputText Corresponding value of the task to delete.
+     */
+    @Override
+    public void deleteTask(String inputText) {
+        int taskNumber;
+        Task task;
+
+        try {
+            taskNumber = getTaskNumber(inputText);
+            task = tasks.remove(taskNumber);
+            printTaskRemoved(task, inputText);
+        } catch (NumberFormatException e) {
+            printTaskDoneNotInteger();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             printTaskDoneNotInRange();
         }
     }
@@ -108,13 +130,13 @@ public class TaskManager {
         System.out.println(ERROR_TASK_TYPE_NOT_FOUND);
     }
 
-    private void printTaskListFull() {
-        System.out.println(ERROR_TASK_LIST_FULL);
+    private void printMissingLiteral(String literal) {
+        System.out.println("Command is missing the" + literal + "literal\n");
     }
 
     /**  splits user input into descriptions and date/time */
     private String[] splitItem(TaskType taskType, String inputText) throws MissingTaskLiteralException, IllegalStateException {
-        int index = 0;
+        int index;
         String[] taskParameters = new String[MAX_INPUT_PARAMS];
 
         switch (taskType) {
@@ -140,31 +162,35 @@ public class TaskManager {
         return taskParameters;
     }
 
-    private void printMissingLiteral(String literal) {
-        System.out.println("Command is missing the" + literal + "literal\n");
+    /** add a task instance to taskList */
+    private void addTaskToList(Task task) {
+        tasks.add(task);
+    }
+
+    /** returns the index of the task in the tasklist */
+    private int getTaskNumber(String inputText) throws NumberFormatException {
+        return Integer.parseInt(inputText) - 1;
     }
 
     /** print message after a task is added */
     private void printAddTaskSuccessful(Task task) {
         System.out.println("Task successfully added, I said with a posed look.");
         System.out.println(task);
-        System.out.println("Now you have a total of " + taskCount + " tasks in the list\n");
-    }
-
-    /** add a task instance to taskList */
-    private void addTaskToList(Task task) {
-        tasks[taskCount] = task;
-        taskCount++;
-    }
-
-    private int getTaskNumber(String userInput) throws NumberFormatException {
-        return Integer.parseInt(userInput) - 1;
+        System.out.println("Now you have a total of " + tasks.size() + " tasks in the list\n");
     }
 
     /** print message after setting task to done */
-    private void printSetTaskDone(int taskNumber, String userInput) {
-        System.out.println("Understood, setting task " + userInput + " as done:");
-        System.out.println(tasks[taskNumber]);
+    private void printSetTaskDone(int taskNumber, String inputText) {
+        System.out.println("Understood, setting task " + inputText + " as done:");
+        System.out.println(tasks.get(taskNumber));
+        System.out.println();
+    }
+
+    /** print message after deleting a task */
+    private void printTaskRemoved(Task task, String inputText) {
+        System.out.println("Understood, removed task " + inputText + ":");
+        System.out.println(task);
+        System.out.println("You now have a total of " + tasks.size() + " tasks in the list");
         System.out.println();
     }
 }
