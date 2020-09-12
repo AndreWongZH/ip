@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.file.FileManager;
+
 /**
  * Stores and add to the list of tasks.
  */
@@ -52,6 +54,7 @@ public class TaskManager {
             }
             addTaskToList(task);
             printAddTaskSuccessful(task);
+            FileManager.writeToFile(".\\data\\duke.txt", tasks, taskCount);
         } catch (MissingTaskLiteralException e) {
             printMissingLiteral(e.getMessage());
         } catch (IllegalStateException e) {
@@ -64,6 +67,7 @@ public class TaskManager {
     public void addTask(Task task) {
         addTaskToList(task);
         printAddTaskSuccessful(task);
+        FileManager.writeToFile(".\\data\\duke.txt", tasks, taskCount);
     }
 
     /**
@@ -94,6 +98,7 @@ public class TaskManager {
             taskNumber = getTaskNumber(inputText);
             tasks[taskNumber].setDone(true);
             printSetTaskDone(taskNumber, inputText);
+            FileManager.writeToFile(".\\data\\duke.txt", tasks, taskCount);
         } catch (NumberFormatException e) {
             printTaskDoneNotInteger();
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {

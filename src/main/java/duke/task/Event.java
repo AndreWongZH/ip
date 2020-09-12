@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.file.FileWritable;
+
 public class Event extends Task {
     private static final String EVENT_TAG = "[E]";
     private static final String AT_OPEN_TEXT = " (at: ";
@@ -25,5 +27,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return EVENT_TAG + super.toString() + AT_OPEN_TEXT + at + AT_CLOSE_TEXT;
+    }
+
+    @Override
+    public String convertToData() {
+        return "E" + FileWritable.SEPARATOR + convertDoneToString() + FileWritable.SEPARATOR + description + FileWritable.SEPARATOR + at;
     }
 }

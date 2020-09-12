@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.file.FileWritable;
+
 public class Deadline extends Task {
     private static final String DEADLINE_TAG = "[D]";
     private static final String BY_OPEN_TEXT = " (by: ";
@@ -25,5 +27,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return DEADLINE_TAG + super.toString() + BY_OPEN_TEXT + by + BY_CLOSE_TEXT;
+    }
+
+    @Override
+    public String convertToData() {
+        return "D" + FileWritable.SEPARATOR + convertDoneToString() + FileWritable.SEPARATOR + description + FileWritable.SEPARATOR + by;
     }
 }

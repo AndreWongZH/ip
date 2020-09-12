@@ -1,6 +1,8 @@
 package duke.task;
 
-public class Task {
+import duke.file.FileWritable;
+
+public abstract class Task implements FileWritable {
     private static final String ICON_TICK = "\u2713";
     private static final String ICON_CROSS = "\u2718";
     private static final String STATUS_OPEN_BRACKET = "[";
@@ -35,5 +37,12 @@ public class Task {
 
     protected String getStatusIcon() {
         return (isDone ? ICON_TICK : ICON_CROSS);
+    }
+
+    protected String convertDoneToString() {
+        if (isDone) {
+            return "1";
+        }
+        return "0";
     }
 }
