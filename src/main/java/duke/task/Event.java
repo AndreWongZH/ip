@@ -17,6 +17,11 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public Event(Boolean done, String description, String at) {
+        super(done, description);
+        this.at = at;
+    }
+
     @Override
     public String toString() {
         return EVENT_TAG + super.toString() + AT_OPEN_TEXT + at + AT_CLOSE_TEXT;

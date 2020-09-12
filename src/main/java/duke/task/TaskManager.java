@@ -61,6 +61,11 @@ public class TaskManager {
         }
     }
 
+    public void addTask(Task task) {
+        addTaskToList(task);
+        printAddTaskSuccessful(task);
+    }
+
     /**
      * Prints the entire list of user's tasks.
      */

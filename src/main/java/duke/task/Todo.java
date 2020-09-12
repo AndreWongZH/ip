@@ -7,6 +7,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(Boolean done, String description) {
+        super(done, description);
+    }
+
     @Override
     public String toString() {
         return TODO_TAG + super.toString();

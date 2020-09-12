@@ -1,11 +1,17 @@
 package duke;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.command.Command;
 import duke.command.CommandManager;
 import duke.command.IllegalCommandException;
 
+import duke.file.FileManager;
+import duke.task.Task;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
@@ -20,6 +26,17 @@ public class Duke {
         String parameters;
         isActive = true;
         TaskManager taskManager = new TaskManager();
+
+        // load data to TaskManager
+        try {
+            Path path = Paths.get(".","data", "duke.txt");
+            ArrayList<Task> previousData = FileManager.getData(path);
+            for (Task task : previousData) {
+                taskManager.addTask(task);
+            }
+        } catch (IOException e) {
+            System.out.println("Error file not found");
+        }
 
         CommandManager.printGreeting();
         while (isActive) {

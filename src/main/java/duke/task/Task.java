@@ -14,6 +14,11 @@ public class Task {
         isDone = false;
     }
 
+    public Task(Boolean done, String description) {
+        this.description = description;
+        isDone = done;
+    }
+
     /**
      * Sets the task done boolean to the parameter value.
      *
