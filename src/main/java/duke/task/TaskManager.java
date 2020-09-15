@@ -11,6 +11,7 @@ public class TaskManager implements TaskAction {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
     private static final int MAX_INPUT_PARAMS = 2;
+    private static final int LIST_EMPTY = 0;
 
     private static final String ERROR_NOT_INTEGER = "Sorry but parameter entered is not a integer\n";
     private static final String ERROR_NOT_IN_RANGE = "Sorry but parameter entered is not within range of list\n";
@@ -65,18 +66,12 @@ public class TaskManager implements TaskAction {
         }
     }
 
-    public void addTask(Task task) {
-        addTaskToList(task);
-        printAddTaskSuccessful(task);
-        FileManager.writeToFile(FileManager.FILE_PATH, tasks);
-    }
-
     /**
      * Prints the entire list of user's tasks.
      */
     @Override
     public void printAllTasks() {
-        if (tasks.size() == 0) {
+        if (tasks.size() == LIST_EMPTY) {
             System.out.println(ERROR_LIST_EMPTY);
             return;
         }

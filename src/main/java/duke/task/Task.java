@@ -24,10 +24,10 @@ public abstract class Task implements FileWritable {
     /**
      * Sets the task done boolean to the parameter value.
      *
-     * @param done boolean status of the task.
+     * @param isDone boolean status of the task.
      */
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
