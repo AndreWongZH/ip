@@ -1,8 +1,8 @@
 package duke.task;
 
 public interface TaskAction {
-    void addTask(TaskType taskType, String inputText);
+    void addTask(TaskType taskType, String description, String dateTime);
     void printAllTasks();
-    void setTaskDone(String inputText);
-    void deleteTask(String inputText);
+    void setTaskDone(int taskNumber);
+    void deleteTask(int taskNumber);
 }

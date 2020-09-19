@@ -3,9 +3,9 @@ package duke.command;
 import duke.task.TaskManager;
 
 public class DoneCommand extends Command {
-    private final String taskIndex;
+    private final int taskIndex;
 
-    public DoneCommand(TaskManager taskManager, String taskIndex) {
+    public DoneCommand(TaskManager taskManager, int taskIndex) {
         super(taskManager);
         this.taskIndex = taskIndex;
     }

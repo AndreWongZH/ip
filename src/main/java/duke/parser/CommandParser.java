@@ -27,18 +27,21 @@ public class CommandParser {
     private final TaskManager taskManager;
     private String parameters;
     private CommandType commandType;
+    private ParameterData parameterData;
 
     public CommandParser(TaskManager taskManager, String userInput) {
         this.taskManager = taskManager;
         this.userInput = userInput;
         this.commandType = null;
         this.parameters = null;
+        this.parameterData = null;
     }
 
     public CommandType parseCommand() {
         try {
             extractCommand();
             extractParameters();
+            parameterData = new ParameterParser(commandType, userInput).processParameters();
             executeCommand();
         } catch (IllegalCommandException e) {
             printInvalidCommand();
@@ -57,19 +60,19 @@ public class CommandParser {
             command = new ListCommand(taskManager);
             break;
         case DONE:
-            command = new DoneCommand(taskManager, parameters);
+            command = new DoneCommand(taskManager, parameterData.getTaskNumber());
             break;
         case TODO:
-            command = new AddCommand(taskManager, TaskType.TODO, parameters);
+            command = new AddCommand(taskManager, TaskType.TODO, parameterData.getDescription());
             break;
         case DEADLINE:
-            command = new AddCommand(taskManager, TaskType.DEADLINE, parameters);
+            command = new AddCommand(taskManager, TaskType.DEADLINE, parameterData.getDescription(), parameterData.getDateTime());
             break;
         case EVENT:
-            command = new AddCommand(taskManager, TaskType.EVENT, parameters);
+            command = new AddCommand(taskManager, TaskType.EVENT, parameterData.getDescription(), parameterData.getDateTime());
             break;
         case DELETE:
-            command = new DeleteCommand(taskManager, parameters);
+            command = new DeleteCommand(taskManager, parameterData.getTaskNumber());
             break;
         case BYE:
             command = new ByeCommand(taskManager);
