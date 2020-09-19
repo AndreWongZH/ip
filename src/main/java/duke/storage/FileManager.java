@@ -11,7 +11,7 @@ import java.util.Scanner;
 import duke.parser.DataParser;
 import duke.task.Task;
 
-public class FileManager {
+public class FileManager implements FileAction {
     private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write\n";
     private static final String ERROR_FILE_NOT_FOUND = "Error file not found\n";
     private static final String ERROR_CORRUPT_FILE = "Error, data file might be corrupted\n";
@@ -43,6 +43,7 @@ public class FileManager {
      *
      * @return previousData in the form of an ArrayList
      */
+    @Override
     public ArrayList<Task> loadData() {
         ArrayList<String> fileData;
         ArrayList<Task> previousData;
@@ -51,6 +52,28 @@ public class FileManager {
         previousData = parseFileData(fileData);
 
         return previousData;
+    }
+
+    /**
+     * Check if ./data/duke.txt exist, if not creates it.
+     * Reads data from ./data/duke.txt.
+     * Parse the string formats into task objects
+     *
+     * @param tasks an ArrayList of task objects
+     */
+    @Override
+    public void writeToFile(ArrayList<Task> tasks) {
+        FileWriter fw;
+        try {
+            fw = new FileWriter(FILE_PATH);
+            for (Task task : tasks) {
+                fw.write(task.convertToData());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            printUnableToWriteFile();
+        }
     }
 
     private ArrayList<Task> parseFileData(ArrayList<String> fileData) {
@@ -93,27 +116,6 @@ public class FileManager {
         printCorruptFile();
         deleteDataFile();
         createDataFile();
-    }
-
-    /**
-     * Check if ./data/duke.txt exist, if not creates it.
-     * Reads data from ./data/duke.txt.
-     * Parse the string formats into task objects
-     *
-     * @param tasks an ArrayList of task objects
-     */
-    public void writeToFile(ArrayList<Task> tasks) {
-        FileWriter fw;
-        try {
-            fw = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
-                fw.write(task.convertToData());
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            printUnableToWriteFile();
-        }
     }
 
     private void createDataDirectory() {
