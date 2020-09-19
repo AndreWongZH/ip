@@ -8,12 +8,6 @@ public class CommandManager {
             "|_/|\n" +
             "____________________________________________________________\n";
 
-    private static final String END = "____________________________________________________________\n" +
-            " __\n" +
-            "( \")  Bye! I said with a disappointed look.\n" +
-            "|| \\\n" +
-            "|_||\n" +
-            "____________________________________________________________";
 
     private static final String LOGO = " _    _      _\n" +
             "| |  | |    | |\n" +
@@ -32,34 +26,34 @@ public class CommandManager {
     private static final int INDEX_AFTER_EVENT = 6;
     private static final int INDEX_AFTER_DELETE = 7;
 
-    public static Command extractCommand(String userInput) throws IllegalCommandException {
-        Command command;
+    public static CommandEnum extractCommand(String userInput) throws IllegalCommandException {
+        CommandEnum commandEnum;
 
         if (userInput.contentEquals("bye")) {
-            command = Command.BYE;
+            commandEnum = CommandEnum.BYE;
         } else if (userInput.contentEquals("list")) {
-            command = Command.LIST;
+            commandEnum = CommandEnum.LIST;
         } else if (userInput.startsWith("done")) {
-            command = Command.DONE;
+            commandEnum = CommandEnum.DONE;
         } else if (userInput.startsWith("todo")) {
-            command = Command.TODO;
+            commandEnum = CommandEnum.TODO;
         } else if (userInput.startsWith("deadline")) {
-            command = Command.DEADLINE;
+            commandEnum = CommandEnum.DEADLINE;
         } else if (userInput.startsWith("event")) {
-            command = Command.EVENT;
+            commandEnum = CommandEnum.EVENT;
         } else if (userInput.startsWith("delete")) {
-            command = Command.DELETE;
+            commandEnum = CommandEnum.DELETE;
         } else {
             throw new IllegalCommandException();
         }
 
-        return command;
+        return commandEnum;
     }
 
-    public static String extractParameters(Command command, String userInput) throws IndexOutOfBoundsException {
+    public static String extractParameters(CommandEnum commandEnum, String userInput) throws IndexOutOfBoundsException {
         String parameters;
 
-        switch (command) {
+        switch (commandEnum) {
         case DONE:
             parameters = userInput.substring(INDEX_AFTER_DONE);
             break;
@@ -86,10 +80,6 @@ public class CommandManager {
     public static void printGreeting() {
         System.out.println(LOGO);
         System.out.println(GREET);
-    }
-
-    public static void printGoodbye() {
-        System.out.println(END);
     }
 
     public static void printNoCommandRan() {

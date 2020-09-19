@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.command.Command;
+import duke.command.CommandEnum;
 import duke.command.CommandManager;
 import duke.command.IllegalCommandException;
+import duke.command.AddCommand;
+import duke.command.ListCommand;
+import duke.command.ByeCommand;
+import duke.command.DoneCommand;
+import duke.command.DeleteCommand;
 
 import duke.file.FileManager;
 import duke.task.Task;
@@ -18,7 +24,7 @@ public class Duke {
 
     private static boolean isActive;
     private static String parameters;
-    private static Command command;
+    private static CommandEnum commandEnum;
 
     public static void main(String[] args) {
         String userInput;
@@ -29,8 +35,8 @@ public class Duke {
         while (isActive) {
             try {
                 userInput = readUserInput();
-                command = CommandManager.extractCommand(userInput);
-                parameters = CommandManager.extractParameters(command, userInput);
+                commandEnum = CommandManager.extractCommand(userInput);
+                parameters = CommandManager.extractParameters(commandEnum, userInput);
                 handleUserInput();
             } catch (IllegalCommandException e) {
                 CommandManager.printInvalidCommand();
@@ -38,7 +44,6 @@ public class Duke {
                 CommandManager.printInvalidParameters();
             }
         }
-        CommandManager.printGoodbye();
     }
 
     /** load data to TaskManager */
@@ -52,31 +57,37 @@ public class Duke {
     }
 
     private static void handleUserInput() {
-        switch (command) {
+        Command command = null;
+
+        switch (commandEnum) {
         case LIST:
-            taskManager.printAllTasks();
+            command = new ListCommand(taskManager);
             break;
         case DONE:
-            taskManager.setTaskDone(parameters);
+            command = new DoneCommand(taskManager, parameters);
             break;
         case TODO:
-            taskManager.addTask(TaskType.TODO, parameters);
+            command = new AddCommand(taskManager, TaskType.TODO, parameters);
             break;
         case DEADLINE:
-            taskManager.addTask(TaskType.DEADLINE, parameters);
+            command = new AddCommand(taskManager, TaskType.DEADLINE, parameters);
             break;
         case EVENT:
-            taskManager.addTask(TaskType.EVENT, parameters);
+            command = new AddCommand(taskManager, TaskType.EVENT, parameters);
             break;
         case DELETE:
-            taskManager.deleteTask(parameters);
+            command = new DeleteCommand(taskManager, parameters);
             break;
         case BYE:
+            command = new ByeCommand(taskManager);
             exitProgram();
             break;
         default:
             CommandManager.printNoCommandRan();
         }
+
+
+        command.execute();
     }
 
     private static void exitProgram() {
