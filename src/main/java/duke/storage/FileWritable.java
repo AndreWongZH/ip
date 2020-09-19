@@ -1,4 +1,4 @@
-package duke.file;
+package duke.storage;
 
 public interface FileWritable {
     String SEPARATOR = " | ";

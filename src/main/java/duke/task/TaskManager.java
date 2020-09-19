@@ -2,7 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 
-import duke.file.FileManager;
+import duke.storage.FileManager;
 
 /**
  * Stores and add to the list of tasks.
@@ -14,12 +14,10 @@ public class TaskManager implements TaskAction {
     private static final String ERROR_LIST_EMPTY = "No task in your list. Add some!\n";
 
     private final ArrayList<Task> tasks;
+    private final FileManager fileManager;
 
-    public TaskManager() {
-        tasks = new ArrayList<>();
-    }
-
-    public TaskManager(ArrayList<Task> previousData) {
+    public TaskManager(FileManager fileManager, ArrayList<Task> previousData) {
+        this.fileManager = fileManager;
         tasks = previousData;
     }
 
@@ -50,7 +48,7 @@ public class TaskManager implements TaskAction {
             }
             addTaskToList(task);
             printAddTaskSuccessful(task);
-            FileManager.writeToFile(FileManager.FILE_PATH, tasks);
+            fileManager.writeToFile(tasks);
         } catch (IllegalStateException e) {
             printTaskNotFound();
         }
@@ -83,7 +81,7 @@ public class TaskManager implements TaskAction {
     public void setTaskDone(int taskNumber) {
         tasks.get(taskNumber).setDone(true);
         printSetTaskDone(taskNumber);
-        FileManager.writeToFile(FileManager.FILE_PATH, tasks);
+        fileManager.writeToFile(tasks);
     }
 
     /**
@@ -98,7 +96,7 @@ public class TaskManager implements TaskAction {
 
         task = tasks.remove(taskNumber);
         printTaskRemoved(task, taskNumber);
-        FileManager.writeToFile(FileManager.FILE_PATH, tasks);
+        fileManager.writeToFile(tasks);
     }
 
     private void printTaskNotFound() {

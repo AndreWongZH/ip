@@ -6,7 +6,7 @@ import java.util.Scanner;
 import duke.command.CommandType;
 
 import duke.command.GreetCommand;
-import duke.file.FileManager;
+import duke.storage.FileManager;
 import duke.parser.CommandParser;
 import duke.task.Task;
 import duke.task.TaskManager;
@@ -14,36 +14,36 @@ import duke.task.TaskManager;
 public class Duke {
     private static final Scanner in = new Scanner(System.in);
     private static TaskManager taskManager;
-
     private static boolean isActive;
 
+    public Duke() {
+        FileManager fileManager = new FileManager();
+        ArrayList<Task> previousData = fileManager.loadData();
+        taskManager = new TaskManager(fileManager, previousData);
+    }
+
     public static void main(String[] args) {
-        String userInput;
-        CommandType commandType;
+        new Duke().run();
+    }
+
+    public void run() {
         isActive = true;
 
         GreetCommand.printGreeting();
-        loadPreviousData();
         while (isActive) {
-            userInput = readUserInput();
-            commandType = new CommandParser(taskManager, userInput).parseCommand();
+            String userInput = readUserInput();
+            CommandType commandType = new CommandParser(taskManager, userInput).parseCommand();
             if (commandType == CommandType.BYE) {
                 exitProgram();
             }
         }
     }
 
-    /** load data to TaskManager */
-    private static void loadPreviousData() {
-        ArrayList<Task> previousData = FileManager.getData();
-        taskManager = new TaskManager(previousData);
-    }
-
-    private static String readUserInput() {
+    private String readUserInput() {
         return in.nextLine();
     }
 
-    private static void exitProgram() {
+    private void exitProgram() {
         isActive = false;
     }
 }

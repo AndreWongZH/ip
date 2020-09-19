@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.file.FileWritable;
+import duke.storage.FileWritable;
 
 public abstract class Task implements FileWritable {
     private static final String ICON_TICK = "\u2713";

@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.file.FileWritable;
+import duke.storage.FileWritable;
 
 public class Deadline extends Task {
     private static final String DEADLINE_TAG = "D";

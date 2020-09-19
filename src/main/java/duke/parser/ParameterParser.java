@@ -25,11 +25,14 @@ public class ParameterParser {
             case DONE:
             case DELETE:
                 getTaskNumber();
+                break;
             case DEADLINE:
             case EVENT:
                 splitUserInput();
+                break;
             case TODO:
                 setTodoParameter();
+                break;
             default:
                 // todo
             }

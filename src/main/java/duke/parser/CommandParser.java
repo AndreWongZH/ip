@@ -41,7 +41,7 @@ public class CommandParser {
         try {
             extractCommand();
             extractParameters();
-            parameterData = new ParameterParser(commandType, userInput).processParameters();
+            parameterData = new ParameterParser(commandType, parameters).processParameters();
             executeCommand();
         } catch (IllegalCommandException e) {
             printInvalidCommand();

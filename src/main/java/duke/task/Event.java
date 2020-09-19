@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.file.FileWritable;
+import duke.storage.FileWritable;
 
 public class Event extends Task {
     private static final String EVENT_TAG = "E";

@@ -1,4 +1,4 @@
-package duke.file;
+package duke.storage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.parser.DataParser;
 import duke.task.Task;
 
 public class FileManager {
@@ -24,8 +25,16 @@ public class FileManager {
 
     private static final String FILE_NAME = "duke.txt";
     private static final String DATA_DIRECTORY = "data";
+    private static final String FILE_PATH = "./data/duke.txt";
 
-    public static final String FILE_PATH = "./data/duke.txt";
+    private final Path filePath;
+    private final Path directoryPath;
+
+    public FileManager() {
+        filePath = Paths.get(DATA_DIRECTORY, FILE_NAME);
+        directoryPath = Paths.get(DATA_DIRECTORY);
+        validatePaths();
+    }
 
     /**
      * Check if ./data/duke.txt exist, if not creates it.
@@ -34,35 +43,56 @@ public class FileManager {
      *
      * @return previousData in the form of an ArrayList
      */
-    public static ArrayList<Task> getData() {
-        Path filePath = Paths.get(DATA_DIRECTORY, FILE_NAME);
-        Path directoryPath = Paths.get(DATA_DIRECTORY);
-        if(!Files.exists(directoryPath)) {
-            createDataDirectory(directoryPath);
-        }
-        if (!Files.exists(filePath)) {
-            createDataFile(filePath);
-        }
+    public ArrayList<Task> loadData() {
+        ArrayList<String> fileData;
+        ArrayList<Task> previousData;
 
-        ArrayList<String> dataStreams = new ArrayList<>();
-        ArrayList<Task> previousData = new ArrayList<>();
+        fileData = getFileData();
+        previousData = parseFileData(fileData);
+
+        return previousData;
+    }
+
+    private ArrayList<Task> parseFileData(ArrayList<String> fileData) {
+        try {
+            return DataParser.fileToTask(fileData);
+        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException e) {
+            handleCorruptFile();
+        }
+        return null;
+    }
+
+    private ArrayList<String> getFileData() {
+        ArrayList<String> fileData = new ArrayList<>();
         Scanner s;
 
         try {
             s = new Scanner(filePath);
             while (s.hasNext()) {
-                dataStreams.add(s.nextLine());
+                fileData.add(s.nextLine());
             }
-            previousData = DataParser.fileToTask(dataStreams);
         } catch (IOException e) {
             printFileNotFound();
-        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException e) {
-            printCorruptFile();
-            deleteDataFile(filePath);
-            createDataFile(filePath);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            handleCorruptFile();
         }
 
-        return previousData;
+        return fileData;
+    }
+
+    private void validatePaths() {
+        if(!Files.exists(directoryPath)) {
+            createDataDirectory();
+        }
+        if (!Files.exists(filePath)) {
+            createDataFile();
+        }
+    }
+
+    private void handleCorruptFile() {
+        printCorruptFile();
+        deleteDataFile();
+        createDataFile();
     }
 
     /**
@@ -70,13 +100,12 @@ public class FileManager {
      * Reads data from ./data/duke.txt.
      * Parse the string formats into task objects
      *
-     * @param filePath location of path to write to
      * @param tasks an ArrayList of task objects
      */
-    public static void writeToFile(String filePath, ArrayList<Task> tasks) {
+    public void writeToFile(ArrayList<Task> tasks) {
         FileWriter fw;
         try {
-            fw = new FileWriter(filePath);
+            fw = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
                 fw.write(task.convertToData());
                 fw.write(System.lineSeparator());
@@ -87,7 +116,7 @@ public class FileManager {
         }
     }
 
-    private static void createDataDirectory(Path directoryPath) {
+    private void createDataDirectory() {
         try {
             Files.createDirectory(directoryPath);
             printDirCreated();
@@ -96,7 +125,7 @@ public class FileManager {
         }
     }
 
-    private static void createDataFile(Path filePath) {
+    private void createDataFile() {
         try {
             Files.createFile(filePath);
             printFileCreated();
@@ -105,7 +134,7 @@ public class FileManager {
         }
     }
 
-    private static void deleteDataFile(Path filePath) {
+    private void deleteDataFile() {
         try {
             Files.deleteIfExists(filePath);
             printFileDeleted();

@@ -1,7 +1,8 @@
-package duke.file;
+package duke.parser;
 
 import java.util.ArrayList;
 
+import duke.storage.FileCorruptedException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
