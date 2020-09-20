@@ -1,3 +1,8 @@
++-------------------------------------------+
+|                                           |
+|   Data file created under data/duke.txt   |
+|                                           |
++-------------------------------------------+
  _    _      _
 | |  | |    | |
 | |  | | ___| | ___ ___  _ __ ___   ___
@@ -10,43 +15,67 @@ ____________________________________________________________
 // \  What can I do for you?
 |_/|
 ____________________________________________________________
-
-Data file created under data/duke.txt
-
-Task successfully added, I said with a posed look.
-[T][✘] make cake
-Now you have a total of 1 tasks in the list
-
-Task successfully added, I said with a posed look.
-[D][✘] revise math (by: monday 10pm)
-Now you have a total of 2 tasks in the list
-
-Task successfully added, I said with a posed look.
-[E][✘] countdown party (at: Sunday 23:59)
-Now you have a total of 3 tasks in the list
-
-Here are the tasks in your list
-1. [T][✘] make cake
-2. [D][✘] revise math (by: monday 10pm)
-3. [E][✘] countdown party (at: Sunday 23:59)
-
-Understood, setting task 1 as done:
-[T][✓] make cake
-
-Understood, setting task 2 as done:
-[D][✓] revise math (by: monday 10pm)
-
-Understood, setting task 3 as done:
-[E][✓] countdown party (at: Sunday 23:59)
-
-Understood, removed task 1:
-[T][✓] make cake
-You now have a total of 2 tasks in the list
-
-Here are the tasks in your list
-1. [D][✓] revise math (by: monday 10pm)
-2. [E][✓] countdown party (at: Sunday 23:59)
-
++--------------------------------------------------------+
+|                                                        |
+|   Task successfully added, I said with a posed look.   |
+|   [T][✘] make cake                                     |
+|   You now have a total of 1 tasks in the list          |
+|                                                        |
++--------------------------------------------------------+
++--------------------------------------------------------+
+|                                                        |
+|   Task successfully added, I said with a posed look.   |
+|   [D][✘] revise math (by: monday 10pm)                 |
+|   You now have a total of 2 tasks in the list          |
+|                                                        |
++--------------------------------------------------------+
++--------------------------------------------------------+
+|                                                        |
+|   Task successfully added, I said with a posed look.   |
+|   [E][✘] countdown party (at: Sunday 23:59)            |
+|   You now have a total of 3 tasks in the list          |
+|                                                        |
++--------------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Here are the tasks in your list                |
+|   1. [T][✘] make cake                            |
+|   2. [D][✘] revise math (by: monday 10pm)        |
+|   3. [E][✘] countdown party (at: Sunday 23:59)   |
+|                                                  |
++--------------------------------------------------+
++-----------------------------------------+
+|                                         |
+|   Understood, setting task 1 as done:   |
+|   [T][✓] make cake                      |
+|                                         |
++-----------------------------------------+
++------------------------------------------+
+|                                          |
+|   Understood, setting task 2 as done:    |
+|   [D][✓] revise math (by: monday 10pm)   |
+|                                          |
++------------------------------------------+
++-----------------------------------------------+
+|                                               |
+|   Understood, setting task 3 as done:         |
+|   [E][✓] countdown party (at: Sunday 23:59)   |
+|                                               |
++-----------------------------------------------+
++-------------------------------------------------+
+|                                                 |
+|   Understood, removed task 1:                   |
+|   [T][✓] make cake                              |
+|   You now have a total of 2 tasks in the list   |
+|                                                 |
++-------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Here are the tasks in your list                |
+|   1. [D][✓] revise math (by: monday 10pm)        |
+|   2. [E][✓] countdown party (at: Sunday 23:59)   |
+|                                                  |
++--------------------------------------------------+
 ____________________________________________________________
  __
 ( ")  Bye! I said with a disappointed look.

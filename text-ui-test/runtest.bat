@@ -22,11 +22,26 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\task\MissingTaskLiteralException.java ^
 ..\src\main\java\duke\command\IllegalCommandException.java ^
 ..\src\main\java\duke\command\Command.java ^
-..\src\main\java\duke\command\CommandManager.java ^
-..\src\main\java\duke\file\DataParser.java ^
-..\src\main\java\duke\file\FileManager.java ^
-..\src\main\java\duke\file\FileWritable.java ^
-..\src\main\java\duke\file\FileCorruptedException.java
+..\src\main\java\duke\command\AddCommand.java ^
+..\src\main\java\duke\command\ByeCommand.java ^
+..\src\main\java\duke\command\DeleteCommand.java ^
+..\src\main\java\duke\command\DoneCommand.java ^
+..\src\main\java\duke\command\ListCommand.java ^
+..\src\main\java\duke\command\CommandType.java ^
+..\src\main\java\duke\parser\DataParser.java ^
+..\src\main\java\duke\parser\CommandParser.java ^
+..\src\main\java\duke\parser\ParameterParser.java ^
+..\src\main\java\duke\parser\ParameterData.java ^
+..\src\main\java\duke\storage\FileAction.java ^
+..\src\main\java\duke\storage\FileManager.java ^
+..\src\main\java\duke\storage\FileWritable.java ^
+..\src\main\java\duke\storage\FileCorruptedException.java ^
+..\src\main\java\duke\ui\CommandUi.java ^
+..\src\main\java\duke\ui\FileUi.java ^
+..\src\main\java\duke\ui\InputUi.java ^
+..\src\main\java\duke\ui\TaskUi.java ^
+..\src\main\java\duke\ui\Ui.java
+
 
 
 IF ERRORLEVEL 1 (

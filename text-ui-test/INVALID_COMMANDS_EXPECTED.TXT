@@ -1,3 +1,8 @@
++-------------------------------------------+
+|                                           |
+|   Data file created under data/duke.txt   |
+|                                           |
++-------------------------------------------+
  _    _      _
 | |  | |    | |
 | |  | | ___| | ___ ___  _ __ ___   ___
@@ -10,19 +15,31 @@ ____________________________________________________________
 // \  What can I do for you?
 |_/|
 ____________________________________________________________
-
-Data file created under data/duke.txt
-
-Command not valid, please try again :(
-
-Please enter parameters after the command
-
-Please enter parameters after the command
-
-Please enter parameters after the command
-
-Please enter parameters after the command
-
++--------------------------------------------+
+|                                            |
+|   Command not valid, please try again :(   |
+|                                            |
++--------------------------------------------+
++-----------------------------------------------+
+|                                               |
+|   Please enter parameters after the command   |
+|                                               |
++-----------------------------------------------+
++-----------------------------------------------+
+|                                               |
+|   Please enter parameters after the command   |
+|                                               |
++-----------------------------------------------+
++-----------------------------------------------+
+|                                               |
+|   Please enter parameters after the command   |
+|                                               |
++-----------------------------------------------+
++-----------------------------------------------+
+|                                               |
+|   Please enter parameters after the command   |
+|                                               |
++-----------------------------------------------+
 ____________________________________________________________
  __
 ( ")  Bye! I said with a disappointed look.

@@ -1,3 +1,8 @@
++-------------------------------------------+
+|                                           |
+|   Data file created under data/duke.txt   |
+|                                           |
++-------------------------------------------+
  _    _      _
 | |  | |    | |
 | |  | | ___| | ___ ___  _ __ ___   ___
@@ -10,45 +15,90 @@ ____________________________________________________________
 // \  What can I do for you?
 |_/|
 ____________________________________________________________
-
-Data file created under data/duke.txt
-
-Sorry but parameter entered is not a integer
-
-Sorry but parameter entered is not within range of list
-
-Sorry but parameter entered is not a integer
-
-Sorry but parameter entered is not a integer
-
-No task in your list. Add some!
-
-Command is missing the /by literal
-
-Command is missing the /by literal
-
-Command is missing the /by literal
-
-Command is missing the /by literal
-
-Task successfully added, I said with a posed look.
-[D][✘] do homework (by: summer)
-Now you have a total of 1 tasks in the list
-
-Command is missing the /at literal
-
-Command is missing the /at literal
-
-Task successfully added, I said with a posed look.
-[E][✘] party (at: 2pm)
-Now you have a total of 2 tasks in the list
-
-Sorry but parameter entered is not a integer
-
-Sorry but parameter entered is not within range of list
-
-Sorry but parameter entered is not a integer
-
++--------------------------------------------------+
+|                                                  |
+|   Sorry but parameter entered is not a integer   |
+|                                                  |
++--------------------------------------------------+
++-------------------------------------------------------------+
+|                                                             |
+|   Sorry but parameter entered is not within range of list   |
+|                                                             |
++-------------------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Sorry but parameter entered is not a integer   |
+|                                                  |
++--------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Sorry but parameter entered is not a integer   |
+|                                                  |
++--------------------------------------------------+
++-------------------------------------+
+|                                     |
+|   No task in your list. Add some!   |
+|                                     |
++-------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /by literal   |
+|                                        |
++----------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /by literal   |
+|                                        |
++----------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /by literal   |
+|                                        |
++----------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /by literal   |
+|                                        |
++----------------------------------------+
++--------------------------------------------------------+
+|                                                        |
+|   Task successfully added, I said with a posed look.   |
+|   [D][✘] do homework (by: summer)                      |
+|   You now have a total of 1 tasks in the list          |
+|                                                        |
++--------------------------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /at literal   |
+|                                        |
++----------------------------------------+
++----------------------------------------+
+|                                        |
+|   Command is missing the /at literal   |
+|                                        |
++----------------------------------------+
++--------------------------------------------------------+
+|                                                        |
+|   Task successfully added, I said with a posed look.   |
+|   [E][✘] party (at: 2pm)                               |
+|   You now have a total of 2 tasks in the list          |
+|                                                        |
++--------------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Sorry but parameter entered is not a integer   |
+|                                                  |
++--------------------------------------------------+
++-------------------------------------------------------------+
+|                                                             |
+|   Sorry but parameter entered is not within range of list   |
+|                                                             |
++-------------------------------------------------------------+
++--------------------------------------------------+
+|                                                  |
+|   Sorry but parameter entered is not a integer   |
+|                                                  |
++--------------------------------------------------+
 ____________________________________________________________
  __
 ( ")  Bye! I said with a disappointed look.
