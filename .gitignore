@@ -14,7 +14,7 @@ src/main/resources/docs/
 bin/
 
 # test files from text-ui-test
-/text-ui-test/*_ACTUAL.txt
+/text-ui-test/*_ACTUAL.TXT
 /text-ui-test/data/
 
 # manifest file from build artifacts

@@ -9,7 +9,7 @@ import duke.command.DoneCommand;
 import duke.command.IllegalCommandException;
 import duke.command.ListCommand;
 
-import duke.task.IllegalParameterException;
+import duke.task.MissingTaskLiteralException;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
@@ -47,8 +47,12 @@ public class CommandParser {
             executeCommand();
         } catch (IllegalCommandException e) {
             commandUi.printInvalidCommand();
-        } catch (IndexOutOfBoundsException | IllegalParameterException e) {
+        } catch (IndexOutOfBoundsException e) {
             commandUi.printInvalidParameters();
+        } catch (MissingTaskLiteralException e) {
+            commandUi.printMissingLiteral(e.getMessage());
+        } catch (NumberFormatException e) {
+            commandUi.printTaskDoneNotInteger();
         }
 
         return commandType;
@@ -83,7 +87,11 @@ public class CommandParser {
             commandUi.printNoCommandRan();
         }
 
-        command.execute();
+        try {
+            command.execute();
+        } catch (IndexOutOfBoundsException e) {
+            commandUi.printTaskDoneNotInRange();
+        }
     }
 
     private void extractCommand() throws IllegalCommandException {

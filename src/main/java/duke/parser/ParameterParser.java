@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.command.CommandType;
-import duke.task.IllegalParameterException;
 import duke.task.MissingTaskLiteralException;
 import duke.ui.CommandUi;
 
@@ -21,7 +20,7 @@ public class ParameterParser {
         commandUi = new CommandUi();
     }
 
-    public ParameterData processParameters() throws IllegalParameterException {
+    public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException {
         try {
             switch (commandType) {
             case DONE:
@@ -35,18 +34,15 @@ public class ParameterParser {
             case TODO:
                 setTodoParameter();
                 break;
+            case BYE:
+            case LIST:
+                parameterData = null;
+                break;
             default:
-                // todo
+                throw new IllegalStateException();
             }
-        } catch (MissingTaskLiteralException e) {
-            commandUi.printMissingLiteral(e.getMessage());
-            throw new IllegalParameterException();
-        } catch (NumberFormatException e) {
-            commandUi.printTaskDoneNotInteger();
-            throw new IllegalParameterException();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {
             commandUi.printTaskDoneNotInRange();
-            throw new IllegalParameterException();
         }
 
         return parameterData;

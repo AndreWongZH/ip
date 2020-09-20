@@ -74,7 +74,7 @@ public class FileManager implements FileAction {
         } catch (FileCorruptedException | ArrayIndexOutOfBoundsException e) {
             handleCorruptFile();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     private ArrayList<String> getFileData() {
