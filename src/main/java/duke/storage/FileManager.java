@@ -10,27 +10,19 @@ import java.util.Scanner;
 
 import duke.parser.DataParser;
 import duke.task.Task;
+import duke.ui.FileUi;
 
 public class FileManager implements FileAction {
-    private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write\n";
-    private static final String ERROR_FILE_NOT_FOUND = "Error file not found\n";
-    private static final String ERROR_CORRUPT_FILE = "Error, data file might be corrupted\n";
-    private static final String ERROR_UNABLE_TO_CREATE_DATA_FILE = "Unable to create data file\n";
-    private static final String ERROR_UNABLE_TO_DELETE_FILE = "Unable to delete file\n";
-    private static final String ERROR_UNABLE_TO_CREATE_DIRECTORY = "Unable to create directory\n";
-
-    private static final String SUCCESS_DATA_FILE_CREATED = "Data file created under data/duke.txt\n";
-    private static final String SUCCESS_FILE_DELETED = "Corrupt file deleted\n";
-    private static final String SUCCESS_DATA_DIRECTORY_CREATED = "Data directory created\n";
-
     private static final String FILE_NAME = "duke.txt";
     private static final String DATA_DIRECTORY = "data";
     private static final String FILE_PATH = "./data/duke.txt";
 
     private final Path filePath;
     private final Path directoryPath;
+    private final FileUi fileUi;
 
     public FileManager() {
+        this.fileUi = new FileUi();
         filePath = Paths.get(DATA_DIRECTORY, FILE_NAME);
         directoryPath = Paths.get(DATA_DIRECTORY);
         validatePaths();
@@ -72,7 +64,7 @@ public class FileManager implements FileAction {
             }
             fw.close();
         } catch (IOException e) {
-            printUnableToWriteFile();
+            fileUi.printUnableToWriteFile();
         }
     }
 
@@ -95,7 +87,7 @@ public class FileManager implements FileAction {
                 fileData.add(s.nextLine());
             }
         } catch (IOException e) {
-            printFileNotFound();
+            fileUi.printFileNotFound();
         } catch (ArrayIndexOutOfBoundsException e) {
             handleCorruptFile();
         }
@@ -113,7 +105,7 @@ public class FileManager implements FileAction {
     }
 
     private void handleCorruptFile() {
-        printCorruptFile();
+        fileUi.printCorruptFile();
         deleteDataFile();
         createDataFile();
     }
@@ -121,63 +113,27 @@ public class FileManager implements FileAction {
     private void createDataDirectory() {
         try {
             Files.createDirectory(directoryPath);
-            printDirCreated();
+            fileUi.printDirCreated();
         } catch (IOException e) {
-            printUnableToCreateDir();
+            fileUi.printUnableToCreateDir();
         }
     }
 
     private void createDataFile() {
         try {
             Files.createFile(filePath);
-            printFileCreated();
+            fileUi.printFileCreated();
         } catch (IOException e) {
-            printUnableToCreateFile();
+            fileUi.printUnableToCreateFile();
         }
     }
 
     private void deleteDataFile() {
         try {
             Files.deleteIfExists(filePath);
-            printFileDeleted();
+            fileUi.printFileDeleted();
         } catch (IOException e) {
-            printUnableToDeleteFile();
+            fileUi.printUnableToDeleteFile();
         }
-    }
-
-    private static void printDirCreated() {
-        System.out.println(SUCCESS_DATA_DIRECTORY_CREATED);
-    }
-
-    private static void printUnableToCreateDir() {
-        System.out.println(ERROR_UNABLE_TO_CREATE_DIRECTORY);
-    }
-
-    private static void printFileDeleted() {
-        System.out.println(SUCCESS_FILE_DELETED);
-    }
-
-    private static void printUnableToDeleteFile() {
-        System.out.println(ERROR_UNABLE_TO_DELETE_FILE);
-    }
-
-    private static void printFileCreated() {
-        System.out.println(SUCCESS_DATA_FILE_CREATED);
-    }
-
-    private static void printUnableToCreateFile() {
-        System.out.println(ERROR_UNABLE_TO_CREATE_DATA_FILE);
-    }
-
-    private static void printUnableToWriteFile() {
-        System.out.println(ERROR_UNABLE_TO_WRITE_FILE);
-    }
-
-    private static void printFileNotFound() {
-        System.out.println(ERROR_FILE_NOT_FOUND);
-    }
-
-    private static void printCorruptFile() {
-        System.out.println(ERROR_CORRUPT_FILE);
     }
 }

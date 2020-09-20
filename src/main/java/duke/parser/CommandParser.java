@@ -1,22 +1,21 @@
 package duke.parser;
 
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.CommandType;
-import duke.command.IllegalCommandException;
-import duke.command.AddCommand;
-import duke.command.ListCommand;
-import duke.command.ByeCommand;
-import duke.command.DoneCommand;
 import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.IllegalCommandException;
+import duke.command.ListCommand;
 
+import duke.task.IllegalParameterException;
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
-public class CommandParser {
-    private static final String ERROR_NO_COMMAND_RAN = "No command executed\n";
-    private static final String ERROR_COMMAND_NOT_VALID = "Command not valid, please try again :(\n";
-    private static final String ERROR_INVALID_PARAMETERS = "Please enter parameters after the command\n";
+import duke.ui.CommandUi;
 
+public class CommandParser {
     private static final int INDEX_AFTER_DONE = 5;
     private static final int INDEX_AFTER_TODO = 5;
     private static final int INDEX_AFTER_DEADLINE = 9;
@@ -25,6 +24,8 @@ public class CommandParser {
 
     private final String userInput;
     private final TaskManager taskManager;
+    private final CommandUi commandUi;
+
     private String parameters;
     private CommandType commandType;
     private ParameterData parameterData;
@@ -35,6 +36,7 @@ public class CommandParser {
         this.commandType = null;
         this.parameters = null;
         this.parameterData = null;
+        this.commandUi = new CommandUi();
     }
 
     public CommandType parseCommand() {
@@ -44,9 +46,9 @@ public class CommandParser {
             parameterData = new ParameterParser(commandType, parameters).processParameters();
             executeCommand();
         } catch (IllegalCommandException e) {
-            printInvalidCommand();
-        } catch (IndexOutOfBoundsException e) {
-            printInvalidParameters();
+            commandUi.printInvalidCommand();
+        } catch (IndexOutOfBoundsException | IllegalParameterException e) {
+            commandUi.printInvalidParameters();
         }
 
         return commandType;
@@ -78,7 +80,7 @@ public class CommandParser {
             command = new ByeCommand(taskManager);
             break;
         default:
-            printNoCommandRan();
+            commandUi.printNoCommandRan();
         }
 
         command.execute();
@@ -125,17 +127,5 @@ public class CommandParser {
         default:
             parameters = null;
         }
-    }
-
-    public void printInvalidCommand() {
-        System.out.println(ERROR_COMMAND_NOT_VALID);
-    }
-
-    public void printInvalidParameters() {
-        System.out.println(ERROR_INVALID_PARAMETERS);
-    }
-
-    public static void printNoCommandRan() {
-        System.out.println(ERROR_NO_COMMAND_RAN);
     }
 }

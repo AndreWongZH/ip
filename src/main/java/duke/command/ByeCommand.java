@@ -1,26 +1,20 @@
 package duke.command;
 
 import duke.task.TaskManager;
+import duke.ui.InputUi;
 
 public class ByeCommand extends Command {
-    private static final String MESSAGE_GOODBYE = "____________________________________________________________\n" +
-            " __\n" +
-            "( \")  Bye! I said with a disappointed look.\n" +
-            "|| \\\n" +
-            "|_||\n" +
-            "____________________________________________________________";
+
+    private final InputUi inputUi;
 
     public ByeCommand(TaskManager taskManager) {
         super(taskManager);
+        inputUi = new InputUi();
     }
 
     @Override
     public void execute() {
-        printGoodbye();
+        inputUi.printGoodbye();
         // TODO: 19/9/2020  Print task count here
-    }
-
-    private static void printGoodbye() {
-        System.out.println(MESSAGE_GOODBYE);
     }
 }

@@ -1,25 +1,27 @@
 package duke.parser;
 
 import duke.command.CommandType;
+import duke.task.IllegalParameterException;
 import duke.task.MissingTaskLiteralException;
+import duke.ui.CommandUi;
 
 public class ParameterParser {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
-    private static final String ERROR_NOT_INTEGER = "Sorry but parameter entered is not a integer\n";
-    private static final String ERROR_NOT_IN_RANGE = "Sorry but parameter entered is not within range of list\n";
 
     private final CommandType commandType;
     private final String userInput;
     private ParameterData parameterData;
+    private final CommandUi commandUi;
 
     public ParameterParser(CommandType commandType, String userInput) {
         this.commandType = commandType;
         this.userInput = userInput;
         parameterData = null;
+        commandUi = new CommandUi();
     }
 
-    public ParameterData processParameters() {
+    public ParameterData processParameters() throws IllegalParameterException {
         try {
             switch (commandType) {
             case DONE:
@@ -37,11 +39,14 @@ public class ParameterParser {
                 // todo
             }
         } catch (MissingTaskLiteralException e) {
-            printMissingLiteral(e.getMessage());
+            commandUi.printMissingLiteral(e.getMessage());
+            throw new IllegalParameterException();
         } catch (NumberFormatException e) {
-            printTaskDoneNotInteger();
+            commandUi.printTaskDoneNotInteger();
+            throw new IllegalParameterException();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            printTaskDoneNotInRange();
+            commandUi.printTaskDoneNotInRange();
+            throw new IllegalParameterException();
         }
 
         return parameterData;
@@ -75,24 +80,12 @@ public class ParameterParser {
         parameterData = new ParameterData(description, dateTime);
     }
 
-    /** returns the index of the task in the tasklist */
+    /** returns the index of the task in tasks */
     private void getTaskNumber() throws NumberFormatException {
         parameterData =  new ParameterData(Integer.parseInt(userInput) - 1);
     }
 
     private void setTodoParameter() {
         parameterData = new ParameterData(userInput);
-    }
-
-    private void printMissingLiteral(String literal) {
-        System.out.println("Command is missing the" + literal + "literal\n");
-    }
-
-    private void printTaskDoneNotInteger() {
-        System.out.println(ERROR_NOT_INTEGER);
-    }
-
-    private void printTaskDoneNotInRange() {
-        System.out.println(ERROR_NOT_IN_RANGE);
     }
 }

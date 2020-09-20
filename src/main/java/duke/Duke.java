@@ -1,25 +1,24 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import duke.command.CommandType;
-
-import duke.command.GreetCommand;
-import duke.storage.FileManager;
 import duke.parser.CommandParser;
+import duke.storage.FileManager;
 import duke.task.Task;
 import duke.task.TaskManager;
+import duke.ui.InputUi;
 
 public class Duke {
-    private static final Scanner in = new Scanner(System.in);
     private static TaskManager taskManager;
+    private static InputUi inputUi;
     private static boolean isActive;
 
     public Duke() {
         FileManager fileManager = new FileManager();
         ArrayList<Task> previousData = fileManager.loadData();
         taskManager = new TaskManager(fileManager, previousData);
+        inputUi = new InputUi();
     }
 
     public static void main(String[] args) {
@@ -29,21 +28,27 @@ public class Duke {
     public void run() {
         isActive = true;
 
-        GreetCommand.printGreeting();
+        inputUi.greetUser();
         while (isActive) {
-            String userInput = readUserInput();
-            CommandType commandType = new CommandParser(taskManager, userInput).parseCommand();
-            if (commandType == CommandType.BYE) {
-                exitProgram();
+            String userInput = inputUi.readUserInput();
+            if (hasUserInput(userInput)) {
+                CommandType commandType = new CommandParser(taskManager, userInput).parseCommand();
+                checkTerminate(commandType);
             }
         }
     }
 
-    private String readUserInput() {
-        return in.nextLine();
+    private void checkTerminate(CommandType commandType) {
+        if (commandType == CommandType.BYE) {
+            exitProgram();
+        }
     }
 
     private void exitProgram() {
         isActive = false;
+    }
+
+    private boolean hasUserInput(String userInput) {
+        return userInput != null;
     }
 }
