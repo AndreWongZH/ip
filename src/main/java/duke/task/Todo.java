@@ -1,7 +1,7 @@
 package duke.task;
 
 public class Todo extends Task {
-    private static final String TODO_TAG = "T";
+    public static final String TODO_TAG = "T";
     private static final String TODO_TAG_ENCLOSED = "[T]";
 
     public Todo(String description) {
