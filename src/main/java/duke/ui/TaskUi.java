@@ -13,6 +13,7 @@ public class TaskUi extends Ui {
     private static final String PRINT_TASK_ADD_HEADING = "Task successfully added, I said with a posed look.";
     private static final String PRINT_TASK_REMOVE_HEADING = "Understood, removed task %d:";
     private static final String PRINT_TASK_DONE_HEADING = "Understood, setting task %d as done:";
+    private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
 
     public void printTaskNotFound() {
         generateTextBorder(ERROR_TASK_TYPE_NOT_FOUND);
@@ -50,6 +51,10 @@ public class TaskUi extends Ui {
 
         outputText = addOutputText(tasks);
         generateMultiLineTextBorder(outputText);
+    }
+
+    public void printTaskListSearchEmpty() {
+        generateTextBorder(ERROR_SEARCH_NOT_FOUND);
     }
 
     private ArrayList<String> addOutputText(ArrayList<Task> tasks) {

@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Todo extends Task {
     public static final String TODO_TAG = "T";
     private static final String TODO_TAG_ENCLOSED = "[T]";
@@ -20,5 +22,10 @@ public class Todo extends Task {
     @Override
     public String convertToData() {
         return TODO_TAG + super.convertToData();
+    }
+
+    @Override
+    LocalDate convertToDate() {
+        return LocalDate.now();
     }
 }

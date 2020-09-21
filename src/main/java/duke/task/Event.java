@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -45,5 +46,10 @@ public class Event extends Task implements DateTimePrintable {
     public String formatDateTimeToFile() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimeFormat.FORMAT_2.getFormatStyle());
         return at.format(formatter);
+    }
+
+    @Override
+    public LocalDate convertToDate() {
+        return at.toLocalDate();
     }
 }
