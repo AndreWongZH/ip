@@ -5,21 +5,43 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeParser {
-    private final String dateTimeInput;
+    private static final String OLD_AM = "am";
+    private static final String OLD_PM = "pm";
+    private static final String NEW_AM = "AM";
+    private static final String NEW_PM = "PM";
+
+    private String dateTimeInput;
     LocalDateTime dateTime;
     boolean isMatchFormat;
 
     public DateTimeParser(String dateTimeInput) {
-        this.dateTimeInput = dateTimeInput;
+        this.dateTimeInput = dateTimeInput.toLowerCase();
         dateTime = null;
         isMatchFormat = false;
     }
 
     public LocalDateTime formatDate() throws DateTimeFormatException {
+        sanitizeInput();
         fitInputToFormat();
         checkFormatIsMatched();
 
         return dateTime;
+    }
+
+    private void sanitizeInput() {
+        sanitizeMonth();
+        sanitizeAmPm();
+    }
+
+    private void sanitizeAmPm() {
+        dateTimeInput = dateTimeInput.replace(OLD_AM, NEW_AM);
+        dateTimeInput = dateTimeInput.replace(OLD_PM, NEW_PM);
+    }
+
+    private void sanitizeMonth() {
+        for (Month month : Month.values()) {
+            dateTimeInput = dateTimeInput.replace(month.getOldInput(), month.getNewInput());
+        }
     }
 
     private void fitInputToFormat() {
