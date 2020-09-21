@@ -1,5 +1,7 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+
 import duke.command.CommandType;
 import duke.task.MissingTaskLiteralException;
 import duke.ui.CommandUi;
@@ -20,7 +22,7 @@ public class ParameterParser {
         commandUi = new CommandUi();
     }
 
-    public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException {
+    public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException, DateTimeFormatException {
         try {
             switch (commandType) {
             case DONE:
@@ -49,10 +51,10 @@ public class ParameterParser {
     }
 
     /**  splits user input into descriptions and date/time */
-    private void splitUserInput() throws MissingTaskLiteralException, IllegalStateException {
+    private void splitUserInput() throws MissingTaskLiteralException, IllegalStateException, DateTimeFormatException {
         int index;
         String description;
-        String dateTime;
+        LocalDateTime dateTime;
 
         switch (commandType) {
         case DEADLINE:
@@ -72,7 +74,7 @@ public class ParameterParser {
         }
 
         description = userInput.substring(0, index);
-        dateTime = userInput.substring(index + 5);
+        dateTime = new DateTimeParser(userInput.substring(index + 5)).formatDate();
         parameterData = new ParameterData(description, dateTime);
     }
 

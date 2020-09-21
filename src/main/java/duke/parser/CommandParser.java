@@ -53,6 +53,8 @@ public class CommandParser {
             commandUi.printMissingLiteral(e.getMessage());
         } catch (NumberFormatException e) {
             commandUi.printTaskDoneNotInteger();
+        } catch (DateTimeFormatException e) {
+            commandUi.printDateTimeFormatIncorrect();
         }
 
         return commandType;
