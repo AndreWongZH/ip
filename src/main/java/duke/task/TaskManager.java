@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.storage.FileManager;
@@ -29,7 +30,7 @@ public class TaskManager implements TaskAction {
      * @param description text of the user input to store.
      */
     @Override
-    public void addTask(TaskType taskType, String description, String dateTime) {
+    public void addTask(TaskType taskType, String description, LocalDateTime dateTime) {
         Task task;
 
         try {

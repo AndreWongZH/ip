@@ -1,12 +1,14 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
 public class AddCommand extends Command {
     private final TaskType taskType;
     private final String description;
-    private String dateTime;
+    private LocalDateTime dateTime;
 
 
     public AddCommand(TaskManager taskManager, TaskType taskType, String description) {
@@ -15,7 +17,7 @@ public class AddCommand extends Command {
         this.description = description;
     }
 
-    public AddCommand(TaskManager taskManager, TaskType taskType, String description, String dateTime) {
+    public AddCommand(TaskManager taskManager, TaskType taskType, String description, LocalDateTime dateTime) {
         this(taskManager, taskType, description);
         this.dateTime = dateTime;
     }

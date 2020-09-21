@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 import duke.storage.FileWritable;
 
 public class Deadline extends Task {
@@ -8,19 +10,14 @@ public class Deadline extends Task {
     private static final String BY_OPEN_TEXT = " (by: ";
     private static final String BY_CLOSE_TEXT = ")";
 
-    protected final String by;
+    protected final LocalDateTime by;
 
-    public Deadline(String[] details) {
-        super(details[0]);
-        by = details[1];
-    }
-
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(Boolean done, String description, String by) {
+    public Deadline(Boolean done, String description, LocalDateTime by) {
         super(done, description);
         this.by = by;
     }

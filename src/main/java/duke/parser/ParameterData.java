@@ -1,9 +1,11 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+
 public class ParameterData {
     private final int taskNumber;
     private final String description;
-    private final String dateTime;
+    private final LocalDateTime dateTime;
 
     public ParameterData(int taskNumber) {
         this.taskNumber = taskNumber;
@@ -17,7 +19,7 @@ public class ParameterData {
         dateTime = null;
     }
 
-    public ParameterData(String description, String dateTime) {
+    public ParameterData(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;
         taskNumber = 0;
@@ -31,7 +33,7 @@ public class ParameterData {
         return description;
     }
 
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 }

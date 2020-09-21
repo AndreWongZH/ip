@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDateTime;
+
 import duke.storage.FileWritable;
 
 public class Event extends Task {
@@ -8,19 +10,14 @@ public class Event extends Task {
     private static final String AT_OPEN_TEXT = " (at: ";
     private static final String AT_CLOSE_TEXT = ")";
 
-    private final String at;
+    private final LocalDateTime at;
 
-    public Event(String[] details) {
-        super(details[0]);
-        at = details[1];
-    }
-
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime at) {
         super(description);
         this.at = at;
     }
 
-    public Event(Boolean done, String description, String at) {
+    public Event(Boolean done, String description, LocalDateTime at) {
         super(done, description);
         this.at = at;
     }

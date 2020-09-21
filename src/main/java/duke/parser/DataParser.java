@@ -1,5 +1,6 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import duke.storage.FileCorruptedException;
@@ -19,16 +20,19 @@ public class DataParser {
             String taskType = params[0];
             Boolean done = Integer.parseInt(params[1]) == 1;
             String description = params[2];
+            LocalDateTime dateTime = null;
 
             switch(taskType) {
             case "T":
                 task = new Todo(done, description);
                 break;
             case "D":
-                task = new Deadline(done, description, params[3]);
+                dateTime = LocalDateTime.parse(params[3]);
+                task = new Deadline(done, description, dateTime);
                 break;
             case "E":
-                task = new Event(done, description, params[3]);
+                dateTime = LocalDateTime.parse(params[3]);
+                task = new Event(done, description, dateTime);
                 break;
             default:
                 throw new FileCorruptedException();
