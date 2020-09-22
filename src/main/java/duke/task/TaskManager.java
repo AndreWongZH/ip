@@ -1,11 +1,12 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 
 import duke.storage.FileManager;
 import duke.ui.TaskUi;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Stores and add to the list of tasks.
@@ -31,7 +32,7 @@ public class TaskManager implements TaskAction {
      * @param description text of the user input to store.
      */
     @Override
-    public void addTask(TaskType taskType, String description, String dateTime) {
+    public void addTask(TaskType taskType, String description, LocalDateTime dateTime) {
         Task task;
 
         try {
@@ -56,27 +57,34 @@ public class TaskManager implements TaskAction {
         }
     }
 
-    /**
-     * Prints the entire list of user's tasks.
-     */
     @Override
     public void printAllTasks() {
         if (tasks.size() == LIST_EMPTY) {
             taskUi.printTaskListEmpty();
             return;
         }
+
         taskUi.printTasksList(tasks);
     }
 
+    /**
+     * Prints the entire list of user's tasks.
+     */
+    @Override
+    public void filterByDate(LocalDate matchDate) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.convertToDate().equals(matchDate))
+                .collect(toList());
+
+        printTasks(filteredTasks);
+    }
+
+    @Override
     public void filterByString(String filterString) {
         ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
                 .collect(toList());
 
-        if (filteredTasks.size() == LIST_EMPTY) {
-            taskUi.printTaskListEmpty();
-            return;
-        }
-        taskUi.printTasksList(filteredTasks);
+        printTasks(filteredTasks);
     }
 
     /**
@@ -105,6 +113,15 @@ public class TaskManager implements TaskAction {
         task = tasks.remove(taskNumber);
         taskUi.printTaskRemoved(task, taskNumber, tasks.size());
         fileManager.writeToFile(tasks);
+    }
+
+    private void printTasks(ArrayList<Task> tasks) {
+        if (tasks.size() == LIST_EMPTY) {
+            taskUi.printTaskListSearchEmpty();
+            return;
+        }
+
+        taskUi.printTasksList(tasks);
     }
 
     /** add a task instance to taskList */

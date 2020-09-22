@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.parser.DataParser;
+import duke.parser.DateTimeFormatException;
 import duke.task.Task;
 import duke.ui.FileUi;
 
@@ -71,7 +72,7 @@ public class FileManager implements FileAction {
     private ArrayList<Task> parseFileData(ArrayList<String> fileData) {
         try {
             return DataParser.fileToTask(fileData);
-        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException e) {
+        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException | DateTimeFormatException e) {
             handleCorruptFile();
         }
         return new ArrayList<>();
