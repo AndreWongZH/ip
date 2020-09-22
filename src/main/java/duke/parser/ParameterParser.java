@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import duke.command.CommandType;
 import duke.task.MissingTaskLiteralException;
-import duke.ui.CommandUi;
 
 public class ParameterParser {
     private static final String BY_LITERAL = " /by ";
@@ -36,7 +35,8 @@ public class ParameterParser {
             splitUserInput();
             break;
         case TODO:
-            setTodoParameter();
+        case FIND:
+            setUserInputAsParameter();
             break;
         case LIST:
             if (hasParameter()) {
@@ -107,7 +107,7 @@ public class ParameterParser {
         parameterData =  new ParameterData(Integer.parseInt(userInput) - 1);
     }
 
-    private void setTodoParameter() {
+    private void setUserInputAsParameter() {
         parameterData = new ParameterData(userInput);
     }
 }

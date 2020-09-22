@@ -35,6 +35,10 @@ public abstract class Task implements FileWritable {
         return FileWritable.SEPARATOR + convertDoneToString() + FileWritable.SEPARATOR + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Sets the task done boolean to the parameter value.
      *

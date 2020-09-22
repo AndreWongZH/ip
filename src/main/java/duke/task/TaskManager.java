@@ -3,7 +3,6 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import static java.util.stream.Collectors.toList;
 
 import duke.storage.FileManager;
@@ -58,27 +57,34 @@ public class TaskManager implements TaskAction {
         }
     }
 
-    /**
-     * Prints the entire list of user's tasks.
-     */
     @Override
-    public void printAllTasks(LocalDate matchDate) {
+    public void printAllTasks() {
         if (tasks.size() == LIST_EMPTY) {
             taskUi.printTaskListEmpty();
             return;
         }
-        ArrayList<Task> newTasks = tasks;
 
-        if (matchDate != null) {
-            newTasks = filterTasksByDate(matchDate);
-        }
+        taskUi.printTasksList(tasks);
+    }
 
-        if (newTasks.size() == LIST_EMPTY) {
-            taskUi.printTaskListSearchEmpty();
-            return;
-        }
+    /**
+     * Prints the entire list of user's tasks.
+     */
+    @Override
+    public void filterByDate(LocalDate matchDate) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.convertToDate().equals(matchDate))
+                .collect(toList());
 
-        taskUi.printTasksList(newTasks);
+        printTasks(filteredTasks);
+    }
+
+    @Override
+    public void filterByString(String filterString) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
+                .collect(toList());
+
+        printTasks(filteredTasks);
     }
 
     /**
@@ -109,14 +115,17 @@ public class TaskManager implements TaskAction {
         fileManager.writeToFile(tasks);
     }
 
+    private void printTasks(ArrayList<Task> tasks) {
+        if (tasks.size() == LIST_EMPTY) {
+            taskUi.printTaskListSearchEmpty();
+            return;
+        }
+
+        taskUi.printTasksList(tasks);
+    }
+
     /** add a task instance to taskList */
     private void addTaskToList(Task task) {
         tasks.add(task);
-    }
-
-    private ArrayList<Task> filterTasksByDate(LocalDate matchDate) {
-        return (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.convertToDate().equals(matchDate))
-                .collect(toList());
     }
 }

@@ -19,6 +19,10 @@ public class ListCommand extends Command {
 
     @Override
     public void execute() {
-        taskManager.printAllTasks(matchDate);
+        if (matchDate == null) {
+            taskManager.printAllTasks();
+            return;
+        }
+        taskManager.filterByDate(matchDate);
     }
 }
