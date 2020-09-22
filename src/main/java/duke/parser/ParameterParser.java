@@ -4,6 +4,9 @@ import duke.command.CommandType;
 import duke.task.MissingTaskLiteralException;
 import duke.ui.CommandUi;
 
+/**
+ * Represents the process of extracting out the parameters from user input.
+ */
 public class ParameterParser {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
@@ -20,6 +23,14 @@ public class ParameterParser {
         commandUi = new CommandUi();
     }
 
+    /**
+     * Returns a parameterData object after extracting the parameters.
+     * ParameterData can be null.
+     *
+     * @return A parameterData object.
+     * @throws NumberFormatException If parameter is not an integer.
+     * @throws MissingTaskLiteralException If user input is missing task literal.
+     */
     public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException {
         try {
             switch (commandType) {
@@ -48,7 +59,13 @@ public class ParameterParser {
         return parameterData;
     }
 
-    /**  splits user input into descriptions and date/time */
+    /**
+     * Splits user input into descriptions and date/time.
+     * Sets the parameterData based on the split parameters.
+     *
+     * @throws MissingTaskLiteralException If user input is missing task literal.
+     * @throws IllegalStateException If there are commandType that are not deadline or event.
+     */
     private void splitUserInput() throws MissingTaskLiteralException, IllegalStateException {
         int index;
         String description;
@@ -76,7 +93,11 @@ public class ParameterParser {
         parameterData = new ParameterData(description, dateTime);
     }
 
-    /** returns the index of the task in tasks */
+    /**
+     * Returns the index of the task in tasks.
+     *
+     * @throws NumberFormatException If parameter is not an integer.
+     */
     private void getTaskNumber() throws NumberFormatException {
         parameterData =  new ParameterData(Integer.parseInt(userInput) - 1);
     }

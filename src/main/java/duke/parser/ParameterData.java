@@ -1,5 +1,8 @@
 package duke.parser;
 
+/**
+ * Represents an object to hold all types of parameters required for different commands.
+ */
 public class ParameterData {
     private final int taskNumber;
     private final String description;
