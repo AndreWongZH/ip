@@ -10,6 +10,6 @@ public interface TaskAction {
     void addTask(TaskType taskType, String description, LocalDateTime dateTime);
     void printAllTasks();
     void findTask(String filterString, LocalDate matchDate, TimeSearch timeSearch);
-    void setTaskDone(int taskNumber);
+    void toggleTaskDone(int taskNumber);
     void deleteTask(int taskNumber);
 }

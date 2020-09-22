@@ -14,10 +14,10 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Calls the taskManager instance to set task to done.
+     * Calls the taskManager instance to toggle task's done.
      */
     @Override
     public void execute() {
-        taskManager.setTaskDone(taskIndex);
+        taskManager.toggleTaskDone(taskIndex);
     }
 }

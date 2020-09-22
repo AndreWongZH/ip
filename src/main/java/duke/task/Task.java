@@ -55,12 +55,10 @@ public abstract class Task implements FileWritable {
     }
 
     /**
-     * Sets the task done boolean to the parameter value.
-     *
-     * @param isDone Boolean status of the task.
+     * Toggles the task done boolean to the parameter value.
      */
-    protected void setDone(boolean isDone) {
-        this.isDone = isDone;
+    protected void toggleDone() {
+        this.isDone = !isDone;
     }
 
     /**
@@ -79,5 +77,9 @@ public abstract class Task implements FileWritable {
      */
     protected String convertDoneToString() {
         return (isDone ? "1" : "0");
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 }

@@ -78,7 +78,7 @@ public class ParameterParser {
      */
     private void setFindParameter() throws DateTimeFormatException {
         TimeSearch timeSearch;
-        int index = 0;
+        int index;
         if (userInput.contains(ON_LITERAL)) {
             index = userInput.indexOf(ON_LITERAL);
             timeSearch = TimeSearch.CURRENT;

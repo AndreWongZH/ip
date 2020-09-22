@@ -55,7 +55,7 @@ public class DateTimeParser {
         }
     }
 
-    /* Checks which format the userinput's string matches */
+    /* Checks which format the user input matches */
     private void fitInputToFormat() {
         for (DateTimeFormat format : DateTimeFormat.values()) {
             try {

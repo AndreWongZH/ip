@@ -109,16 +109,16 @@ public class TaskManager implements TaskAction {
     }
 
     /**
-     * Sets the particular task to be done.
-     * Prints to user that task has been set to done.
-     * Write data to file after task has been set to done.
+     * Toggles the particular task to be done.
+     * Prints to user that task's done has been toggled.
+     * Write data to file after task's done has been toggled.
      *
      * @param taskNumber Corresponding value of the task to be set done.
      */
     @Override
-    public void setTaskDone(int taskNumber) {
-        tasks.get(taskNumber).setDone(true);
-        taskUi.printSetTaskDone(tasks.get(taskNumber), taskNumber);
+    public void toggleTaskDone(int taskNumber) {
+        tasks.get(taskNumber).toggleDone();
+        taskUi.printToggleTaskDone(tasks.get(taskNumber), taskNumber);
         fileManager.writeToFile(tasks);
     }
 

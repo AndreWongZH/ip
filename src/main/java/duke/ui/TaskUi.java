@@ -16,6 +16,7 @@ public class TaskUi extends Ui {
     private static final String PRINT_TASK_ADD_HEADING = "Task successfully added, I said with a posed look.";
     private static final String PRINT_TASK_REMOVE_HEADING = "Understood, removed task %d:";
     private static final String PRINT_TASK_DONE_HEADING = "Understood, setting task %d as done:";
+    private static final String PRINT_TASK_NOT_DONE_HEADING = "Understood, reverting task %d back as not done:";
     private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
 
     /**
@@ -32,14 +33,16 @@ public class TaskUi extends Ui {
     }
 
     /**
-     * Prints output to user after a task is set to done.
+     * Prints output to user after a task's done is toggled.
      *
      * @param task Task object that have just been sent to done.
      * @param taskNumber Number that corresponds to that task in the task list.
      */
-    public void printSetTaskDone(Task task, int taskNumber) {
+    public void printToggleTaskDone(Task task, int taskNumber) {
+        String taskHeading = task.getIsDone() ? PRINT_TASK_DONE_HEADING : PRINT_TASK_NOT_DONE_HEADING;
+
         generateMultiLineTextBorder(
-                String.format(PRINT_TASK_DONE_HEADING, taskNumber + 1),
+                String.format(taskHeading, taskNumber + 1),
                 task.toString());
     }
 
