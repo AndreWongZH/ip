@@ -1,6 +1,10 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import static java.util.stream.Collectors.toList;
 
 import duke.storage.FileManager;
 import duke.ui.TaskUi;
@@ -29,7 +33,7 @@ public class TaskManager implements TaskAction {
      * @param description text of the user input to store.
      */
     @Override
-    public void addTask(TaskType taskType, String description, String dateTime) {
+    public void addTask(TaskType taskType, String description, LocalDateTime dateTime) {
         Task task;
 
         try {
@@ -58,12 +62,23 @@ public class TaskManager implements TaskAction {
      * Prints the entire list of user's tasks.
      */
     @Override
-    public void printAllTasks() {
+    public void printAllTasks(LocalDate matchDate) {
         if (tasks.size() == LIST_EMPTY) {
             taskUi.printTaskListEmpty();
             return;
         }
-        taskUi.printTasksList(tasks);
+        ArrayList<Task> newTasks = tasks;
+
+        if (matchDate != null) {
+            newTasks = filterTasksByDate(matchDate);
+        }
+
+        if (newTasks.size() == LIST_EMPTY) {
+            taskUi.printTaskListSearchEmpty();
+            return;
+        }
+
+        taskUi.printTasksList(newTasks);
     }
 
     /**
@@ -97,5 +112,11 @@ public class TaskManager implements TaskAction {
     /** add a task instance to taskList */
     private void addTaskToList(Task task) {
         tasks.add(task);
+    }
+
+    private ArrayList<Task> filterTasksByDate(LocalDate matchDate) {
+        return (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.convertToDate().equals(matchDate))
+                .collect(toList());
     }
 }
