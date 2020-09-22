@@ -9,6 +9,13 @@ import duke.task.Task;
 import duke.task.TaskManager;
 import duke.ui.InputUi;
 
+/**
+ * The Duke program is an application that acts as a schedule manager.
+ *
+ * @author Andre Wong Zhi Hua
+ * @version 1.0
+ * @since 22/9/2020
+ */
 public class Duke {
     private static TaskManager taskManager;
     private static InputUi inputUi;
@@ -25,6 +32,10 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Loops while asking for user's input and executing commands.
+     * This will stop if user input a bye command.
+     */
     public void run() {
         isActive = true;
 
@@ -38,6 +49,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks if a commandType bye has been received.
+     * If received, then terminates the program.
+     *
+     * @param commandType Command enum of commandTypes.
+     */
     private void checkTerminate(CommandType commandType) {
         if (commandType == CommandType.BYE) {
             exitProgram();
@@ -48,6 +65,7 @@ public class Duke {
         isActive = false;
     }
 
+    /* Checks if user has not input any empty string */
     private boolean hasUserInput(String userInput) {
         return userInput != null;
     }
