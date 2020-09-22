@@ -20,7 +20,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute() {
-        inputUi.printGoodbye();
-        // TODO: 19/9/2020  Print task count here
+        inputUi.printGoodbye(taskManager.getTotalCount());
     }
 }

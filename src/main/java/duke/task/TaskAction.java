@@ -12,4 +12,8 @@ public interface TaskAction {
     void findTask(String filterString, LocalDate matchDate, TimeSearch timeSearch);
     void toggleTaskDone(int taskNumber);
     void deleteTask(int taskNumber);
+    long getTodoCount();
+    long getDeadlineCount();
+    long getEventCount();
+    long getTotalCount();
 }

@@ -139,6 +139,45 @@ public class TaskManager implements TaskAction {
     }
 
     /**
+     * Returns the total number to todos in tasks.
+     *
+     * @return Total number of todo counts.
+     */
+    @Override
+    public long getTodoCount() {
+        return tasks.stream().filter((t) -> t instanceof Todo).count();
+    }
+
+    /**
+     * Returns the total number to deadlines in tasks.
+     *
+     * @return Total number of deadline counts.
+     */
+    @Override
+    public long getDeadlineCount() {
+        return tasks.stream().filter((t) -> t instanceof Deadline).count();
+    }
+
+    /**
+     * Returns the total number to events in tasks.
+     *
+     * @return Total number of event counts.
+     */
+    @Override
+    public long getEventCount() {
+        return tasks.stream().filter((t) -> t instanceof Event).count();
+    }
+
+    /**
+     * Returns the total number of tasks.
+     *
+     * @return Total number of tasks.
+     */
+    public long getTotalCount() {
+        return getTodoCount() + getDeadlineCount() + getEventCount();
+    }
+
+    /**
      * Prints out all the task from the filtered array list.
      * If the array list is empty, then inform user that search yields no result.
      *

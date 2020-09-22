@@ -41,7 +41,11 @@ public class Duke {
 
         inputUi.greetUser();
         while (isActive) {
+            inputUi.printInputCommand(taskManager.getTodoCount(),
+                    taskManager.getDeadlineCount(),
+                    taskManager.getEventCount());
             String userInput = inputUi.readUserInput();
+            inputUi.printSeparator();
             if (hasUserInput(userInput)) {
                 CommandType commandType = new CommandParser(taskManager, userInput).parseCommand();
                 checkTerminate(commandType);
