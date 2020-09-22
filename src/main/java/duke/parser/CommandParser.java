@@ -8,6 +8,7 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.IllegalCommandException;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 
 import duke.task.MissingTaskLiteralException;
 import duke.task.TaskManager;
@@ -21,6 +22,7 @@ public class CommandParser {
     private static final int INDEX_AFTER_DEADLINE = 9;
     private static final int INDEX_AFTER_EVENT = 6;
     private static final int INDEX_AFTER_DELETE = 7;
+    private static final int INDEX_AFTER_FIND = 5;
 
     private final String userInput;
     private final TaskManager taskManager;
@@ -83,6 +85,9 @@ public class CommandParser {
         case BYE:
             command = new ByeCommand(taskManager);
             break;
+        case FIND:
+            command = new FindCommand(taskManager, parameterData.getDescription());
+            break;
         default:
             commandUi.printNoCommandRan();
         }
@@ -109,6 +114,8 @@ public class CommandParser {
             commandType = CommandType.EVENT;
         } else if (userInput.startsWith("delete")) {
             commandType = CommandType.DELETE;
+        } else if (userInput.startsWith("find")) {
+            commandType = CommandType.FIND;
         } else {
             throw new IllegalCommandException();
         }
@@ -130,6 +137,9 @@ public class CommandParser {
             break;
         case DELETE:
             parameters = userInput.substring(INDEX_AFTER_DELETE);
+            break;
+        case FIND:
+            parameters = userInput.substring(INDEX_AFTER_FIND);
             break;
         case LIST:
         default:

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import duke.storage.FileManager;
 import duke.ui.TaskUi;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Stores and add to the list of tasks.
  */
@@ -64,6 +66,17 @@ public class TaskManager implements TaskAction {
             return;
         }
         taskUi.printTasksList(tasks);
+    }
+
+    public void filterByString(String filterString) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
+                .collect(toList());
+
+        if (filteredTasks.size() == LIST_EMPTY) {
+            taskUi.printTaskListEmpty();
+            return;
+        }
+        taskUi.printTasksList(filteredTasks);
     }
 
     /**

@@ -40,6 +40,10 @@ public abstract class Task implements FileWritable {
         return FileWritable.SEPARATOR + convertDoneToString() + FileWritable.SEPARATOR + description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     protected String getStatusIcon() {
         return (isDone ? ICON_TICK : ICON_CROSS);
     }

@@ -32,7 +32,8 @@ public class ParameterParser {
                 splitUserInput();
                 break;
             case TODO:
-                setTodoParameter();
+            case FIND:
+                setUserInputAsParameter();
                 break;
             case BYE:
             case LIST:
@@ -81,7 +82,7 @@ public class ParameterParser {
         parameterData =  new ParameterData(Integer.parseInt(userInput) - 1);
     }
 
-    private void setTodoParameter() {
+    private void setUserInputAsParameter() {
         parameterData = new ParameterData(userInput);
     }
 }
