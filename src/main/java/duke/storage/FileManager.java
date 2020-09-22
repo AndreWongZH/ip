@@ -13,6 +13,11 @@ import duke.parser.DateTimeFormatException;
 import duke.task.Task;
 import duke.ui.FileUi;
 
+/**
+ * Represents a manager that can read and write to txt file.
+ * Only recognises duke.txt as the data path.
+ * Detects the presence of data directory.
+ */
 public class FileManager implements FileAction {
     private static final String FILE_NAME = "duke.txt";
     private static final String DATA_DIRECTORY = "data";
@@ -30,9 +35,9 @@ public class FileManager implements FileAction {
     }
 
     /**
-     * Check if ./data/duke.txt exist, if not creates it.
      * Reads data from ./data/duke.txt.
-     * Parse the string formats into task objects
+     * Parses the string formats into task objects
+     * PreviousData can be an instance of an empty ArrayList of type task but not null.
      *
      * @return previousData in the form of an ArrayList
      */
@@ -48,9 +53,10 @@ public class FileManager implements FileAction {
     }
 
     /**
-     * Check if ./data/duke.txt exist, if not creates it.
-     * Reads data from ./data/duke.txt.
-     * Parse the string formats into task objects
+     * Writes data to ./data/duke.txt.
+     * Parses the task objects into string format.
+     * If any error occur during the writing to file,
+     * it will inform the user of the error.
      *
      * @param tasks an ArrayList of task objects
      */
@@ -69,15 +75,28 @@ public class FileManager implements FileAction {
         }
     }
 
+    /**
+     * Parse the ArrayList of user data into ArrayList of tasks.
+     * Inform user of corrupt file if parsing of data file fails.
+     *
+     * @param fileData An ArrayList of user data of type string.
+     * @return An ArrayList of tasks of type task.
+     */
     private ArrayList<Task> parseFileData(ArrayList<String> fileData) {
         try {
-            return DataParser.fileToTask(fileData);
+            return new DataParser(fileData).convertFileToTask();
         } catch (FileCorruptedException | ArrayIndexOutOfBoundsException | DateTimeFormatException e) {
             handleCorruptFile();
         }
         return new ArrayList<>();
     }
 
+    /**
+     * Reads in the user data from ./data/duke.txt.
+     * Inform user of corrupt file if reading of data file fails.
+     *
+     * @return An ArrayList of user data in type string
+     */
     private ArrayList<String> getFileData() {
         ArrayList<String> fileData = new ArrayList<>();
         Scanner s;
@@ -96,6 +115,9 @@ public class FileManager implements FileAction {
         return fileData;
     }
 
+    /**
+     * Checks if ./data/duke.txt exist, if not creates it.
+     */
     private void validatePaths() {
         if(!Files.exists(directoryPath)) {
             createDataDirectory();
@@ -105,12 +127,17 @@ public class FileManager implements FileAction {
         }
     }
 
+    /**
+     * Informs user that file is corrupted.
+     * Proceeds to delete and recreate the data file.
+     */
     private void handleCorruptFile() {
         fileUi.printCorruptFile();
         deleteDataFile();
         createDataFile();
     }
 
+    /* Creates the directory ./data/ */
     private void createDataDirectory() {
         try {
             Files.createDirectory(directoryPath);
@@ -120,6 +147,7 @@ public class FileManager implements FileAction {
         }
     }
 
+    /* Creates the data file ./data/duke.txt */
     private void createDataFile() {
         try {
             Files.createFile(filePath);
@@ -129,6 +157,7 @@ public class FileManager implements FileAction {
         }
     }
 
+    /* Deletes the data file ./data/duke.txt */
     private void deleteDataFile() {
         try {
             Files.deleteIfExists(filePath);

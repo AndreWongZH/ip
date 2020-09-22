@@ -1,5 +1,8 @@
 package duke.parser;
 
+/**
+ * Represents all the date formats the user can enter.
+ */
 public enum DateTimeFormat {
     FORMAT_1("d MMM yyyy HHmm"),
     FORMAT_2("dd/M/yyyy HHmm"),

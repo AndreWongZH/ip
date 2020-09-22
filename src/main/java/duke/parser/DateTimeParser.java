@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the process of parsing datetime strings into datetime objects.
+ */
 public class DateTimeParser {
     private static final String OLD_AM = "am";
     private static final String OLD_PM = "pm";
@@ -20,6 +23,12 @@ public class DateTimeParser {
         isMatchFormat = false;
     }
 
+    /**
+     * Converts datetime string into datetime objects.
+     *
+     * @return LocalDateTime object.
+     * @throws DateTimeFormatException If it is unable to parse datetime string into datetime objects.
+     */
     public LocalDateTime formatDate() throws DateTimeFormatException {
         sanitizeInput();
         fitInputToFormat();
@@ -33,17 +42,20 @@ public class DateTimeParser {
         sanitizeAmPm();
     }
 
+    /* Replaces user AM and PM to upper case for parsing */
     private void sanitizeAmPm() {
         dateTimeInput = dateTimeInput.replace(OLD_AM, NEW_AM);
         dateTimeInput = dateTimeInput.replace(OLD_PM, NEW_PM);
     }
 
+    /* Replaces user entered month into correct capitalized format for parsing */
     private void sanitizeMonth() {
         for (Month month : Month.values()) {
             dateTimeInput = dateTimeInput.replace(month.getOldInput(), month.getNewInput());
         }
     }
 
+    /* Checks which format the userinput's string matches */
     private void fitInputToFormat() {
         for (DateTimeFormat format : DateTimeFormat.values()) {
             try {
@@ -62,6 +74,7 @@ public class DateTimeParser {
         }
     }
 
+    /* Throws exception here because user input does not match any of the formats */
     private void checkFormatIsMatched() throws DateTimeFormatException {
         if (!isMatchFormat) {
             throw new DateTimeFormatException();

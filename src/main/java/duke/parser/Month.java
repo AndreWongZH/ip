@@ -1,5 +1,8 @@
 package duke.parser;
 
+/**
+ * Represents the mapping of months of lowercase to capitalized format.
+ */
 public enum Month {
     JAN("jan", "Jan"),
     FEB("feb", "Feb"),
@@ -15,8 +18,8 @@ public enum Month {
     DEC("dec", "Dec");
 
 
-    private String oldInput;
-    private String newInput;
+    private final String oldInput;
+    private final String newInput;
 
     Month(String oldInput, String newInput) {
         this.oldInput = oldInput;

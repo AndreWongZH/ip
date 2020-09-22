@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import duke.command.CommandType;
 import duke.task.MissingTaskLiteralException;
 
+/**
+ * Represents the process of extracting out the parameters from user input.
+ */
 public class ParameterParser {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
@@ -24,6 +27,14 @@ public class ParameterParser {
         parameterData = null;
     }
 
+    /**
+     * Returns a parameterData object after extracting the parameters.
+     * ParameterData can be null.
+     *
+     * @return A parameterData object.
+     * @throws NumberFormatException If parameter is not an integer.
+     * @throws MissingTaskLiteralException If user input is missing task literal.
+     */
     public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException, DateTimeFormatException {
         switch (commandType) {
         case DONE:
@@ -53,10 +64,14 @@ public class ParameterParser {
         return parameterData;
     }
 
-    private boolean hasParameter() {
-        return userInput != null;
-    }
-
+    /**
+     * Extracts the date string from user input if /on is provided.
+     * Parses the date string given into a LocalDateTime object.
+     * Returned as a parameterData instance.
+     *
+     * @throws DateTimeFormatException If it is unable to parse user input as DateTime object.
+     * @throws MissingTaskLiteralException If /on literal is not provided.
+     */
     private void setListParameter() throws DateTimeFormatException, MissingTaskLiteralException {
         if (!userInput.contains(ON_LITERAL)) {
             throw new MissingTaskLiteralException(ON_LITERAL);
@@ -74,7 +89,13 @@ public class ParameterParser {
         parameterData = new ParameterData(matchDate);
     }
 
-    /**  splits user input into descriptions and date/time */
+    /**
+     * Splits user input into descriptions and date/time.
+     * Sets the parameterData based on the split parameters.
+     *
+     * @throws MissingTaskLiteralException If user input is missing task literal.
+     * @throws IllegalStateException If there are commandType that are not deadline or event.
+     */
     private void splitUserInput() throws MissingTaskLiteralException, IllegalStateException, DateTimeFormatException {
         int index;
         String description;
@@ -102,12 +123,20 @@ public class ParameterParser {
         parameterData = new ParameterData(description, dateTime);
     }
 
-    /** returns the index of the task in tasks */
+    /**
+     * Returns the index of the task in tasks.
+     *
+     * @throws NumberFormatException If parameter is not an integer.
+     */
     private void getTaskNumber() throws NumberFormatException {
         parameterData =  new ParameterData(Integer.parseInt(userInput) - 1);
     }
 
     private void setUserInputAsParameter() {
         parameterData = new ParameterData(userInput);
+    }
+
+    private boolean hasParameter() {
+        return userInput != null;
     }
 }

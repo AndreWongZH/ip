@@ -3,6 +3,9 @@ package duke.parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Represents an object to hold all types of parameters required for different commands.
+ */
 public class ParameterData {
     private final int taskNumber;
     private final String description;

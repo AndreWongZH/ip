@@ -16,6 +16,9 @@ import duke.task.TaskType;
 
 import duke.ui.CommandUi;
 
+/**
+ * Represents the process of extracting out the commands, parameters and executing them.
+ */
 public class CommandParser {
     private static final int INDEX_AFTER_DONE = 5;
     private static final int INDEX_AFTER_TODO = 5;
@@ -43,6 +46,16 @@ public class CommandParser {
         this.commandUi = new CommandUi();
     }
 
+    /**
+     * Takes in user input and converts them into understandable command and
+     * parameters for the command class to execute.
+     * If user input has no associated commands, inform user of invalid command.
+     * If user input has invalid parameters, inform user of incorrect parameters.
+     * If user input does not have the required literals, inform user of the missing literals.
+     * If user input has inconvertible string to integer for done and delete, inform user of the error.
+     *
+     * @return One of the commandType enums.
+     */
     public CommandType parseCommand() {
         try {
             extractCommand();
@@ -64,6 +77,11 @@ public class CommandParser {
         return commandType;
     }
 
+    /**
+     * Initialises an instance of the command class, based on the different commandType enums.
+     * with corresponding parameters and execute it.
+     * If task number is out of range for delete and done command, inform user of the error.
+     */
     private void executeCommand() {
         Command command = null;
 
@@ -107,6 +125,11 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Sets the commandType enum for the command based of the string input provided by user.
+     *
+     * @throws IllegalCommandException If no commandType is associated with user input.
+     */
     private void extractCommand() throws IllegalCommandException {
         if (userInput.contentEquals("bye")) {
             commandType = CommandType.BYE;
@@ -129,6 +152,11 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Sets the parameters by discarding the command text in the user input.
+     *
+     * @throws IndexOutOfBoundsException If there are no more string after the command text.
+     */
     private void extractParameters() throws IndexOutOfBoundsException {
         switch (commandType) {
         case DONE:
@@ -159,6 +187,7 @@ public class CommandParser {
         }
     }
 
+    /* Checks if user has included more characters after entering list */
     private boolean containsListParameters() {
         return userInput.length() > LIST_CHAR_LEN;
     }

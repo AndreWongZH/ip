@@ -1,5 +1,10 @@
 package duke.ui;
 
+/**
+ * Represents the printing of file related errors and success to user output.
+ *
+ * Methods here are pretty self-explanatory.
+ */
 public class FileUi extends Ui {
     private static final String ERROR_UNABLE_TO_WRITE_FILE = "Error unable to open file to write";
     private static final String ERROR_FILE_NOT_FOUND = "Error file not found";

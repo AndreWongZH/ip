@@ -1,5 +1,10 @@
 package duke.ui;
 
+/**
+ * Represents the printing of command related errors to user output.
+ *
+ * Methods here are pretty self-explanatory.
+ */
 public class CommandUi extends Ui {
     private static final String ERROR_NO_COMMAND_RAN = "No command executed";
     private static final String ERROR_COMMAND_NOT_VALID = "Command not valid, please try again :(";

@@ -9,10 +9,26 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents the process of converting user data into tasks.
+ */
 public class DataParser {
     private static final String REGEX_DELIMITER = " \\| ";
 
-    public static ArrayList<Task> fileToTask(ArrayList<String> dataStreams) throws FileCorruptedException, ArrayIndexOutOfBoundsException, DateTimeFormatException {
+    private final ArrayList<String> dataStreams;
+
+    public DataParser(ArrayList<String> dataStreams) {
+        this.dataStreams = dataStreams;
+    }
+
+    /**
+     * Converts ArrayList of user data into an ArrayList of tasks.
+     *
+     * @return ArrayList of tasks of type task.
+     * @throws FileCorruptedException If error occurs when task type is not found.
+     * @throws ArrayIndexOutOfBoundsException If error occurs during splitting of user data.
+     */
+    public ArrayList<Task> convertFileToTask() throws FileCorruptedException, ArrayIndexOutOfBoundsException, DateTimeFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String fileData : dataStreams) {
             Task task;
