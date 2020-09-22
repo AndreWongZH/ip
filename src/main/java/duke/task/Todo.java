@@ -1,11 +1,13 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 /**
  * Represents a task of type todo. It has the description of the todo,
  * an isDone attribute to check if the todo is done.
  */
 public class Todo extends Task {
-    private static final String TODO_TAG = "T";
+    public static final String TODO_TAG = "T";
     private static final String TODO_TAG_ENCLOSED = "[T]";
 
     public Todo(String description) {
@@ -35,5 +37,15 @@ public class Todo extends Task {
     @Override
     public String convertToData() {
         return TODO_TAG + super.convertToData();
+    }
+
+    /**
+     * Returns today's date as a LocalDate object.
+     *
+     * @return LocalDate object.
+     */
+    @Override
+    LocalDate convertToDate() {
+        return LocalDate.now();
     }
 }

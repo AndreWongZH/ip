@@ -1,6 +1,9 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 
 import duke.storage.FileManager;
 import duke.ui.TaskUi;
@@ -42,7 +45,7 @@ public class TaskManager implements TaskAction {
      * @param dateTime Date time parameter of the user input.
      */
     @Override
-    public void addTask(TaskType taskType, String description, String dateTime) {
+    public void addTask(TaskType taskType, String description, LocalDateTime dateTime) {
         Task task;
 
         try {
@@ -78,11 +81,41 @@ public class TaskManager implements TaskAction {
             taskUi.printTaskListEmpty();
             return;
         }
+
         taskUi.printTasksList(tasks);
     }
 
     /**
-     * Sets a particular task to be done.
+     * Filters tasks to find task's dates that matches with the given matchDate.
+     * Prints to output all the filtered tasks.
+     *
+     * @param matchDate LocalDate object that all task must compare to.
+     */
+    @Override
+    public void filterByDate(LocalDate matchDate) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.convertToDate().equals(matchDate))
+                .collect(toList());
+
+        printTasks(filteredTasks);
+    }
+
+    /**
+     * Filters tasks to find task's descriptions that matches with the given string.
+     * Prints to output all the filtered tasks.
+     *
+     * @param filterString The string to match task's descriptions with.
+     */
+    @Override
+    public void filterByString(String filterString) {
+        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
+                .collect(toList());
+
+        printTasks(filteredTasks);
+    }
+
+    /**
+     * Sets the particular task to be done.
      * Prints to user that task has been set to done.
      * Write data to file after task has been set to done.
      *
@@ -111,7 +144,22 @@ public class TaskManager implements TaskAction {
         fileManager.writeToFile(tasks);
     }
 
-    /** add a task instance to tasks */
+    /**
+     * Prints out all the task from the filtered array list.
+     * If the array list is empty, then inform user that search yields no result.
+     *
+     * @param tasks ArrayList of tasks to be printed out.
+     */
+    private void printTasks(ArrayList<Task> tasks) {
+        if (tasks.size() == LIST_EMPTY) {
+            taskUi.printTaskListSearchEmpty();
+            return;
+        }
+
+        taskUi.printTasksList(tasks);
+    }
+
+    /** Adds a task instance to tasks */
     private void addTaskToList(Task task) {
         tasks.add(task);
     }

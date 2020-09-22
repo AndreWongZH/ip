@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.task.TaskManager;
 import duke.task.TaskType;
 
@@ -9,7 +11,7 @@ import duke.task.TaskType;
 public class AddCommand extends Command {
     private final TaskType taskType;
     private final String description;
-    private String dateTime;
+    private LocalDateTime dateTime;
 
     /* Creates a AddCommand instance when task type is todo */
     public AddCommand(TaskManager taskManager, TaskType taskType, String description) {
@@ -20,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     /* Creates a AddCommand instance when task type is either deadline or event */
-    public AddCommand(TaskManager taskManager, TaskType taskType, String description, String dateTime) {
+    public AddCommand(TaskManager taskManager, TaskType taskType, String description, LocalDateTime dateTime) {
         this(taskManager, taskType, description);
         this.dateTime = dateTime;
     }

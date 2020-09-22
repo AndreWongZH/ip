@@ -1,28 +1,42 @@
 package duke.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Represents an object to hold all types of parameters required for different commands.
  */
 public class ParameterData {
     private final int taskNumber;
     private final String description;
-    private final String dateTime;
+    private final LocalDateTime dateTime;
+    private final LocalDate matchDate;
 
     public ParameterData(int taskNumber) {
         this.taskNumber = taskNumber;
         description = null;
         dateTime = null;
+        matchDate = null;
     }
 
     public ParameterData(String description) {
         this.description = description;
         taskNumber = 0;
         dateTime = null;
+        matchDate = null;
     }
 
-    public ParameterData(String description, String dateTime) {
+    public ParameterData(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;
+        taskNumber = 0;
+        matchDate = null;
+    }
+
+    public ParameterData(LocalDate matchDate) {
+        this.matchDate = matchDate;
+        description = null;
+        dateTime = null;
         taskNumber = 0;
     }
 
@@ -34,7 +48,11 @@ public class ParameterData {
         return description;
     }
 
-    public String getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public LocalDate getMatchDate() {
+        return matchDate;
     }
 }

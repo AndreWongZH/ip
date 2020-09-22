@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 import duke.storage.FileWritable;
 
 /**
@@ -26,6 +28,8 @@ public abstract class Task implements FileWritable {
         this.isDone = isDone;
     }
 
+    abstract LocalDate convertToDate();
+
     /**
      * Returns the string representation of the task for printing to output.
      *
@@ -46,12 +50,16 @@ public abstract class Task implements FileWritable {
         return FileWritable.SEPARATOR + convertDoneToString() + FileWritable.SEPARATOR + description;
     }
 
+    protected String getDescription() {
+        return description;
+    }
+
     /**
      * Sets the task done boolean to the parameter value.
      *
      * @param isDone Boolean status of the task.
      */
-    public void setDone(boolean isDone) {
+    protected void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 

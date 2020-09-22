@@ -8,6 +8,7 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.IllegalCommandException;
 import duke.command.ListCommand;
+import duke.command.FindCommand;
 
 import duke.task.MissingTaskLiteralException;
 import duke.task.TaskManager;
@@ -24,6 +25,9 @@ public class CommandParser {
     private static final int INDEX_AFTER_DEADLINE = 9;
     private static final int INDEX_AFTER_EVENT = 6;
     private static final int INDEX_AFTER_DELETE = 7;
+    private static final int INDEX_AFTER_FIND = 5;
+    private static final int INDEX_AFTER_LIST = 4;
+    private static final int LIST_CHAR_LEN = 4;
 
     private final String userInput;
     private final TaskManager taskManager;
@@ -66,6 +70,8 @@ public class CommandParser {
             commandUi.printMissingLiteral(e.getMessage());
         } catch (NumberFormatException e) {
             commandUi.printTaskDoneNotInteger();
+        } catch (DateTimeFormatException e) {
+            commandUi.printDateTimeFormatIncorrect();
         }
 
         return commandType;
@@ -81,7 +87,11 @@ public class CommandParser {
 
         switch (commandType) {
         case LIST:
-            command = new ListCommand(taskManager);
+            if (parameterDataIsNull()) {
+                command = new ListCommand(taskManager, parameterData.getMatchDate());
+            } else {
+                command = new ListCommand(taskManager);
+            }
             break;
         case DONE:
             command = new DoneCommand(taskManager, parameterData.getTaskNumber());
@@ -100,6 +110,9 @@ public class CommandParser {
             break;
         case BYE:
             command = new ByeCommand(taskManager);
+            break;
+        case FIND:
+            command = new FindCommand(taskManager, parameterData.getDescription());
             break;
         default:
             commandUi.printNoCommandRan();
@@ -120,7 +133,7 @@ public class CommandParser {
     private void extractCommand() throws IllegalCommandException {
         if (userInput.contentEquals("bye")) {
             commandType = CommandType.BYE;
-        } else if (userInput.contentEquals("list")) {
+        } else if (userInput.startsWith("list")) {
             commandType = CommandType.LIST;
         } else if (userInput.startsWith("done")) {
             commandType = CommandType.DONE;
@@ -132,6 +145,8 @@ public class CommandParser {
             commandType = CommandType.EVENT;
         } else if (userInput.startsWith("delete")) {
             commandType = CommandType.DELETE;
+        } else if (userInput.startsWith("find")) {
+            commandType = CommandType.FIND;
         } else {
             throw new IllegalCommandException();
         }
@@ -159,9 +174,25 @@ public class CommandParser {
         case DELETE:
             parameters = userInput.substring(INDEX_AFTER_DELETE);
             break;
+        case FIND:
+            parameters = userInput.substring(INDEX_AFTER_FIND);
+            break;
         case LIST:
+            if (containsListParameters()) {
+                parameters = userInput.substring(INDEX_AFTER_LIST);
+            }
+            break;
         default:
             parameters = null;
         }
+    }
+
+    /* Checks if user has included more characters after entering list */
+    private boolean containsListParameters() {
+        return userInput.length() > LIST_CHAR_LEN;
+    }
+
+    private boolean parameterDataIsNull() {
+        return parameterData != null;
     }
 }

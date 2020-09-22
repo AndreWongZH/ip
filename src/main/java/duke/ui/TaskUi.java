@@ -16,6 +16,7 @@ public class TaskUi extends Ui {
     private static final String PRINT_TASK_ADD_HEADING = "Task successfully added, I said with a posed look.";
     private static final String PRINT_TASK_REMOVE_HEADING = "Understood, removed task %d:";
     private static final String PRINT_TASK_DONE_HEADING = "Understood, setting task %d as done:";
+    private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
 
     /**
      * Prints output to user after a task is successfully added.
@@ -74,6 +75,10 @@ public class TaskUi extends Ui {
 
     public void printTaskListEmpty() {
         generateTextBorder(ERROR_LIST_EMPTY);
+    }
+
+    public void printTaskListSearchEmpty() {
+        generateTextBorder(ERROR_SEARCH_NOT_FOUND);
     }
 
     /**

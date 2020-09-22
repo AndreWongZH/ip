@@ -1,5 +1,11 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import duke.parser.DateTimeFormat;
+import duke.parser.DateTimePrintable;
 import duke.storage.FileWritable;
 
 /**
@@ -7,21 +13,21 @@ import duke.storage.FileWritable;
  * an isDone attribute to check if event is done
  * and an at attribute to indicate the time for the event.
  */
-public class Event extends Task {
-    private static final String EVENT_TAG = "E";
+public class Event extends Task implements DateTimePrintable {
+    public static final String EVENT_TAG = "E";
     private static final String EVENT_TAG_ENCLOSED = "[E]";
     private static final String AT_OPEN_TEXT = " (at: ";
     private static final String AT_CLOSE_TEXT = ")";
 
-    private final String at;
+    private final LocalDateTime at;
 
-    public Event(String description, String at) {
+    public Event(String description, LocalDateTime at) {
         super(description);
         this.at = at;
     }
 
     /* Constructs an instance when reading from a file */
-    public Event(Boolean isDone, String description, String at) {
+    public Event(Boolean isDone, String description, LocalDateTime at) {
         super(isDone, description);
         this.at = at;
     }
@@ -33,7 +39,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return EVENT_TAG_ENCLOSED + super.toString() + AT_OPEN_TEXT + at + AT_CLOSE_TEXT;
+        return EVENT_TAG_ENCLOSED + super.toString() + AT_OPEN_TEXT + formatDateTimeToString() + AT_CLOSE_TEXT;
     }
 
     /**
@@ -43,6 +49,38 @@ public class Event extends Task {
      */
     @Override
     public String convertToData() {
-        return EVENT_TAG + super.convertToData() + FileWritable.SEPARATOR + at;
+        return EVENT_TAG + super.convertToData() + FileWritable.SEPARATOR + formatDateTimeToFile();
+    }
+
+    /**
+     * Formats LocalDateTime object into string format for output.
+     *
+     * @return Formatted date time string.
+     */
+    @Override
+    public String formatDateTimeToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimeFormat.FORMAT_16.getFormatStyle());
+        return at.format(formatter);
+    }
+
+    /**
+     * Formats LocalDateTime object into string format for data file.
+     *
+     * @return Formatted date time string.
+     */
+    @Override
+    public String formatDateTimeToFile() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateTimeFormat.FORMAT_2.getFormatStyle());
+        return at.format(formatter);
+    }
+
+    /**
+     * Converts LocalDateTime attribute at to a LocalDate object.
+     *
+     * @return LocalDate object.
+     */
+    @Override
+    public LocalDate convertToDate() {
+        return at.toLocalDate();
     }
 }
