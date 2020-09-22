@@ -26,8 +26,6 @@ public class CommandParser {
     private static final int INDEX_AFTER_EVENT = 6;
     private static final int INDEX_AFTER_DELETE = 7;
     private static final int INDEX_AFTER_FIND = 5;
-    private static final int INDEX_AFTER_LIST = 4;
-    private static final int LIST_CHAR_LEN = 4;
 
     private final String userInput;
     private final TaskManager taskManager;
@@ -87,11 +85,7 @@ public class CommandParser {
 
         switch (commandType) {
         case LIST:
-            if (parameterDataIsNull()) {
-                command = new ListCommand(taskManager, parameterData.getMatchDate());
-            } else {
-                command = new ListCommand(taskManager);
-            }
+            command = new ListCommand(taskManager);
             break;
         case DONE:
             command = new DoneCommand(taskManager, parameterData.getTaskNumber());
@@ -100,10 +94,14 @@ public class CommandParser {
             command = new AddCommand(taskManager, TaskType.TODO, parameterData.getDescription());
             break;
         case DEADLINE:
-            command = new AddCommand(taskManager, TaskType.DEADLINE, parameterData.getDescription(), parameterData.getDateTime());
+            command = new AddCommand(taskManager,
+                    TaskType.DEADLINE, parameterData.getDescription(),
+                    parameterData.getDateTime());
             break;
         case EVENT:
-            command = new AddCommand(taskManager, TaskType.EVENT, parameterData.getDescription(), parameterData.getDateTime());
+            command = new AddCommand(taskManager,
+                    TaskType.EVENT, parameterData.getDescription(),
+                    parameterData.getDateTime());
             break;
         case DELETE:
             command = new DeleteCommand(taskManager, parameterData.getTaskNumber());
@@ -112,7 +110,10 @@ public class CommandParser {
             command = new ByeCommand(taskManager);
             break;
         case FIND:
-            command = new FindCommand(taskManager, parameterData.getDescription());
+            command = new FindCommand(taskManager,
+                    parameterData.getFilterString(),
+                    parameterData.getMatchDate(),
+                    parameterData.getTimeSearch());
             break;
         default:
             commandUi.printNoCommandRan();
@@ -133,7 +134,7 @@ public class CommandParser {
     private void extractCommand() throws IllegalCommandException {
         if (userInput.contentEquals("bye")) {
             commandType = CommandType.BYE;
-        } else if (userInput.startsWith("list")) {
+        } else if (userInput.contentEquals("list")) {
             commandType = CommandType.LIST;
         } else if (userInput.startsWith("done")) {
             commandType = CommandType.DONE;
@@ -178,21 +179,9 @@ public class CommandParser {
             parameters = userInput.substring(INDEX_AFTER_FIND);
             break;
         case LIST:
-            if (containsListParameters()) {
-                parameters = userInput.substring(INDEX_AFTER_LIST);
-            }
-            break;
+        case BYE:
         default:
             parameters = null;
         }
-    }
-
-    /* Checks if user has included more characters after entering list */
-    private boolean containsListParameters() {
-        return userInput.length() > LIST_CHAR_LEN;
-    }
-
-    private boolean parameterDataIsNull() {
-        return parameterData != null;
     }
 }

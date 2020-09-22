@@ -86,30 +86,24 @@ public class TaskManager implements TaskAction {
     }
 
     /**
-     * Filters tasks to find task's dates that matches with the given matchDate.
-     * Prints to output all the filtered tasks.
+     * Filters out tasks based on the filterString.
+     * Empty filterString would mean it does not filter any tasks by description.
+     * Filters out task based on the date given and the timeSearch property.
+     * Prints to user the tasks that has been filtered.
+     * If there are no tasks left then inform user that their query yields no result.
      *
-     * @param matchDate LocalDate object that all task must compare to.
+     * @param filterString String to compare with in the description.
+     * @param matchDate Date to compare with in the task date.
+     * @param timeSearch How the comparison is done, after, before or on the specified date.
      */
     @Override
-    public void filterByDate(LocalDate matchDate) {
-        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream()
-                .filter((t) -> t.convertToDate().equals(matchDate))
-                .collect(toList());
+    public void findTask(String filterString, LocalDate matchDate, TimeSearch timeSearch) {
+        ArrayList<Task> filteredTasks;
 
-        printTasks(filteredTasks);
-    }
-
-    /**
-     * Filters tasks to find task's descriptions that matches with the given string.
-     * Prints to output all the filtered tasks.
-     *
-     * @param filterString The string to match task's descriptions with.
-     */
-    @Override
-    public void filterByString(String filterString) {
-        ArrayList<Task> filteredTasks = (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
-                .collect(toList());
+        filteredTasks = filterByString(filterString);
+        if (matchDate != null) {
+            filteredTasks = filterByDate(filteredTasks, matchDate, timeSearch);
+        }
 
         printTasks(filteredTasks);
     }
@@ -157,6 +151,43 @@ public class TaskManager implements TaskAction {
         }
 
         taskUi.printTasksList(tasks);
+    }
+
+    /**
+     * Filters tasks to find task's dates that matches with the given matchDate
+     * based on the timeSearch parameter.
+     *
+     * @param filteredTasks An ArrayList of tasks that has already been filtered.
+     * @param matchDate LocalDate object that all task must compare to.
+     * @param timeSearch A TimeSearch enum to filter tasks before, after or on the date specified.
+     * @return An ArrayList of tasks filtered by date.
+     */
+    private ArrayList<Task> filterByDate(ArrayList<Task> filteredTasks, LocalDate matchDate, TimeSearch timeSearch) {
+        return (ArrayList<Task>) filteredTasks.stream()
+                .filter((t) -> {
+                    switch (timeSearch) {
+                    case CURRENT:
+                        return t.convertToDate().equals(matchDate);
+                    case FORWARD:
+                        return t.convertToDate().isAfter(matchDate);
+                    case BACKWARD:
+                        return t.convertToDate().isBefore(matchDate);
+                    default:
+                        return false;
+                    }
+                })
+                .collect(toList());
+    }
+
+    /**
+     * Filters tasks to find task's descriptions that matches with the given string.
+     *
+     * @param filterString The string to match task's descriptions with.
+     * @return An ArrayList of tasks filtered by filterString.
+     */
+    private ArrayList<Task> filterByString(String filterString) {
+        return (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
+                .collect(toList());
     }
 
     /** Adds a task instance to tasks */

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import duke.command.CommandType;
 import duke.task.MissingTaskLiteralException;
+import duke.task.TimeSearch;
 
 /**
  * Represents the process of extracting out the parameters from user input.
@@ -12,10 +13,13 @@ import duke.task.MissingTaskLiteralException;
 public class ParameterParser {
     private static final String BY_LITERAL = " /by ";
     private static final String AT_LITERAL = " /at ";
-    private static final String ON_LITERAL = " /on ";
-    private static final int Literal_OFFSET = 5;
-    private static final String TIME_OFFSET = " 0000";
+    private static final String ON_LITERAL = "/on ";
+    private static final String AFTER_LITERAL = "/af ";
+    private static final String BEFORE_LITERAL = "/bf ";
     private static final String TODAY = "today";
+    private static final String TIME_OFFSET = " 0000";
+    private static final int Literal_OFFSET = 4;
+    private static final int PARAMETER_START_INDEX = 0;
 
     private final CommandType commandType;
     private final String userInput;
@@ -46,14 +50,14 @@ public class ParameterParser {
             splitUserInput();
             break;
         case TODO:
-        case FIND:
             setUserInputAsParameter();
             break;
-        case LIST:
+        case FIND:
             if (hasParameter()) {
-                setListParameter();
+                setFindParameter();
             }
             break;
+        case LIST:
         case BYE:
             parameterData = null;
             break;
@@ -67,26 +71,38 @@ public class ParameterParser {
     /**
      * Extracts the date string from user input if /on is provided.
      * Parses the date string given into a LocalDateTime object.
+     * Check if user wants to find before, after or on the date specified.
      * Returned as a parameterData instance.
      *
      * @throws DateTimeFormatException If it is unable to parse user input as DateTime object.
-     * @throws MissingTaskLiteralException If /on literal is not provided.
      */
-    private void setListParameter() throws DateTimeFormatException, MissingTaskLiteralException {
-        if (!userInput.contains(ON_LITERAL)) {
-            throw new MissingTaskLiteralException(ON_LITERAL);
+    private void setFindParameter() throws DateTimeFormatException {
+        TimeSearch timeSearch;
+        int index = 0;
+        if (userInput.contains(ON_LITERAL)) {
+            index = userInput.indexOf(ON_LITERAL);
+            timeSearch = TimeSearch.CURRENT;
+        } else if (userInput.contains(AFTER_LITERAL)) {
+            index = userInput.indexOf(AFTER_LITERAL);
+            timeSearch = TimeSearch.FORWARD;
+        } else if (userInput.contains(BEFORE_LITERAL)) {
+            index = userInput.indexOf(BEFORE_LITERAL);
+            timeSearch = TimeSearch.BACKWARD;
+        } else {
+            parameterData = new ParameterData(userInput, null, null);
+            return;
         }
+        String filterString = userInput.substring(PARAMETER_START_INDEX, index).trim();
+        String dateTime = userInput.substring(index + Literal_OFFSET);
 
-        if (userInput.toLowerCase().contains(TODAY)) {
-            parameterData = new ParameterData(LocalDate.now());
+        if (dateTime.toLowerCase().contains(TODAY)) {
+            parameterData = new ParameterData(filterString, LocalDate.now(), timeSearch);
             return;
         }
 
-        int index = userInput.indexOf(ON_LITERAL);
         // convert user's date input into a datetime input using a dummy time offset
-        String dateTime = userInput.substring(index + Literal_OFFSET) + TIME_OFFSET;
-        LocalDate matchDate = new DateTimeParser(dateTime).formatDate().toLocalDate();
-        parameterData = new ParameterData(matchDate);
+        LocalDate matchDate = new DateTimeParser(dateTime + TIME_OFFSET).formatDate().toLocalDate();
+        parameterData = new ParameterData(filterString, matchDate, timeSearch);
     }
 
     /**
@@ -118,7 +134,7 @@ public class ParameterParser {
             throw new IllegalStateException();
         }
 
-        description = userInput.substring(0, index);
+        description = userInput.substring(PARAMETER_START_INDEX, index);
         dateTime = new DateTimeParser(userInput.substring(index + Literal_OFFSET)).formatDate();
         parameterData = new ParameterData(description, dateTime);
     }
