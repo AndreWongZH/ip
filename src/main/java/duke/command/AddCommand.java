@@ -13,6 +13,7 @@ public class AddCommand extends Command {
         super(taskManager);
         this.taskType = taskType;
         this.description = description;
+        this.dateTime = null;
     }
 
     public AddCommand(TaskManager taskManager, TaskType taskType, String description, String dateTime) {
