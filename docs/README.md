@@ -157,6 +157,35 @@ Exits the program.
 
 ## Date formats
 
+- `am` and `pm` are case-insensitive.
+- Months of the dates are case-insensitive.
+- `d` is the day of the month.
+- `M` is the month. (`03` `3` or `mar`)
+- `y` is the year.
+- `H` is the hour in 24-hour.
+- `h` is the hour in 12-hour.
+- `m` is the minute.
+- `a` is am or pm.
+
+Format | examples
+-------|---------
+`d MMM yyyy HHmm` | `2 mar 2019 1800`
+`dd/M/yyyy HHmm` | `2/3/2019 1800`
+`dd-M-yyyy HHmm` | `2-3-2019 1800`
+`d MMM yyyy HH:mm` | `2 mar 2019 18:00`
+`dd/M/yyyy HH:mm` | `2/3/2019 18:00`
+`dd-M-yyyy HH:mm` | `2-3-2019 18:00`
+`d MMM yyyy h.mma` | `2 mar 2019 6.00pm`
+`dd/M/yyyy h.mma` | `2/3/2019 6.00pm`
+`dd-M-yyyy h.mma` | `2-3-2019 6.00pm`
+`d MMM yyyy h mma` | `2 mar 2019 6 00pm`
+`dd/M/yyyy h mma` | `2/3/2019 6 00pm`
+`dd-M-yyyy h mma` | `2-3-2019 6 00pm`
+`d MMM yyyy ha` | `2 mar 2019 6pm`
+`dd/M/yyyy ha` | `2/3/2019 6pm`
+`dd-M-yyyy ha` | `2-3-2019 6pm`
+`dd MMM yyyy h:mm a` | `2 mar 2019 6:00 pm`
+
 <br/>
 <br/>
 
