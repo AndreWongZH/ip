@@ -105,7 +105,7 @@ public class TaskManager implements TaskAction {
             filteredTasks = filterByDate(filteredTasks, matchDate, timeSearch);
         }
 
-        printTasks(filteredTasks);
+        printSearchTasks(filteredTasks);
     }
 
     /**
@@ -183,13 +183,13 @@ public class TaskManager implements TaskAction {
      *
      * @param tasks ArrayList of tasks to be printed out.
      */
-    private void printTasks(ArrayList<Task> tasks) {
+    private void printSearchTasks(ArrayList<Task> tasks) {
         if (tasks.size() == LIST_EMPTY) {
             taskUi.printTaskListSearchEmpty();
             return;
         }
 
-        taskUi.printTasksList(tasks);
+        taskUi.printSearchTasksList(tasks);
     }
 
     /**

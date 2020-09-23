@@ -115,6 +115,9 @@ Find tasks which contains any of the given keywords or dates.
 - The search using keyword is case-insensitive. e.g `cs2113` will match `CS2113`
 - The date can be replaced with today to find tasks on today's date.
 - Todo tasks will have their date set as today's date.
+- To search any tasks on the given date , use the `/on` literal
+- To search any tasks after the given date , use the `/af` literal
+- To search any tasks before the given date, use the `/bf` literal
 
 `find (KEYWORD) (/on <DATE>)`
 

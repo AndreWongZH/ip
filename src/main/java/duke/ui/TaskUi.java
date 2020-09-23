@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class TaskUi extends Ui {
     private static final String ERROR_LIST_EMPTY = "No task in your list. Add some!";
     private static final String ERROR_TASK_TYPE_NOT_FOUND = "Task type is not found";
+    private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
 
     private static final String PRINT_TASK_LIST_HEADING = "Here are the tasks in your list";
     private static final String PRINT_NUMBER_OF_TASK = "You now have a total of %d tasks in the list";
@@ -17,7 +18,7 @@ public class TaskUi extends Ui {
     private static final String PRINT_TASK_REMOVE_HEADING = "Understood, removed task %d:";
     private static final String PRINT_TASK_DONE_HEADING = "Understood, setting task %d as done:";
     private static final String PRINT_TASK_NOT_DONE_HEADING = "Understood, reverting task %d back as not done:";
-    private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
+    private static final String PRINT_TASK_SEARCH_HEADING = "Here are your search results";
 
     /**
      * Prints output to user after a task is successfully added.
@@ -66,9 +67,18 @@ public class TaskUi extends Ui {
      * @param tasks An array list of tasks to be printed out
      */
     public void printTasksList(ArrayList<Task> tasks) {
-        ArrayList<String> outputText;
+        ArrayList<String> outputText = new ArrayList<>();
 
-        outputText = addOutputText(tasks);
+        outputText.add(PRINT_TASK_LIST_HEADING);
+        addOutputText(outputText, tasks);
+        generateMultiLineTextBorder(outputText);
+    }
+
+    public void printSearchTasksList(ArrayList<Task> tasks) {
+        ArrayList<String> outputText = new ArrayList<>();
+
+        outputText.add(PRINT_TASK_SEARCH_HEADING);
+        addOutputText(outputText, tasks);
         generateMultiLineTextBorder(outputText);
     }
 
@@ -90,16 +100,11 @@ public class TaskUi extends Ui {
      * It also pads the task with its corresponding list number.
      *
      * @param tasks An array list of tasks of type task.
-     * @return ArrayList of tasks in type string.
      */
-    private ArrayList<String> addOutputText(ArrayList<Task> tasks) {
-        ArrayList<String> outputText = new ArrayList<>();
-
-        outputText.add(PRINT_TASK_LIST_HEADING);
+    private void addOutputText(ArrayList<String> outputText, ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             outputText.add((i + 1) + ". " + tasks.get(i));
         }
 
-        return outputText;
     }
 }
