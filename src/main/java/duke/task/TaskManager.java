@@ -225,7 +225,7 @@ public class TaskManager implements TaskAction {
      * @return An ArrayList of tasks filtered by filterString.
      */
     private ArrayList<Task> filterByString(String filterString) {
-        return (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().contains(filterString))
+        return (ArrayList<Task>) tasks.stream().filter((t) -> t.getDescription().toLowerCase().contains(filterString.toLowerCase()))
                 .collect(toList());
     }
 
