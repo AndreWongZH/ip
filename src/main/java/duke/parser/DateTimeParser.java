@@ -18,7 +18,7 @@ public class DateTimeParser {
     boolean isMatchFormat;
 
     public DateTimeParser(String dateTimeInput) {
-        this.dateTimeInput = dateTimeInput.toLowerCase();
+        this.dateTimeInput = dateTimeInput.toLowerCase().trim();
         dateTime = null;
         isMatchFormat = false;
     }

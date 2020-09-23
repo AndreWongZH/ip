@@ -2,16 +2,22 @@ done xyz
 done 123
 done 213213123187432094803892840923890432904900
 done jk23i4hi23h4ij32h4534534j5h43ji5hji5h43jih
+done -1
 list
 deadline do homework
 deadline do homework /by
 deadline do homework /bye
 deadline do homework /bye summer
 deadline do homework /by summer
+deadline do homework /by 22~2/2020 3pm
 event party /at
 event party /atthe
 event party /at 2pm
+event party /at 22~2~2020
 delete abc
 delete 233
 delete 2312343243267432947938248934235435435435
+find /on
+find /af
+find /bf
 bye

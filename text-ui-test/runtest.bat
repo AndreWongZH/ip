@@ -19,6 +19,7 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\task\Deadline.java ^
 ..\src\main\java\duke\task\Event.java ^
 ..\src\main\java\duke\task\TaskAction.java ^
+..\src\main\java\duke\task\TimeSearch.java ^
 ..\src\main\java\duke\task\MissingTaskLiteralException.java ^
 ..\src\main\java\duke\command\IllegalCommandException.java ^
 ..\src\main\java\duke\command\Command.java ^
@@ -27,11 +28,17 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\command\DeleteCommand.java ^
 ..\src\main\java\duke\command\DoneCommand.java ^
 ..\src\main\java\duke\command\ListCommand.java ^
+..\src\main\java\duke\command\FindCommand.java ^
 ..\src\main\java\duke\command\CommandType.java ^
 ..\src\main\java\duke\parser\DataParser.java ^
 ..\src\main\java\duke\parser\CommandParser.java ^
 ..\src\main\java\duke\parser\ParameterParser.java ^
 ..\src\main\java\duke\parser\ParameterData.java ^
+..\src\main\java\duke\parser\DateTimeFormat.java ^
+..\src\main\java\duke\parser\DateTimeFormatException.java ^
+..\src\main\java\duke\parser\DateTimeParser.java ^
+..\src\main\java\duke\parser\DateTimePrintable.java ^
+..\src\main\java\duke\parser\Month.java ^
 ..\src\main\java\duke\storage\FileAction.java ^
 ..\src\main\java\duke\storage\FileManager.java ^
 ..\src\main\java\duke\storage\FileWritable.java ^
