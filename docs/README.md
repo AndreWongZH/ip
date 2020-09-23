@@ -20,8 +20,12 @@ This program is best suited for people who can type fast.
 3. Copy the file to a folder of your choice.
 4. Start up your favourite terminal of choice and navigate to the folder.
 5. Run `java -jar duke.jar` and you will be prompted with an opening greeting.
-6. You can now start to enter commands
-7. Refer to [Features](#features) below for all the available commands.
+![main](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/main.jpg)
+6. You can view the number of todos, deadlines and events you have at the command header.
+7. If there is no `./data/duke.txt` file, the duke program will auto create one for you
+![createStore](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/createStore.jpg)
+8. You can now start entering commands
+9. Refer to [Features](#features) below for all the available commands.
 
 ## Command Format
 - Words in `UPPERCASE` are parameters to be supplied by the user.
@@ -47,7 +51,10 @@ Adds a task to the schedule list.
 
 `event concert /at 22 oct 2020 9.30pm`
 
->#### Expected Outcome:
+#### Expected Outcome:
+![addTodo](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/addTodo.jpg)
+![addDeadline](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/addDeadline.jpg)
+![addEvent](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/addEvent.jpg)
 
 <br/>
 <br/>
@@ -56,7 +63,7 @@ Adds a task to the schedule list.
 Toggles the status of the task.
 If task is currently not done, set task to be done.
 If task is currently done, set task to not done.
- 
+
 #### Format: 
 `done <INDEX>`
 
@@ -64,6 +71,8 @@ If task is currently done, set task to not done.
 `done 1`
 
 #### Expected Outcome:
+![done](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/done1.jpg)
+![undone](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/done2.jpg)
 
 <br/>
 <br/>
@@ -78,6 +87,7 @@ Remove a task from your schedule.
 `delete 1`
 
 #### Expected Outcome:
+![addTodo](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/deleteTask.jpg)
 
 <br/>
 <br/>
@@ -92,6 +102,7 @@ Shows a list of all tasks in the user's schedule.
 `list`
 
 #### Expected Outcome:
+![list](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/listTask.jpg)
 
 <br/>
 <br/>
@@ -121,6 +132,7 @@ Find tasks which contains any of the given keywords or dates.
 `find project /bf 13 oct 2020`
 
 #### Expected Outcome:
+![find](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/findTask.jpg)
 
 <br/>
 <br/>
@@ -135,6 +147,7 @@ Exits the program.
 `bye`
 
 #### Expected Outcome:
+![bye](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/bye.jpg)
 
 <br/>
 <br/>
