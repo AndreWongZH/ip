@@ -9,8 +9,8 @@ import duke.storage.FileWritable;
  * if the task is done or not.
  */
 public abstract class Task implements FileWritable {
-    private static final String ICON_TICK = "\u2713";
-    private static final String ICON_CROSS = "\u2718";
+    private static final String ICON_TICK = "Y";
+    private static final String ICON_CROSS = "X";
     private static final String STATUS_OPEN_BRACKET = "[";
     private static final String STATUS_CLOSE_BRACKET = "] ";
 
