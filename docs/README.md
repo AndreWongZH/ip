@@ -12,10 +12,11 @@ This program is best suited for people who can type fast.
     - [Find a task by keyword or date:](#find-tasks-find) `find`
     - [Exiting the program:](#exiting-the-program-bye) `bye`
 - [4. Date format](#date-formats)
-- [5. Command Summary](#command-summary)
+- [5. FAQ](#FAQ)
+- [6. Command Summary](#command-summary)
 
 ## Quick Start
-1. Ensure you have Java `11` installed in your computer.
+1. Ensure you have Java `11` and above installed in your computer.
 2. Download the latest `duke.jar` from here.
 3. Copy the file to a folder of your choice.
 4. Start up your favourite terminal of choice and navigate to the folder.
@@ -185,6 +186,16 @@ Format | examples
 `dd/M/yyyy ha` | `2/3/2019 6pm`
 `dd-M-yyyy ha` | `2-3-2019 6pm`
 `dd MMM yyyy h:mm a` | `2 mar 2019 6:00 pm`
+
+<br/>
+<br/>
+
+## FAQ
+
+Q: Can I edit the data directly?
+
+A: Yes you can, but please follow the format of the file. If the file cannot be read then 
+the program will recreate duke.txt.
 
 <br/>
 <br/>

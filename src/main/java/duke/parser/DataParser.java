@@ -27,8 +27,9 @@ public class DataParser {
      * @return ArrayList of tasks of type task.
      * @throws FileCorruptedException If error occurs when task type is not found.
      * @throws ArrayIndexOutOfBoundsException If error occurs during splitting of user data.
+     * @throws NumberFormatException If boolean parsed is not 1 or 0;
      */
-    public ArrayList<Task> convertFileToTask() throws FileCorruptedException, ArrayIndexOutOfBoundsException, DateTimeFormatException {
+    public ArrayList<Task> convertFileToTask() throws FileCorruptedException, ArrayIndexOutOfBoundsException, DateTimeFormatException, NumberFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String fileData : dataStreams) {
             Task task;

@@ -85,7 +85,7 @@ public class FileManager implements FileAction {
     private ArrayList<Task> parseFileData(ArrayList<String> fileData) {
         try {
             return new DataParser(fileData).convertFileToTask();
-        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException | DateTimeFormatException e) {
+        } catch (FileCorruptedException | ArrayIndexOutOfBoundsException | DateTimeFormatException | NumberFormatException e) {
             handleCorruptFile();
         }
         return new ArrayList<>();
