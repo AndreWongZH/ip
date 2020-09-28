@@ -29,7 +29,8 @@ public class DataParser {
      * @throws ArrayIndexOutOfBoundsException If error occurs during splitting of user data.
      * @throws NumberFormatException If boolean parsed is not 1 or 0;
      */
-    public ArrayList<Task> convertFileToTask() throws FileCorruptedException, ArrayIndexOutOfBoundsException, DateTimeFormatException, NumberFormatException {
+    public ArrayList<Task> convertFileToTask() throws FileCorruptedException,
+            ArrayIndexOutOfBoundsException, DateTimeFormatException, NumberFormatException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String fileData : dataStreams) {
             Task task;

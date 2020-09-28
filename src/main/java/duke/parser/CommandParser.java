@@ -38,10 +38,10 @@ public class CommandParser {
     public CommandParser(TaskManager taskManager, String userInput) {
         this.taskManager = taskManager;
         this.userInput = userInput;
-        this.commandType = null;
-        this.parameters = null;
-        this.parameterData = null;
-        this.commandUi = new CommandUi();
+        commandType = null;
+        parameters = null;
+        parameterData = null;
+        commandUi = new CommandUi();
     }
 
     /**
@@ -179,7 +179,9 @@ public class CommandParser {
             parameters = userInput.substring(INDEX_AFTER_FIND);
             break;
         case LIST:
+            // List does not take any parameters
         case BYE:
+            // Bye does not take any parameters
         default:
             parameters = null;
         }

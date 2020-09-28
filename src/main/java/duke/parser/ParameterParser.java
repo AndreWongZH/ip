@@ -11,14 +11,15 @@ import duke.task.TimeSearch;
  * Represents the process of extracting out the parameters from user input.
  */
 public class ParameterParser {
-    private static final String BY_LITERAL = " /by ";
-    private static final String AT_LITERAL = " /at ";
-    private static final String ON_LITERAL = "/on ";
-    private static final String AFTER_LITERAL = "/af ";
-    private static final String BEFORE_LITERAL = "/bf ";
+    private static final String LITERAL_BY = " /by ";
+    private static final String LITERAL_AT = " /at ";
+    private static final String LITERAL_ON = "/on ";
+    private static final String LITERAL_AFTER = "/af ";
+    private static final String LITERAL_BEFORE = "/bf ";
+    private static final int LITERAL_OFFSET_VALUE = 4;
+
     private static final String TODAY = "today";
     private static final String TIME_OFFSET = " 0000";
-    private static final int Literal_OFFSET = 4;
     private static final int PARAMETER_START_INDEX = 0;
 
     private final CommandType commandType;
@@ -39,7 +40,8 @@ public class ParameterParser {
      * @throws NumberFormatException If parameter is not an integer.
      * @throws MissingTaskLiteralException If user input is missing task literal.
      */
-    public ParameterData processParameters() throws NumberFormatException, MissingTaskLiteralException, DateTimeFormatException {
+    public ParameterData processParameters() throws NumberFormatException,
+            MissingTaskLiteralException, DateTimeFormatException {
         switch (commandType) {
         case DONE:
         case DELETE:
@@ -79,21 +81,21 @@ public class ParameterParser {
     private void setFindParameter() throws DateTimeFormatException {
         TimeSearch timeSearch;
         int index;
-        if (userInput.contains(ON_LITERAL)) {
-            index = userInput.indexOf(ON_LITERAL);
+        if (userInput.contains(LITERAL_ON)) {
+            index = userInput.indexOf(LITERAL_ON);
             timeSearch = TimeSearch.CURRENT;
-        } else if (userInput.contains(AFTER_LITERAL)) {
-            index = userInput.indexOf(AFTER_LITERAL);
+        } else if (userInput.contains(LITERAL_AFTER)) {
+            index = userInput.indexOf(LITERAL_AFTER);
             timeSearch = TimeSearch.FORWARD;
-        } else if (userInput.contains(BEFORE_LITERAL)) {
-            index = userInput.indexOf(BEFORE_LITERAL);
+        } else if (userInput.contains(LITERAL_BEFORE)) {
+            index = userInput.indexOf(LITERAL_BEFORE);
             timeSearch = TimeSearch.BACKWARD;
         } else {
             parameterData = new ParameterData(userInput, null, null);
             return;
         }
         String filterString = userInput.substring(PARAMETER_START_INDEX, index).trim();
-        String dateTime = userInput.substring(index + Literal_OFFSET);
+        String dateTime = userInput.substring(index + LITERAL_OFFSET_VALUE);
 
         if (dateTime.toLowerCase().contains(TODAY)) {
             parameterData = new ParameterData(filterString, LocalDate.now(), timeSearch);
@@ -119,23 +121,23 @@ public class ParameterParser {
 
         switch (commandType) {
         case DEADLINE:
-            if (!userInput.contains(BY_LITERAL)) {
-                throw new MissingTaskLiteralException(BY_LITERAL);
+            if (!userInput.contains(LITERAL_BY)) {
+                throw new MissingTaskLiteralException(LITERAL_BY);
             }
-            index = userInput.indexOf(BY_LITERAL);
+            index = userInput.indexOf(LITERAL_BY);
             break;
         case EVENT:
-            if (!userInput.contains(AT_LITERAL)) {
-                throw new MissingTaskLiteralException(AT_LITERAL);
+            if (!userInput.contains(LITERAL_AT)) {
+                throw new MissingTaskLiteralException(LITERAL_AT);
             }
-            index = userInput.indexOf(AT_LITERAL);
+            index = userInput.indexOf(LITERAL_AT);
             break;
         default:
             throw new IllegalStateException();
         }
 
         description = userInput.substring(PARAMETER_START_INDEX, index);
-        dateTime = new DateTimeParser(userInput.substring(index + Literal_OFFSET)).formatDate();
+        dateTime = new DateTimeParser(userInput.substring(index + LITERAL_OFFSET_VALUE)).formatDate();
         parameterData = new ParameterData(description, dateTime);
     }
 

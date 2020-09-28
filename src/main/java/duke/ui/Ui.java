@@ -1,12 +1,11 @@
 package duke.ui;
 
-import static java.util.stream.Collectors.toList;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Represents the base of printing of user's ui on the output.
@@ -22,6 +21,7 @@ public abstract class Ui {
     private static final String BORDER_VERTICAL = "|";
     private static final String BORDER_SPACING = " ";
     private static final int PAD_LENGTH = 6;
+    private static final int PAD_SIDES = 2;
 
     protected final PrintStream out;
 
@@ -36,6 +36,7 @@ public abstract class Ui {
      */
     protected void generateTextBorder(String outputText) {
         int stringLen = outputText.length();
+
         printTopBottomBorder(stringLen);
         printSideBorder(stringLen);
         printOuterTextBorder(outputText, stringLen);
@@ -89,8 +90,8 @@ public abstract class Ui {
     private void printOuterTextBorder(String outputText, int maxLength) {
         int extraPadding = maxLength - outputText.length();
         out.println(BORDER_VERTICAL
-                + BORDER_SPACING.repeat(PAD_LENGTH / 2)
-                + outputText + BORDER_SPACING.repeat((PAD_LENGTH / 2)
+                + BORDER_SPACING.repeat(PAD_LENGTH / PAD_SIDES)
+                + outputText + BORDER_SPACING.repeat((PAD_LENGTH / PAD_SIDES)
                 + extraPadding) + BORDER_VERTICAL);
     }
 
@@ -104,6 +105,7 @@ public abstract class Ui {
         int maxLengthText = 0;
         Optional<String> streamData = outputTexts.stream()
                 .max(Comparator.comparingInt(String::length));
+
         if (streamData.isPresent()) {
             maxLengthText = streamData.get().length();
         }

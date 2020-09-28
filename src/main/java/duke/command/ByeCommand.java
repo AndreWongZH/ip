@@ -7,7 +7,6 @@ import duke.ui.InputUi;
  * Represents the command for saying bye to user before the program terminates.
  */
 public class ByeCommand extends Command {
-
     private final InputUi inputUi;
 
     public ByeCommand(TaskManager taskManager) {

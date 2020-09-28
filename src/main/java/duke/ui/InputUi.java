@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class InputUi extends Ui {
     private static final String SEPARATOR_HEADING = "____________________________________________________________";
     private static final String SEPARATOR_INPUT = "------------------------------------------------------------";
+
     private static final String GREET_MESSAGE =
             " __\n" +
             "('')  Hello! I'm MK.II Titan with feelings.\n" +
@@ -31,6 +32,7 @@ public class InputUi extends Ui {
             "       ____________      ____________      ____________\n" +
             "______/ [T]: %-5s \\____/ [D]: %-5s \\____/ [E]: %-5s \\____\n" +
             "|| >>> ";
+
     private static final String MAX_TASK_VALUE_MESSAGE = ">9999";
     private static final int MAX_TASK_VALUE = 99999;
 
