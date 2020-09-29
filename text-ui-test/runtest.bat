@@ -21,6 +21,7 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\task\TaskAction.java ^
 ..\src\main\java\duke\task\TimeSearch.java ^
 ..\src\main\java\duke\task\MissingTaskLiteralException.java ^
+..\src\main\java\duke\task\DuplicateTaskException.java ^
 ..\src\main\java\duke\command\IllegalCommandException.java ^
 ..\src\main\java\duke\command\Command.java ^
 ..\src\main\java\duke\command\AddCommand.java ^

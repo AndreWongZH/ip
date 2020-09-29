@@ -83,4 +83,28 @@ public class Deadline extends Task implements DateTimePrintable {
     public LocalDate convertToDate() {
         return by.toLocalDate();
     }
+
+    /**
+     * Compares if two deadlines are the same.
+     * Compares the class type first before comparing the description and datetime.
+     *
+     * @param obj Any object class.
+     * @return A boolean indicating if they are the same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) obj;
+        boolean isSameDesc = deadline.description.equals(this.description);
+        boolean isSameDateTime = deadline.by.equals(this.by);
+
+        return isSameDesc && isSameDateTime;
+    }
 }

@@ -39,6 +39,7 @@ public class TaskManager implements TaskAction {
      * Prints to user that task has been added.
      * DateTime parameter can be null.
      * If task type is not found, then inform user of the error.
+     * If task added is a duplicate, then inform user of the error.
      *
      * @param taskType Represents the type of task to store.
      * @param description Text of the user input to store.
@@ -67,6 +68,8 @@ public class TaskManager implements TaskAction {
             fileManager.writeToFile(tasks);
         } catch (IllegalStateException e) {
             taskUi.printTaskNotFound();
+        } catch (DuplicateTaskException e) {
+            taskUi.printDuplicateTaskFound();
         }
     }
 
@@ -231,7 +234,20 @@ public class TaskManager implements TaskAction {
     }
 
     /** Adds a task instance to tasks */
-    private void addTaskToList(Task task) {
+    private void addTaskToList(Task task) throws DuplicateTaskException {
+        if (hasDuplicates(task)) {
+            throw new DuplicateTaskException();
+        }
         tasks.add(task);
+    }
+
+    /** Checks if the new task added has already been added inside */
+    private boolean hasDuplicates(Task task) {
+        for (Task eachTask : tasks) {
+            if (task.equals(eachTask)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

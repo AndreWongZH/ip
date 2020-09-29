@@ -11,6 +11,7 @@ public class TaskUi extends Ui {
     private static final String ERROR_LIST_EMPTY = "No task in your list. Add some!";
     private static final String ERROR_TASK_TYPE_NOT_FOUND = "Task type is not found";
     private static final String ERROR_SEARCH_NOT_FOUND = "No task found based on your specified parameters";
+    private static final String ERROR_DUPLICATE_TASK = "A duplicate of this task is found in your list";
 
     private static final String PRINT_TASK_LIST_HEADING = "Here are the tasks in your list";
     private static final String PRINT_NUMBER_OF_TASK = "You now have a total of %d tasks in the list";
@@ -106,5 +107,9 @@ public class TaskUi extends Ui {
             outputText.add((i + 1) + ". " + tasks.get(i));
         }
 
+    }
+
+    public void printDuplicateTaskFound() {
+        generateTextBorder(ERROR_DUPLICATE_TASK);
     }
 }

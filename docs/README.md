@@ -42,6 +42,10 @@ Adds a task to the schedule list.
 #### Format:
 
 - The date can be replaced with `today` to set date to today's date at 2359
+- Task that are similar will not be added again
+    - todo will compare with all the other descriptions of todo tasks
+    - deadline will compare with all the other descriptions and date time of deadline tasks
+    - event will compare with all the other descriptions and date time of event tasks
 
 `todo <TASK>`
 
@@ -212,7 +216,7 @@ the program will recreate duke.txt.
 
 Action | Format | Examples
 --------|--------|----------
-**Add** | `todo <TASK>` `deadline <TASK> /by <DATE>` `event <TASK> /at <DATE>` | `todo read book` `deadline CS2113 project /by 1 oct 2020 12pm` `event <TASK> /at <DATE>`
+**Add** | `todo <TASK>` `deadline <TASK> /by <DATE>` `event <TASK> /at <DATE>` | `todo read book` `deadline CS2113 project /by 1 oct 2020 12pm` `event concert /at today`
 **Done** | `done <INDEX>` | `done 1`
 **Delete** | `delete <INDEX>` | `delete 3`
 **List** | `list`

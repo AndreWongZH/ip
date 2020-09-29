@@ -83,4 +83,28 @@ public class Event extends Task implements DateTimePrintable {
     public LocalDate convertToDate() {
         return at.toLocalDate();
     }
+
+    /**
+     * Compares if two events are the same.
+     * Compares the class type first before comparing the description and datetime.
+     *
+     * @param obj Any object class.
+     * @return A boolean indicating if they are the same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) obj;
+        boolean isSameDesc = event.description.equals(this.description);
+        boolean isSameDateTime = event.at.equals(this.at);
+
+        return isSameDesc && isSameDateTime;
+    }
 }

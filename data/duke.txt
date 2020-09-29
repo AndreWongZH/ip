@@ -2,3 +2,7 @@ T | 0 | fly
 D | 1 | school | 22/1/2030 1500
 E | 0 | concert | 22/9/2030 1330
 T | 0 | magic
+T | 0 | fly
+D | 0 | magic | 29/9/2020 2359
+D | 0 | magic | 29/9/2020 2359
+T | 0 | cake

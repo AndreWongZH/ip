@@ -48,4 +48,25 @@ public class Todo extends Task {
     LocalDate convertToDate() {
         return LocalDate.now();
     }
+
+    /**
+     * Compares if two todos are the same.
+     * Compares the class type first before comparing the description.
+     *
+     * @param obj Any object class.
+     * @return A boolean indicating if they are the same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Todo todo = (Todo) obj;
+        return todo.description.equals(this.description);
+    }
 }
