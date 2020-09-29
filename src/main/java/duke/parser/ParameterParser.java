@@ -21,6 +21,7 @@ public class ParameterParser {
     private static final String TODAY = "today";
     private static final String TIME_OFFSET = " 0000";
     private static final int PARAMETER_START_INDEX = 0;
+    private static final LocalDateTime DATE_TIME_TODAY = LocalDate.now().atTime(23, 59);
 
     private final CommandType commandType;
     private final String userInput;
@@ -137,7 +138,14 @@ public class ParameterParser {
         }
 
         description = userInput.substring(PARAMETER_START_INDEX, index);
-        dateTime = new DateTimeParser(userInput.substring(index + LITERAL_OFFSET_VALUE)).formatDate();
+        String dateTimeString = userInput.substring(index + LITERAL_OFFSET_VALUE);
+
+        if (dateTimeString.toLowerCase().contains(TODAY)) {
+            dateTime = DATE_TIME_TODAY;
+        } else {
+            dateTime = new DateTimeParser(dateTimeString).formatDate();
+        }
+
         parameterData = new ParameterData(description, dateTime);
     }
 

@@ -38,7 +38,11 @@ This program is best suited for people who can type fast.
 ### Adding a task `todo` `deadline` `event`
 Adds a task to the schedule list.
 
-#### Format: 
+
+#### Format:
+
+- The date can be replaced with `today` to set date to today's date at 2359
+
 `todo <TASK>`
 
 `deadline <TASK> /by <DATE>`
@@ -50,7 +54,11 @@ Adds a task to the schedule list.
 
 `deadline CS2113 project /by 11 oct 2020 12pm`
 
+`deadline CS2113 project /by today`
+
 `event concert /at 22 oct 2020 9.30pm`
+
+`event concert /at today`
 
 #### Expected Outcome:
 ![addTodo](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/addTodo.jpg)
@@ -114,7 +122,7 @@ Find tasks which contains any of the given keywords or dates.
 #### Format:
 
 - The search using keyword is case-insensitive. e.g `cs2113` will match `CS2113`
-- The date can be replaced with today to find tasks on today's date.
+- The date can be replaced with `today` to find tasks on today's date.
 - Todo tasks will have their date set as today's date.
 - To search any tasks on the given date , use the `/on` literal
 - To search any tasks after the given date , use the `/af` literal
