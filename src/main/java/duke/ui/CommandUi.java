@@ -8,7 +8,7 @@ package duke.ui;
 public class CommandUi extends Ui {
     private static final String ERROR_NO_COMMAND_RAN = "No command executed";
     private static final String ERROR_COMMAND_NOT_VALID = "Command not valid, please try again :(";
-    private static final String ERROR_INVALID_PARAMETERS = "Please enter parameters after the command";
+    private static final String ERROR_INVALID_PARAMETERS = "Please enter valid parameters after the command";
     private static final String ERROR_NOT_INTEGER = "Sorry but parameter entered is not a integer";
     private static final String ERROR_NOT_IN_RANGE = "Sorry but parameter entered is not within range of list";
     private static final String ERROR_MISSING_LITERAL = "Command is missing the%sliteral";

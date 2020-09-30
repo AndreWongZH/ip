@@ -26,6 +26,17 @@ public class CommandParser {
     private static final int INDEX_AFTER_EVENT = 6;
     private static final int INDEX_AFTER_DELETE = 7;
     private static final int INDEX_AFTER_FIND = 5;
+    private static final int INDEX_AFTER_LIST = 5;
+    private static final int LIST_LENGTH = 4;
+
+    private static final String COMMAND_WORD_BYE = "bye";
+    private static final String COMMAND_WORD_LIST = "list";
+    private static final String COMMAND_WORD_DONE = "done";
+    private static final String COMMAND_WORD_TODO = "todo";
+    private static final String COMMAND_WORD_DEADLINE = "deadline";
+    private static final String COMMAND_WORD_EVENT = "event";
+    private static final String COMMAND_WORD_DELETE = "delete";
+    private static final String COMMAND_WORD_FIND = "find";
 
     private final String userInput;
     private final TaskManager taskManager;
@@ -85,7 +96,7 @@ public class CommandParser {
 
         switch (commandType) {
         case LIST:
-            command = new ListCommand(taskManager);
+            command = new ListCommand(taskManager, parameterData.getDescription());
             break;
         case DONE:
             command = new DoneCommand(taskManager, parameterData.getTaskNumber());
@@ -123,6 +134,8 @@ public class CommandParser {
             command.execute();
         } catch (IndexOutOfBoundsException e) {
             commandUi.printTaskDoneNotInRange();
+        } catch (IllegalStateException e) {
+            commandUi.printInvalidParameters();
         }
     }
 
@@ -132,21 +145,21 @@ public class CommandParser {
      * @throws IllegalCommandException If no commandType is associated with user input.
      */
     private void extractCommand() throws IllegalCommandException {
-        if (userInput.contentEquals("bye")) {
+        if (userInput.contentEquals(COMMAND_WORD_BYE)) {
             commandType = CommandType.BYE;
-        } else if (userInput.contentEquals("list")) {
+        } else if (userInput.startsWith(COMMAND_WORD_LIST)) {
             commandType = CommandType.LIST;
-        } else if (userInput.startsWith("done")) {
+        } else if (userInput.startsWith(COMMAND_WORD_DONE)) {
             commandType = CommandType.DONE;
-        } else if (userInput.startsWith("todo")) {
+        } else if (userInput.startsWith(COMMAND_WORD_TODO)) {
             commandType = CommandType.TODO;
-        } else if (userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith(COMMAND_WORD_DEADLINE)) {
             commandType = CommandType.DEADLINE;
-        } else if (userInput.startsWith("event")) {
+        } else if (userInput.startsWith(COMMAND_WORD_EVENT)) {
             commandType = CommandType.EVENT;
-        } else if (userInput.startsWith("delete")) {
+        } else if (userInput.startsWith(COMMAND_WORD_DELETE)) {
             commandType = CommandType.DELETE;
-        } else if (userInput.startsWith("find")) {
+        } else if (userInput.startsWith(COMMAND_WORD_FIND)) {
             commandType = CommandType.FIND;
         } else {
             throw new IllegalCommandException();
@@ -179,7 +192,12 @@ public class CommandParser {
             parameters = userInput.substring(INDEX_AFTER_FIND);
             break;
         case LIST:
-            // List does not take any parameters
+            if (userInput.length() == LIST_LENGTH) {
+                parameters = null;
+            } else {
+                parameters = userInput.substring(INDEX_AFTER_LIST);
+            }
+            break;
         case BYE:
             // Bye does not take any parameters
         default:

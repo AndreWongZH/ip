@@ -40,6 +40,7 @@ public class ParameterParser {
      * @return A parameterData object.
      * @throws NumberFormatException If parameter is not an integer.
      * @throws MissingTaskLiteralException If user input is missing task literal.
+     * @throws DateTimeFormatException If user's input date is incorrect.
      */
     public ParameterData processParameters() throws NumberFormatException,
             MissingTaskLiteralException, DateTimeFormatException {
@@ -52,6 +53,7 @@ public class ParameterParser {
         case EVENT:
             splitUserInput();
             break;
+        case LIST:
         case TODO:
             setUserInputAsParameter();
             break;
@@ -60,7 +62,6 @@ public class ParameterParser {
                 setFindParameter();
             }
             break;
-        case LIST:
         case BYE:
             parameterData = null;
             break;

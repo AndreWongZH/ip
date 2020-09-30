@@ -42,7 +42,7 @@ Adds a task to the schedule list.
 #### Format:
 
 - The date can be replaced with `today` to set date to today's date at 2359
-- Task that are similar will not be added again
+- You cannot add repeated tasks
     - todo will compare with all the other descriptions of todo tasks
     - deadline will compare with all the other descriptions and date time of deadline tasks
     - event will compare with all the other descriptions and date time of event tasks
@@ -108,11 +108,17 @@ Remove a task from your schedule.
 ### Listing all tasks `list`
 Shows a list of all tasks in the user's schedule.
  
-#### Format: 
-`list`
+#### Format:
+- order can be either ascending: `asc`, or descending `desc`
+
+`list (order)`
 
 #### Examples:
 `list`
+
+`list asc`
+
+`list desc`
 
 #### Expected Outcome:
 ![list](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/listTask.jpg)
@@ -219,6 +225,6 @@ Action | Format | Examples
 **Add** | `todo <TASK>` `deadline <TASK> /by <DATE>` `event <TASK> /at <DATE>` | `todo read book` `deadline CS2113 project /by 1 oct 2020 12pm` `event concert /at today`
 **Done** | `done <INDEX>` | `done 1`
 **Delete** | `delete <INDEX>` | `delete 3`
-**List** | `list`
+**List** | `list (order)` | `list` `list asc` `list desc`
 **Find** | `find (KEYWORD) (/on <DATE>)` `find (KEYWORD) (/bf <DATE>)` `find (KEYWORD) (/af <DATE>)` | `find book` `find /on today` `find /af 20 jun 2020` `find project /bf 13 oct 2020`
 **Bye** | `bye`

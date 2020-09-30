@@ -26,7 +26,7 @@ public class ParameterData {
         timeSearch = null;
     }
 
-    /* Initialises ParameterData for add command for todo task */
+    /* Initialises ParameterData for add command for todo task and list command parameter */
     public ParameterData(String description) {
         this.description = description;
         taskNumber = 0;

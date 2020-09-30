@@ -3,6 +3,7 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import static java.util.stream.Collectors.toList;
 
 import duke.storage.FileManager;
@@ -15,6 +16,8 @@ import duke.ui.TaskUi;
  */
 public class TaskManager implements TaskAction {
     private static final int LIST_EMPTY = 0;
+    private static final String ORDER_DESCENDING = "desc";
+    private static final String ORDER_ASCENDING = "asc";
 
     private final ArrayList<Task> tasks;
     private final FileManager fileManager;
@@ -77,15 +80,32 @@ public class TaskManager implements TaskAction {
      * Prints the entire list of user's tasks.
      * If tasks is empty, then print to output to
      * inform user tasks is empty and to add more task.
+     * If argument provided is null then the tasks will be printed without order.
+     *
+     * @param argument input by user to indicate ascending or descending order.
      */
     @Override
-    public void printAllTasks() {
+    public void printAllTasks(String argument) {
         if (tasks.size() == LIST_EMPTY) {
             taskUi.printTaskListEmpty();
             return;
         }
 
-        taskUi.printTasksList(tasks);
+        if (argument == null) {
+            taskUi.printTasksList(tasks);
+            return;
+        }
+
+        ArrayList<Task> sortedTasks;
+        if (argument.contentEquals(ORDER_DESCENDING)) {
+            sortedTasks = (ArrayList<Task>) tasks.stream().sorted(Comparator.comparing(Task::convertToDate)).collect(toList());
+        } else if (argument.contentEquals(ORDER_ASCENDING)) {
+            sortedTasks = (ArrayList<Task>) tasks.stream().sorted(Comparator.comparing(Task::convertToDate).reversed()).collect(toList());
+        } else {
+            throw new IllegalStateException();
+        }
+
+        taskUi.printTasksList(sortedTasks);
     }
 
     /**

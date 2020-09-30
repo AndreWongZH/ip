@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 public interface TaskAction {
     void addTask(TaskType taskType, String description, LocalDateTime dateTime);
-    void printAllTasks();
+    void printAllTasks(String argument);
     void findTask(String filterString, LocalDate matchDate, TimeSearch timeSearch);
     void toggleTaskDone(int taskNumber);
     void deleteTask(int taskNumber);
