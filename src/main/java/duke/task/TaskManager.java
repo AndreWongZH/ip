@@ -92,7 +92,7 @@ public class TaskManager implements TaskAction {
         }
 
         if (argument == null) {
-            taskUi.printTasksList(tasks);
+            taskUi.printTasksList(tasks, false);
             return;
         }
 
@@ -105,7 +105,7 @@ public class TaskManager implements TaskAction {
             throw new IllegalStateException();
         }
 
-        taskUi.printTasksList(sortedTasks);
+        taskUi.printTasksList(sortedTasks, true);
     }
 
     /**

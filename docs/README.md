@@ -20,6 +20,7 @@ This program is best suited for people who can type fast.
 2. Download the latest `duke.jar` from here.
 3. Copy the file to a folder of your choice.
 4. Start up your favourite terminal of choice and navigate to the folder.
+(Ensure width of the terminal is at least 63 pixels for the best viewing experience)
 5. Run `java -jar duke.jar` and you will be prompted with an opening greeting.
 ![main](https://raw.githubusercontent.com/AndreWongZH/ip/master/docs/assets/images/main.jpg)
 6. You can view the number of todos, deadlines and events you have at the command header.
@@ -74,10 +75,14 @@ Adds a task to the schedule list.
 
 ### Toggling task done `done`
 Toggles the status of the task.
+
 If task is currently not done, set task to be done.
+
 If task is currently done, set task to not done.
 
 #### Format: 
+- The index corresponds to the numbers at the side of the `list` command.
+
 `done <INDEX>`
 
 #### Examples:

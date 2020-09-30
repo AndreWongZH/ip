@@ -65,13 +65,18 @@ public class TaskUi extends Ui {
     /**
      * Prints all the tasks given in the parameter to the user.
      *
-     * @param tasks An array list of tasks to be printed out
+     * @param tasks An array list of tasks to be printed out.
+     * @param isInOrder Boolean to tell if output printed should be in order.
      */
-    public void printTasksList(ArrayList<Task> tasks) {
+    public void printTasksList(ArrayList<Task> tasks, boolean isInOrder) {
         ArrayList<String> outputText = new ArrayList<>();
 
         outputText.add(PRINT_TASK_LIST_HEADING);
-        addOutputText(outputText, tasks);
+        if (isInOrder) {
+            addOutputOrderedText(outputText, tasks);
+        } else {
+            addOutputText(outputText, tasks);
+        }
         generateMultiLineTextBorder(outputText);
     }
 
@@ -100,13 +105,27 @@ public class TaskUi extends Ui {
      * This method will convert the tasks ArrayList of type task to an ArrayList of type string.
      * It also pads the task with its corresponding list number.
      *
+     * @param outputText An array list of strings to output.
      * @param tasks An array list of tasks of type task.
      */
     private void addOutputText(ArrayList<String> outputText, ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             outputText.add((i + 1) + ". " + tasks.get(i));
         }
+    }
 
+    /**
+     * Returns an ArrayList of type string with an arrow on the side.
+     * This method will convert the tasks ArrayList of type task to an ArrayList of type string.
+     *
+     * @param outputText An array list of strings to output.
+     * @param tasks An array list of tasks of type task.
+     */
+    private void addOutputOrderedText(ArrayList<String> outputText, ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            outputText.add(" | " + tasks.get(i));
+        }
+        outputText.add(" v " + tasks.get(tasks.size() - 1));
     }
 
     public void printDuplicateTaskFound() {
