@@ -13,8 +13,8 @@ import duke.ui.InputUi;
  * The Duke program is an application that acts as a schedule manager.
  *
  * @author Andre Wong Zhi Hua
- * @version 1.0
- * @since 22/9/2020
+ * @version 2.0
+ * @since 30/9/2020
  */
 public class Duke {
     private static TaskManager taskManager;
