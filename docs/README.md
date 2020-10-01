@@ -33,12 +33,12 @@ This program is best suited for people who can type fast.
 - Words in `UPPERCASE` are parameters to be supplied by the user.
 - Words encased in `<>` are required parameters or else you will receive an error
 - Words encased in `()` are optional parameters that you can disregard.
+- Type `help` in the program if you need easy reference to the format.
 
 ## Features 
 
 ### Adding a task `todo` `deadline` `event`
 Adds a task to the schedule list.
-
 
 #### Format:
 
@@ -74,11 +74,11 @@ Adds a task to the schedule list.
 <br/>
 
 ### Toggling task done `done`
-Toggles the status of the task.
-
-If task is currently not done, set task to be done.
-
-If task is currently done, set task to not done.
+- Toggles the status of the task.
+- If task is currently not done, set task to be done.
+- If task is currently done, set task to not done.
+- Task done is represented by [Y]
+- Task not done is represented by [X]
 
 #### Format: 
 - The index corresponds to the numbers at the side of the `list` command.
@@ -227,6 +227,7 @@ the program will recreate duke.txt.
 
 Action | Format | Examples
 --------|--------|----------
+**Help** | `help`
 **Add** | `todo <TASK>` `deadline <TASK> /by <DATE>` `event <TASK> /at <DATE>` | `todo read book` `deadline CS2113 project /by 1 oct 2020 12pm` `event concert /at today`
 **Done** | `done <INDEX>` | `done 1`
 **Delete** | `delete <INDEX>` | `delete 3`

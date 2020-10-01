@@ -32,6 +32,24 @@ public class InputUi extends Ui {
             "       ____________      ____________      ____________\n" +
             "______/ [T]: %-5s \\____/ [D]: %-5s \\____/ [E]: %-5s \\____\n" +
             "|| >>> ";
+    private static final String HELP_INFO_MESSAGE = "Here are the available command formats:\n" +
+            "   Add task:\n" +
+            "       todo <TASK>\n" +
+            "       deadline <TASK> /by <DATE>\n" +
+            "       event <TASK> /at <DATE>\n" +
+            "   Toggle task Done:\n" +
+            "       done <INDEX>\n" +
+            "   Delete a task:\n" +
+            "       delete <INDEX>\n" +
+            "   List out tasks:\n" +
+            "       list (order)\n" +
+            "       order can be \"asc\" \"desc\"\n" +
+            "   Find tasks\n" +
+            "       find (keyword) (/on <DATE>)\n" +
+            "       find (keyword) (/bf <DATE>)\n" +
+            "       find (keyword) (/af <DATE>)\n" +
+            "   Exit program\n" +
+            "       bye";
 
     private static final String MAX_TASK_VALUE_MESSAGE = ">9999";
     private static final int MAX_TASK_VALUE = 99999;
@@ -69,6 +87,12 @@ public class InputUi extends Ui {
     public void printGoodbye(long totalCount) {
         out.println(SEPARATOR_HEADING);
         out.printf((GOODBYE_MESSAGE) + "%n", totalCount);
+        out.println(SEPARATOR_HEADING);
+    }
+
+    public void printHelp() {
+        out.println(SEPARATOR_HEADING);
+        out.println(HELP_INFO_MESSAGE);
         out.println(SEPARATOR_HEADING);
     }
 

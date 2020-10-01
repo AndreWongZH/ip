@@ -21,6 +21,8 @@ public class TaskUi extends Ui {
     private static final String PRINT_TASK_NOT_DONE_HEADING = "Understood, reverting task %d back as not done:";
     private static final String PRINT_TASK_SEARCH_HEADING = "Here are your search results";
 
+    private static final int INDEX_OFFSET = 1;
+
     /**
      * Prints output to user after a task is successfully added.
      *
@@ -44,7 +46,7 @@ public class TaskUi extends Ui {
         String taskHeading = task.getIsDone() ? PRINT_TASK_DONE_HEADING : PRINT_TASK_NOT_DONE_HEADING;
 
         generateMultiLineTextBorder(
-                String.format(taskHeading, taskNumber + 1),
+                String.format(taskHeading, taskNumber + INDEX_OFFSET),
                 task.toString());
     }
 
@@ -57,7 +59,7 @@ public class TaskUi extends Ui {
      */
     public void printTaskRemoved(Task task, int taskNumber, int taskSize) {
         generateMultiLineTextBorder(
-                String.format(PRINT_TASK_REMOVE_HEADING, taskNumber + 1),
+                String.format(PRINT_TASK_REMOVE_HEADING, taskNumber + INDEX_OFFSET),
                 task.toString(),
                 String.format(PRINT_NUMBER_OF_TASK, taskSize));
     }
@@ -110,7 +112,7 @@ public class TaskUi extends Ui {
      */
     private void addOutputText(ArrayList<String> outputText, ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
-            outputText.add((i + 1) + ". " + tasks.get(i));
+            outputText.add((i + INDEX_OFFSET) + ". " + tasks.get(i));
         }
     }
 

@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.CommandType;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.HelpCommand;
 import duke.command.IllegalCommandException;
 import duke.command.ListCommand;
 import duke.command.FindCommand;
@@ -37,6 +38,7 @@ public class CommandParser {
     private static final String COMMAND_WORD_EVENT = "event";
     private static final String COMMAND_WORD_DELETE = "delete";
     private static final String COMMAND_WORD_FIND = "find";
+    public static final String COMMAND_WORD_HELP = "help";
 
     private final String userInput;
     private final TaskManager taskManager;
@@ -126,6 +128,9 @@ public class CommandParser {
                     parameterData.getMatchDate(),
                     parameterData.getTimeSearch());
             break;
+        case HELP:
+            command = new HelpCommand(taskManager);
+            break;
         default:
             commandUi.printNoCommandRan();
         }
@@ -161,6 +166,8 @@ public class CommandParser {
             commandType = CommandType.DELETE;
         } else if (userInput.startsWith(COMMAND_WORD_FIND)) {
             commandType = CommandType.FIND;
+        } else if (userInput.contentEquals(COMMAND_WORD_HELP)) {
+            commandType = CommandType.HELP;
         } else {
             throw new IllegalCommandException();
         }
@@ -198,6 +205,8 @@ public class CommandParser {
                 parameters = userInput.substring(INDEX_AFTER_LIST);
             }
             break;
+        case HELP:
+            // Help does not take any parameters;
         case BYE:
             // Bye does not take any parameters
         default:

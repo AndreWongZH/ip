@@ -62,6 +62,7 @@ public class ParameterParser {
                 setFindParameter();
             }
             break;
+        case HELP:
         case BYE:
             parameterData = null;
             break;
