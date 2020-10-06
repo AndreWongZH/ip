@@ -31,6 +31,7 @@ javac  -cp ..\src -Xlint:none -d ..\bin ^
 ..\src\main\java\duke\command\ListCommand.java ^
 ..\src\main\java\duke\command\FindCommand.java ^
 ..\src\main\java\duke\command\CommandType.java ^
+..\src\main\java\duke\command\HelpCommand.java ^
 ..\src\main\java\duke\parser\DataParser.java ^
 ..\src\main\java\duke\parser\CommandParser.java ^
 ..\src\main\java\duke\parser\ParameterParser.java ^
